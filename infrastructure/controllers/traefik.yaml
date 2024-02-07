@@ -19,11 +19,12 @@ spec:
       containers:
         - args:
             - --api
-            - --log.level=INFO
+            - --log.level=DEBUG
             - --api.insecure=true
             - --api.dashboard=true
             - --accesslog
             - --global.checknewversion=true
+            - --entrypoints.traefik.address=:8080
             - --entryPoints.web.address=:80
             - --entryPoints.websecure.address=:443
             - --entrypoints.web.http.redirections.entryPoint.to=websecure
@@ -52,7 +53,11 @@ spec:
               hostPort: 2222
               name: ssh
             - name: admin
+              containerPort: 9000
+              hostPort: 9000
+            - name: traefik
               containerPort: 8080
+              hostPort: 8080
           securityContext:
             capabilities:
               add:

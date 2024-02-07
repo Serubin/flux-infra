@@ -5,4 +5,5 @@ resources:
   - traefik.rbac.yaml
   - traefik.pvc.yaml
   - traefik.yaml
+  - treafik.dashboard.yaml
   - weave-gitops.yaml
