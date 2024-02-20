@@ -2,7 +2,11 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ../base/whoami
+  - ../base/polr
 patches:
   - path: whoami-ingress.yaml
     target:
       kind: Ingress
+  - path: polr-patch.yaml
+    target:
+      kind: HelmRelease

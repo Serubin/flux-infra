@@ -1,0 +1,13 @@
+apiVersion: networking.k8s.io/v1
+kind: HelmRelease
+metadata:
+  name: polr-hr
+  namespace: default
+spec:
+  values:
+    ingress:
+      hosts:
+        - host: short.staging.serubin.com
+          paths:
+            - path: /
+              pathType: Prefix
