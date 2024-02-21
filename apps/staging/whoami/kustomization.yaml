@@ -1,0 +1,11 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../base/whoami
+patches:
+  - path: whoami.ingress.yaml
+    target:
+      kind: Ingress
+  - path: whoami.yaml
+    target:
+      kind: Deployment
