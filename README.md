@@ -25,3 +25,29 @@ The production cluster is a 6c/12t 32GB RAM server running on a dedibox cloud.
 * Recipe Manager
 * Headscale VPN
 * Home Assistant
+
+## Bootstrapping
+1. Install k3s on the server with
+```bash
+k3sup install --ip ${SSH_IP_ADDRESS} --local-path ${KUBE_CONFIG} --ssh-key "~/.ssh/${SSH_KEY}" --k3s-extra-args '--disable traefik'
+```
+
+2. Add the `flux-system` namespace with
+```bash
+kubectl create namespace flux-system
+```
+
+3. Add the decryption key k3s with
+```bash
+gpg --export-secret-keys --armor ${GPG_FINGERPRINT} | kubectl create secret generic sops-gpg --namespace=flux-system --from-file=sops.asc=/dev/stdin
+```
+
+4. Bootstrap the cluster with
+```bash
+flux bootstrap github \
+    --owner=serubin \
+    --repository=flux-infra \
+    --branch=main \
+    --personal \
+    --path=clusters/staging
+```
