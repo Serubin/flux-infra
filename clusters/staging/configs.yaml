@@ -9,7 +9,7 @@ spec:
   prune: true
   sourceRef:
     kind: GitRepository
-    name: flux-infra
+    name: flux-system
     namespace: flux-system
   decryption:
     provider: sops

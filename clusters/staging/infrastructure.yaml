@@ -9,7 +9,7 @@ spec:
   timeout: 5m
   sourceRef:
     kind: GitRepository
-    name: flux-infra
+    name: flux-system
     namespace: flux-system
   path: ./infrastructure
   prune: true

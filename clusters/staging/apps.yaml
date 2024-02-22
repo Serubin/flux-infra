@@ -7,7 +7,7 @@ spec:
   interval: 10m0s
   sourceRef:
     kind: GitRepository
-    name: flux-infra
+    name: flux-system
     namespace: flux-system
   path: ./apps/staging
   prune: true
