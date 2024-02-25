@@ -11,3 +11,27 @@ spec:
           paths:
             - path: /
               pathType: Prefix
+    admin:
+      existingSecret: polr-secrets
+    mysql:
+      enabled: true
+    env:
+      - name: APP_NAME
+        valueFrom:
+          secretKeyRef:
+            name: polr-secrets
+            key: ADMIN_USERNAME
+      # This doesn't work - it's overwritten by the chart
+      - name: ADMIN_USERNAME
+        valueFrom:
+          secretKeyRef:
+            name: polr-secrets
+            key: ADMIN_USERNAME
+      - name: POLR_ALLOW_ACCT_CREATION
+        value: "false"
+      - name: POLR_ACCT_ACTIVATION
+        value: "false"
+      - name: SETTING_PUBLIC_INTERFACE
+        value: "true"
+      - name: SETTING_SHORTEN_PERMISSION
+        value: "true"
