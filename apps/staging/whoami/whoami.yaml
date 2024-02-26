@@ -9,4 +9,4 @@ spec:
       containers:
         - name: whoami
           args:
-            - -name=staging
+            - -name=${SECRET_DOMAIN}

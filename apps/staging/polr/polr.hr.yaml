@@ -7,26 +7,22 @@ spec:
   values:
     ingress:
       hosts:
-        - host: short.staging.serubin.com
+        - host: short.${SECRET_DOMAIN}
           paths:
             - path: /
               pathType: Prefix
+
     admin:
+      username: ${ADMIN_USERNAME}
       existingSecret: polr-secrets
     mysql:
       enabled: true
+      existingSecret: polr-secrets
     env:
       - name: APP_NAME
-        valueFrom:
-          secretKeyRef:
-            name: polr-secrets
-            key: ADMIN_USERNAME
-      # This doesn't work - it's overwritten by the chart
-      - name: ADMIN_USERNAME
-        valueFrom:
-          secretKeyRef:
-            name: polr-secrets
-            key: ADMIN_USERNAME
+        value: "Polr"
+      - name: APP_ADDRESS
+        value: "short.${SECRET_DOMAIN}"
       - name: POLR_ALLOW_ACCT_CREATION
         value: "false"
       - name: POLR_ACCT_ACTIVATION

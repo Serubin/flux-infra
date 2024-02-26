@@ -7,7 +7,7 @@ spec:
   rules:
     - http:
         paths:
-          - host: whoami.staging.serubin.com
+          - host: whoami.${SECRET_DOMAIN}
             path: /
             pathType: Prefix
             backend:
