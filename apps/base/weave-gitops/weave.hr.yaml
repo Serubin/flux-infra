@@ -1,0 +1,27 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: weave-gitops
+  namespace: default
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: weave-gitops
+      version: 4.0.36
+      sourceRef:
+        kind: HelmRepository
+        name: weave-gitops-charts
+        namespace: default
+  values:
+    adminUser:
+      create: true
+      username: admin
+      passwordHash: $2y$10$8D6ui.zsSPZgNQ8RKUUpsOKP8TOPl/xKZO2lnYAaia1rBsb2t9nXq
+    ingress:
+      enabled: true
+      hosts:
+        - host: ${CLUSTER_HOST}
+          paths:
+            - path: /
+              pathType: Prefix
