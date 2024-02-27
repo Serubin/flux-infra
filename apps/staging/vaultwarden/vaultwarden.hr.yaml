@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: HelmRelease
+metadata:
+  name: vaultwarden-hr
+  namespace: default
+spec:
+  values:
+    resourceType: Deployment
+    domain: https://vault.${SECRET_DOMAIN}
+    ingress:
+      enabled: true
+      hostname: vault.${SECRET_DOMAIN}
+    adminToken:
+      existingSecret: vaultwarden-secrets
+      existingSecretKey: adminToken
+    yubico:
+      clientId: ${YUBICO_CLIENT_ID}
+      secretKey: ${YUBICO_SECRET_KEY}
