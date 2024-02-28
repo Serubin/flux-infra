@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: lemonhope-secrets
+    namespace: default
+stringData:
+    token: ENC[AES256_GCM,data:ZolNC+hhPMpSF7LKDeHi6whnQlNlqpVvyymA0TgsO4g0ZDC//twVLXRWaL7PzEpoVOFwaWhDAkyVQewqnK4xKEKpBEJESw==,iv:J7YwKsATu6sSL8vVmmSP5Tkk50YpuCcHj2JrNJ1v5Hc=,tag:WTmJSg90Ljxp/zwdOCi+sQ==,type:str]
+    exclude_channels: ENC[AES256_GCM,data:hLKlD20YQkhGVzq60HdbPkQ8,iv:WG3g1AZIAlJBG0+Ku1eqru7vGggc65G218pKNAGsO80=,tag:djzMFc5GrRov2VtWctoIRA==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age: []
+    lastmodified: "2024-02-28T23:48:41Z"
+    mac: ENC[AES256_GCM,data:UCbuLImpEgpboObSC1Ca8Shvrrll/u50yBaVmwoj2QEX/FYyOfHNmMTNPV1UPDtcH7pN/FLaDx2g7aaf/rdkPSELectF3a1Wj7AGmn+ADR70BlNK5kOGffFO6Xvg2D35TznN8x89Dm8MdVDfX3SQkCRQEcHbpKOSpZtMqxbrYoI=,iv:TnHersXSvxz9p8jaIrijbQ6qk3YsM+yAvxeqjjBqr7U=,tag:EIf6uI/UJxDdW54Rh5jICA==,type:str]
+    pgp:
+        - created_at: "2024-02-28T22:14:31Z"
+          enc: |-
+            -----BEGIN PGP MESSAGE-----
+
+            hQIMA1aihG1drcqCAQ/8C+vFcRFiUoE1kyNRHj2aJ9GG9pCpynaSHP1omUGf8kAj
+            kcQXZVkCJZ2SqPmfMye+2FcrcdlNs219ofLeEOY8nVgwuMLt6JnQn+bPp3uwFqSF
+            niMCZ+d/GUVEt0pxRNeTW6GKaqmV+fWWT09T0ixUoiVKa7PoMvforJG7srucnJJI
+            fbRzqy4ym39aWyU0/WN5aInPrlKBq7TNixw/nrLJ05ijhVBFGAt0F5UENG1pJJbZ
+            CLn0wkMGalt3Px+2cICZ9m+Huaw7CQvvoljvOMcbd8X0VCRy2Hag3/t8fVJRtDQG
+            K95wdArN0Yhrjdt2Zgq4tczpq11DaDPTG/pyAfWXUbidbIGXjCYCwDLuNhlOlVS+
+            aVi0VTr5DZD+cq1fusCvRFXv0k1lAQ10mRPFNPTyXsqP4coBbnhI77po8H5pPVEr
+            P35m2I+VLwMEM0VDoLgK4Xssc5tVQzGFU5Uap4DQi0tdZJThGDj9r53VIrGOp1cw
+            reMrUnkAa3UQgvEqMES9hAoIYttYMy9zLWaRxSOXXiKGrjOCGmSdzwiFExFoQqy8
+            KgBwRK3xije/SyLSLbkCVc6C1tS6/LuocAmF96OwK2Kd9CHGdk1e6v2ypQ2T6LQs
+            2akC9EFIeiOLREc+LaMvhKQmzMApTnWf21W+rQBMqkLVS6dZFU50Ed6dUSlQPgDS
+            XgGixWCGbkdlUAWiwLNDL9UBORyaBv6kP+iK0EM2W6thUEWrjKrcpYMg1YlwiiBy
+            3oGyeL93JonkbEy7aUxFxEttF5el0qvAALWJTJXCoEO5qEIHsdWpna8QkX42w/I=
+            =xVzT
+            -----END PGP MESSAGE-----
+          fp: DE531CB90D5130B090569D4A3EAE9A3DA4F76EBD
+    encrypted_regex: ^(data|stringData)$
+    version: 3.8.1

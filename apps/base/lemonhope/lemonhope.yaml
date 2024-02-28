@@ -1,0 +1,28 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: lemonhope
+  namespace: default
+  labels:
+    app: lemonhope
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lemonhope
+  template:
+    metadata:
+      labels:
+        app: lemonhope
+    spec:
+      containers:
+        - name: lemonhope
+          image: ghcr.io/anaximand/lemonhope:latest
+          volumeMounts:
+            - mountPath: /opt/lemon/data
+              name: data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: lemonhope-pvc

@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   - ../base/weave-gitops
   - ../base/serubin-net
+  - lemonhope
   - whoami
   - polr
   - vaultwarden
