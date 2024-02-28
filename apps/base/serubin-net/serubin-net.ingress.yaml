@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: serubin-net-ingress
+  namespace: default
+spec:
+  rules:
+    - host: ${SECRET_DOMAIN}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: serubin-net
+                port:
+                  name: web
