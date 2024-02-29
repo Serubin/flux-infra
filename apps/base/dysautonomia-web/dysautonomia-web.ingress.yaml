@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: dysautonomia-web-ingress
+  namespace: default
+spec:
+  rules:
+    - host: dysautonomia.${SECRET_DOMAIN}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: dysautonomia-web
+                port:
+                  name: web
