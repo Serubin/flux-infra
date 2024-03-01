@@ -5,6 +5,7 @@ resources:
   - ../base/serubin-net
   - ../base/dysautonomia-web
   - ../base/tandoor
+  - ../base/prometheus
   - lemonhope
   - whoami
   - polr
