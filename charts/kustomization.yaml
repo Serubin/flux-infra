@@ -4,6 +4,6 @@ namespace: default
 resources:
   - bitnami.chart.yaml
   - bjw-s.chart.yaml
-  - polr.chart.yaml
+  - christianhuth.chart.yaml
   - prometheus.chart.yaml
   - vaultwarden.chart.yaml

@@ -1,9 +1,9 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
-  name: polr-helm-chart
+  name: christianhuth-helm-chart
   namespace: default
 spec:
   interval: 30m
-  url: https://christianknell.github.io/helm-charts
+  url: https://charts.christianhuth.de
   timeout: 2m
