@@ -11,6 +11,18 @@ spec:
           paths:
             - path: /
               pathType: Prefix
+    kutt:
+      google:
+        existingSecret: kutt-secrets
+      recaptcha:
+        existingSecret: kutt-secrets
+      jwt:
+        existingSecret: kutt-secrets
+      mail:
+        from: "${NOREPLY_SEND_EMAIL}"
+        username: "${NOREPLY_AUTH_EMAIL}"
+        password: "${NOREPLY_PASSWORD}"
+        reportEmail: "${ADMIN_EMAIL}"
     postgresql:
       auth:
         existingSecret: kutt-secrets

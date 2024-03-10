@@ -20,11 +20,15 @@ spec:
       enabled: true
     kutt:
       admin:
-        emails: "${ADMIN_EMAIL}"
+        emails: "${EMAIL}"
       config:
         disallowAnonymousLinks: true
+        disallowRegistration: true
       domain:
         useFirstIngressHost: true
+      mail:
+        host: smtp.gmail.com
+        secure: true
     postgresql:
       enabled: true
       # Cluster must provide
