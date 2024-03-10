@@ -1,0 +1,36 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: kutt
+  namespace: default
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: kutt
+      version: 4.0.2
+      sourceRef:
+        kind: HelmRepository
+        name: christianhuth-helm-chart
+        namespace: default
+  values:
+    labels:
+      app: kutt
+    ingress:
+      enabled: true
+    kutt:
+      admin:
+        emails: "${ADMIN_EMAIL}"
+      config:
+        disallowAnonymousLinks: true
+    postgresql:
+      enabled: true
+      # Cluster must provide
+      # auth:
+      #   existingSecret (secret key is password)
+      #
+    redis:
+      enabled: true
+      # Cluster must provide
+      # auth:
+      #   password
