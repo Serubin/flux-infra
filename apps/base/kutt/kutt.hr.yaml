@@ -23,6 +23,8 @@ spec:
         emails: "${ADMIN_EMAIL}"
       config:
         disallowAnonymousLinks: true
+      domain:
+        useFirstIngressHost: true
     postgresql:
       enabled: true
       # Cluster must provide

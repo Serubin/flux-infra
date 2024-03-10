@@ -8,5 +8,6 @@ resources:
   - ../base/prometheus
   - lemonhope
   - whoami
+  - kutt
   #- polr
   - vaultwarden

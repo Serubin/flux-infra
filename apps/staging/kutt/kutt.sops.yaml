@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: kutt-secrets
+    namespace: default
+stringData:
+    password: ENC[AES256_GCM,data:6pED8GMvb9oxC61cpacNwOhExMXPGZxfW5wHYarh9BmIegGcFip49yB3EEImot5t7bvsqS+qAg90AVcGaxGhlA==,iv:jD638OaOBHo/9mF/1/l+hmVWFenCOYMPrttLjkI+obg=,tag:zQayzT4V4TU37v0y+QqZaw==,type:str]
+    postgres-password: ENC[AES256_GCM,data:DBa0CHCOD/G81IOa/UCfvBEqWbqe9q8WkSjN55CVUjxNu4oNHCvxiyXaFq6XFSpLH0LwE1j/3+71byTl8EjElg==,iv:N/cI3ryyKO1YrLAMJ4mTgBJOLWyPUXMV6durh86sWzU=,tag:g42wHtXe5vbybT+eSPL0qg==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age: []
+    lastmodified: "2024-03-10T20:10:41Z"
+    mac: ENC[AES256_GCM,data:jcfW9PGkJedz9VxapwlYqkSjyVRlfX9xNsmeo8X3PuqOGY3rfkj3JnCO69X7Gv+quudsIOY0RNX9Qs3Na4YykvyVz8GLqKebibU6SgV8zDwe7YPXDQrfLHv/zcbUs5c/JfoNaCsgPKauBGn9cm9LFrs+0UpI8mEW7ah5xIVCkJQ=,iv:MHCFG69Hlr/ngEr393oNtbK50qHVWi6Tm0kYIvhaOv0=,tag:a5gXzRW6hOm7sPeaEdGrCw==,type:str]
+    pgp:
+        - created_at: "2024-03-10T20:10:41Z"
+          enc: |-
+            -----BEGIN PGP MESSAGE-----
+
+            hQIMA1aihG1drcqCARAAoW2bkY2vZM1yrJGeTt1cSbWUK9lq3tdHjeqg2Ze2cOqG
+            QEUMwJqhjKy16ug3e8I/tJ/fRv/y69fTcrVwG77pUdHu2Xvo/L4REcRYF34EhV8F
+            JYsE7Hemj5ODtmICCChrvU3wlVw1T1iAKdoWm635vq2YZRu6UNZrG4JeMnVlWeXK
+            DThlc8UFBrALcDkczHJA/RLZ6boKqgCAuTejrEB/j1fqINmKLyvs2LTOL4LMFuUb
+            2mNfZb05IdeNL8Kfqn2L4jogmCtu0bz14vpNB9KTrtt+XHjA2ey6eJA2hWmsa+4h
+            P3VcZgM0ZRWJ7MI8eByEWtGnprUTWsMbN7CCpoL/+Vh6VilnuudMKNzsI5u2lJ6r
+            EcHnX5XGwzK9AVTJhk44CBYL1Oz9Q6qaoJzFKFT/rF+0syhSaAzoyYoVRetrNcBR
+            TH2MRpYmLuNWGkaScf0FnOO39E1esgb/udqD9Of1Wl56w0sJ9cJ9Z5AsUOwvJirZ
+            lC4cDFIYsdFbontmN1nF64qSKfLf3yPFLNcJTI5E0na+TeeccegSoICX4tVGaJR1
+            SpU/iRpH03zHdHA3Fs7aKMRLrSRN3Wl/uCdLWf5PXKHDbAvHfs7TShhASAcidv3I
+            aTxNXTNNn2C6rnRuTHo4ABdEn+5R/1UH6wVmD7kVnOcP9hf0116YVpFJAGQAUmDS
+            XgGH+3dAHa7ikxgyMFIPAoqqnLh1N1KZ8lUgE2+0kDAvrdYuxl1L/kflVUrO38yi
+            7456ryN49J9RJLKP1wdWReon28RATDhH/JarGuAFqDxm1aloG9dwBORZK2pVhVc=
+            =iR1W
+            -----END PGP MESSAGE-----
+          fp: DE531CB90D5130B090569D4A3EAE9A3DA4F76EBD
+    encrypted_regex: ^(data|stringData)$
+    version: 3.8.1
