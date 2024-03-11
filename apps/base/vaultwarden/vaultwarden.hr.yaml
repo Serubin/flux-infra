@@ -15,7 +15,7 @@ spec:
         namespace: default
   values:
     image:
-      tag: 1.30.3-alpine
+      tag: 1.30.5-alpine
     signupsAllowed: false
     ingress:
       enabled: true
