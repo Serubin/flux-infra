@@ -16,3 +16,10 @@ spec:
     yubico:
       clientId: ${YUBICO_CLIENT_ID}
       secretKey: ${YUBICO_SECRET_KEY}
+    smtp:
+      from: "${NOREPLY_SEND_EMAIL}"
+      fromName: "Bitwarden @ Serubin.net"
+      username:
+        value: "${NOREPLY_AUTH_EMAIL}"
+      password:
+        value: "${NOREPLY_PASSWORD}"

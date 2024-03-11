@@ -25,3 +25,8 @@ spec:
       size: "10Gi"
       class: "local-path"
       keepPvc: true
+    smtp:
+      enabled: true
+      host: "smtp.gmail.com"
+      port: 465
+      security: "force-tls"
