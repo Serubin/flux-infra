@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: authelia-users
+    namespace: default
+stringData:
+    users_database.yml: ENC[AES256_GCM,data:Ecabvl0qPxQGiN75UsV2Jx9u0GsVIveTCmV/NBvujZA7d0TrAkemAMay+u1FAcWFazWOsXdvDXj0GPJI2pjkOueSbL9xYx8oUq6oUvqPREqzc1jvPYtEBlPspNPSYl2ZIqMDbPLXIhgHkCOyq4JbuGZwUMp5QSru814ivjmTQCtNpn4yv/roktriXYYyEqFe2cGpD2piepYKmendOS9jb+6CKg6IStexgkw6OQ2XjFfjWQD7yVHGKcV5V7Nc0U0sLZWVVAqPfVEZfpAwcxkyAOoGOTIp3liatICMIPBGPd94CeijTXenVSuRe37xxLfcLkLnlt5KO4lWQdPvhDypQ9xhRtXgfP2kWqqEXvBct9XizTxz,iv:H41rJb6L6VhCy/+dOKuUPSwdek3HOZME8vxxCK1Go4I=,tag:vfOD28ZQ2crF1279l855iw==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age: []
+    lastmodified: "2024-03-12T20:25:16Z"
+    mac: ENC[AES256_GCM,data:ybo+Me310IdAKMj9bsdAi+BYEuE0Zin8QJRXTsRTJcQt4CRoUDhiadkHax61fJfzFnXDSUSR1K/M8GO7C1fzX+4y3zau2tSL3eRpIafOv7XTYcbV0ZkyVyqF41JTpO5DdZfobUJCmSrbwWAJJO2/oHhvxM4V0AHYj5OuYrJ3tsE=,iv:eSgnvo6kb+r1g7Z5LWSvEUFJmy+h40TU75fiJ7ZV8Yw=,tag:A7uxSPmXkDKnoTXLx6n0Iw==,type:str]
+    pgp:
+        - created_at: "2024-03-11T21:28:29Z"
+          enc: |-
+            -----BEGIN PGP MESSAGE-----
+
+            hQIMA1aihG1drcqCAQ//arnreQEgLzv+2IEQeBMrKSgO763XOxxB5a5LkFimsizM
+            bkDD4XZ7/sFU0vHdxJ6NfZSMQig/GD1ir0zo0oajR6IZiyQVIzVKfCO1sjFncPWn
+            yQ0wza1ERccfD6IEZ62GiV8bfm+msOA0vzsJTIHhKREMJfR3yy5byGV5pnfF0Ene
+            iCxgawNO8/koob6jHpqIvjNi5IbkbhwJiRI8V2sPV3WLZx+POe0dkkIpNtv6P/ON
+            eaxD7Dps/mg0R/jXTyk9ngFv6qyM4UIl8rfFZ1osAMh7RVsgkjZ6Xn1bQaoQ4Z5i
+            /JYGkw/VUWYaiX2cQDKPKn/oneppzDu4phefuVOwF5VO3it1UIG3UOe72klHc/gk
+            AzUmwgYGKoK73V3rTrzajXiA12rpsXk3mtnaBkWJlQZXu7w75G1LO8dc57T05enD
+            +up+SrM2SZm7FBgKTJNu902Rx/6z2CNeLXWMPCBjSOXyHLmY8y9aWpegTYN2xhmZ
+            7fTjOnALJtYcl92LtUeK5VETJhunmFjwM1T4ZuN6Km4Osfud7NmomJ04mXcOdIYR
+            qk4WY0fEBh1DinPd0+ljSo8KMoXpigEqvvdXB3PzepjlD54hX08fCBKZnAgpP1wn
+            wUHSqEBg9oPE3WUz6c6ZjmQGi7zF+88/ugs6+9N2gjVX9P6NdHk/yvbG9ZMaVyvS
+            XAGUjWKV/16qheILPKvb7WTIbJXZnCw3X+wIvhazHaeUoxoJlMxI08Durcc+cd4j
+            9NUib9NORf6sVpUkuyxTZJdSsaEFU7MmL8sYyRCl+oW/NmHWtvmnha6xX+f/
+            =Le4W
+            -----END PGP MESSAGE-----
+          fp: DE531CB90D5130B090569D4A3EAE9A3DA4F76EBD
+    encrypted_regex: ^(data|stringData)$
+    version: 3.8.1

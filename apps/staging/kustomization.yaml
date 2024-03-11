@@ -5,6 +5,7 @@ resources:
   - ../base/serubin-net
   - ../base/dysautonomia-web
   - ../base/prometheus
+  - authelia
   - lemonhope
   - whoami
   - kutt

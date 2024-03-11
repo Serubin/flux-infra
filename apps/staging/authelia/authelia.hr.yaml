@@ -1,0 +1,33 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: authelia
+  namespace: default
+spec:
+  values:
+    domain: ${BASE_HOST}
+    pod:
+      extraVolumes:
+        - name: users-volume
+          secret:
+            secretName: authelia-users
+      extraVolumeMounts:
+        - name: users-volume
+          mountPath: /config/users_database.yml
+          subPath: users_database.yml
+    configMap:
+      access_control:
+        default_policy: deny
+        rules:
+          - policy: two_factor
+            domain:
+              - ${CLUSTER_HOST}
+              - alert-manager.${SECRET_DOMAIN}
+              - grafana.${SECRET_DOMAIN}
+              - prometheus.${SECRET_DOMAIN}
+      notifier:
+        smtp:
+          username: ${NOREPLY_AUTH_EMAIL}
+          sender: ${NOREPLY_SEND_EMAIL}
+    secret:
+      existingSecret: authelia-secrets

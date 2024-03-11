@@ -1,0 +1,80 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: authelia
+  namespace: default
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: authelia
+      version: 0.8.58
+      sourceRef:
+        kind: HelmRepository
+        name: authelia-charts
+        namespace: default
+      interval: 5m
+  dependsOn:
+    - name: authelia-redis
+    - name: authelia-postgresql
+  values:
+    # Cluster must provide
+    # domain:
+    ingress:
+      enabled: true
+      subdomain: auth
+    pod:
+      kind: Deployment
+      replicas: 1
+      strategy:
+        type: Recreate
+      # Cluster must provide
+      # pod: extraVolumes, extraVolumeMounts for configuration files
+    configMap:
+      theme: light
+      # Cluster must provide
+      # access_control: access control policies
+      authentication_backend:
+        ldap:
+          enabled: false
+        file:
+          enabled: true
+          path: /config/users_database.yml
+          password:
+            algorithm: argon2
+            argon2:
+              variant: argon2id
+              iterations: 1
+              key_length: 32
+              salt_length: 16
+              memory: 1024
+              parallelism: 8
+      session:
+        name: authelia_session
+        same_site: lax
+        expiration: 1h
+        inactivity: 5m
+        remember_me_duration: 1M
+        redis:
+          enabled: true
+          enabledSecret: true
+          host: authelia-redis-master
+      regulation:
+        max_retries: 3
+        find_time: 2m
+        ban_time: 5m
+      storage:
+        postgres:
+          enabled: true
+          host: authelia-postgresql
+          database: authelia
+          username: authelia
+      notifier:
+        disable_startup_check: true
+        smtp:
+          enabled: true
+          enabledSecret: true
+          host: smtp.gmail.com
+          port: 465
+          # Cluster must provide
+          # username, sender

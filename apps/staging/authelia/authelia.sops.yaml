@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: authelia-secrets
+    namespace: default
+stringData:
+    POSTGRES_PASSWORD: ENC[AES256_GCM,data:vem2eLcYVzOpd+EV7SVAl1FqfkfWYCR7ZgfiYsRJlahm8KfuB1kE9FuhFRdnWP74D678BiiPIE4hqJX0+r0ycg==,iv:Cd16LNJkoerLc56POmepTCe2KtkHevFaSsy++xOLdpw=,tag:2Nb2V/8HwzgvcweDX8G9qQ==,type:str]
+    STORAGE_PASSWORD: ENC[AES256_GCM,data:2pP/DT+I7/RY6wMgv7u3tCsCJiNUr2N39LnMQ0heEr7EzBY00je9Ska7ayxb5nqyiFzjew5Yu6F/YF+NuXr5Iw==,iv:rxBrCu96Wv7KqjJtvwJpwuBv7RaGoItRzb+EYV8RhEQ=,tag:MaZPYOnPjBh9QqgnH0JG0Q==,type:str]
+    POSTGRES_ROOT_PASSWORD: ENC[AES256_GCM,data:xu8R/h49i2XK5kqmu7T/OEgTBrqQZUmrQdHVm1Hch1q1OAi7lw1cRCEUgu9DTx7DQuFipssURjt3XDEFjS48vQ==,iv:fWNZ/+Z6gBuzT32zBRUfCdGubptHFEmnCl12cRqMyLQ=,tag:ugeJh/KSrLaXTF8+/Cc1sQ==,type:str]
+    REDIS_PASSWORD: ENC[AES256_GCM,data:BIbzM8pAbviQs0nAdyY9Z+Lsoc5d/0r0hyUn2LKRI0gO0wGfeTvQ/nnoY/MTMdI0iy+m2JlWu1I78HXQ+Ao9+InuvMOdJWtxLQeABU+y9nTX4nUgEEbFeJ2s2rFFx/7dVpvqTT68KH1hEB2/xMuX7xHTmJNk+X2XtPdTKDbW8eY=,iv:rzw6rvuHak327Ow3zOvF3G6AYq4ZYkLbiF6vZobBkTc=,tag:vfVQC2+m+A3PeHsw0aPpeg==,type:str]
+    JWT_TOKEN: ENC[AES256_GCM,data:ZAtqyBXw77Hh9jhkossIln4tW0xCbQJHIGi0Nut8CTlbxPfiZJSqjCSC3vcini156wVy+vJaLLSXC4yonqwzva3/0XFg4rG06voQtM7fiZJvCXsv6zYXsW76uL4HS1sjO226X42Tcq2hqgq8VielCEUtx0MpHN0XiafZnw/a/lE=,iv:TgTdMNrgqnEglbFO1GW5i5s6c4xkjINqxHyixa06UXs=,tag:aBW0tJqAu8wLeZ59H+eifA==,type:str]
+    SESSION_ENCRYPTION_KEY: ENC[AES256_GCM,data:JwcH0/oU/6osLf4fxOrLCwc8X95WURuGUahUYe1HGBDCFtI3Zotrgk1eg3h76TK9PLra0LX/7ToFyr/uKml3gTSapsup/tC2/SzYyHPraa1HkAbIOY55kxtrNq4z9vL0f6RN3H4ETSRaIg2PhGrXhJrU72dKHXYXZ3A1Flti0ks=,iv:7jcvDsRrnUv5hXCcAsdgKj1tL5nKBtkWQ/onHEDO7TE=,tag:s4uCY+HNEkewqV9t3vhGtQ==,type:str]
+    STORAGE_ENCRYPTION_KEY: ENC[AES256_GCM,data:iAoOpnN29tx0skqDsF+7VAcsluqMbZlClDxw+3jQlhix6XDnhyEi8LksvePmILUjkMB4LMiADkJXiqWfmzqPJq0csmYlOFd4ph49QlmsKqen7OFk44jtT6QeAt8WSFKFQX0LYsXWu7cyrZ9Ee/SAq7BXlsfSryaiM+KunX8DOlY=,iv:OPQRr49LbN8qZfnHmiVIM4dN6Pr80PqHrbuKvWtPbrA=,tag:a5qSLCgV1cyuuZa5Bkl6Pw==,type:str]
+    SMTP_PASSWORD: ENC[AES256_GCM,data:XnJIZ+uqHhBkDDpSSWxazjhiiQ==,iv:vZEA21Paw9uOIfk5RruksAOIRBNVIcQs3goxrlXcA1I=,tag:9JyEj3J6zm7C6ZtD99fVzw==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age: []
+    lastmodified: "2024-03-12T19:34:04Z"
+    mac: ENC[AES256_GCM,data:Grhr1qIRIhD3zHmKwfjWXoYJCWD1cLQ+N2aUS4M2YTg9R3jOcIer1Ov5fUvTCufOmijbf4PgjTZ6xMnfY7eD63ui1tNsHQ1/aMtqAR0tBu6VxSwES49/YT4YHTasQtZYmXCuwBr2i1f1rPNs9ob/Nco2FeRlVYxc2HOrNxaC7Gs=,iv:u/bOsRxBIGOLuSWrAPz+vqKJLiZIXg5pybphWiwc9g4=,tag:c1Z0dfdZFJTRvDvVHSJWMQ==,type:str]
+    pgp:
+        - created_at: "2024-03-11T16:21:41Z"
+          enc: |-
+            -----BEGIN PGP MESSAGE-----
+
+            hQIMA1aihG1drcqCARAAun4jJGjlfv7CDZ7s58npfvooyanRHB3yV7EQAzLP/QHM
+            wPnCoce2AUEPT36Dc2Pe3reEYvT0kEppX2UJs5a4Y0eQr3l5N9Vln6P3ldlGxauA
+            siHA9psUA6tgX+JpQkq2Wq8N/xEtxgOCm1PMb6V2re5tS8EjEKyQkcF32x+nHu+N
+            YPhFrBc0SRCdHLWabuU2MVgyRY0jjaZuh0azwkYX6FEKRHDP4D+Kfzii2+V4L9Ob
+            Fzfk6etY9mjmMdl0Z+TFl1PmnUyIXLsMC3lImpUC+FyaUvvXg6vKhpDRygIi97Kr
+            NS+yPepOEMLMoIGKzSk1of/V8ccQiGuQYAYEO7/0TVRFODnrBrH/e5tqSnyYPlna
+            musj50F18S0VcoKAML/6PDh1wdWJHwLy9b4Ng5UxLWM4rjQZRkKmHdYZ0OE79Fut
+            n7FmTQ2yDvid1htXPUcSxMjCSQjp5sIDjjzvc+8OpsI8c3OLMllIozn7ECdAHpFl
+            +T5dSd92G+dagM3UI+LxAIIaAxhBw3w+JcukYFkaKpg5Ic2za283mu/h8Nr6lDwB
+            qMtTIXhLiWblaCBrHIfIvkBWJpZDlU9JtQ+5XKGwfrkMAu1x5cjgGDQoKW3UVUDX
+            c0g7g8Kn+gn9Ww6K2DJ2bXh3Z04Np6e1im+PLMQ8pRaz2HOAAkPV/4QR92DlKw/S
+            XgFKvT5PuPB6sG5hEmoEOG0uFEHTcoTwemyyFnIb8n3EAmeKuYke94PZJ0fnKHYj
+            kv6tshrGGm6Rc65QMCyNcSlzTR6rppADw+FDrlfoWu7uVn1Q1UUPcMW7U/cAAYc=
+            =U+uM
+            -----END PGP MESSAGE-----
+          fp: DE531CB90D5130B090569D4A3EAE9A3DA4F76EBD
+    encrypted_regex: ^(data|stringData)$
+    version: 3.8.1
