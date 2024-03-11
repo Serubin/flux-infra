@@ -16,9 +16,12 @@ spec:
   values:
     auth:
       username: tandoor-receipes
-      password: ${TANDOOR_DB_PASSWORD}
       database: tandoor-receipes
     primary:
       persistence:
         enabled: true
         existingClaim: tandoor-postgresql-pvc
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true

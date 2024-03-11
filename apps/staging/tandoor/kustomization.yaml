@@ -1,0 +1,12 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../base/tandoor
+  - tandoor.sops.yaml
+patches:
+  - path: postgres.hr.yaml
+    target:
+      kind: HelmRelease
+  - path: tandoor.hr.yaml
+    target:
+      kind: HelmRelease

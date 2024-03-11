@@ -4,9 +4,9 @@ resources:
   - ../base/weave-gitops
   - ../base/serubin-net
   - ../base/dysautonomia-web
-  - ../base/tandoor
   - ../base/prometheus
   - lemonhope
   - whoami
   - kutt
   - vaultwarden
+  - tandoor
