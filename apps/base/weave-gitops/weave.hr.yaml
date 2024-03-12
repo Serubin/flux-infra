@@ -14,10 +14,15 @@ spec:
         name: weave-gitops-charts
         namespace: default
   values:
+    # This isn't using weave for auth, so we're providing a dummy password
+    # for the admin user and disabling authentication.
+    # Weave sits behind authelia
     adminUser:
       create: true
       username: admin
       passwordHash: $2y$10$8D6ui.zsSPZgNQ8RKUUpsOKP8TOPl/xKZO2lnYAaia1rBsb2t9nXq
+    additionalArgs:
+      - --insecure-no-authentication-user=admin
     ingress:
       enabled: true
       annotations:

@@ -5,9 +5,6 @@ metadata:
   namespace: default
 spec:
   values:
-    adminUser:
-      # Todo, change this
-      passwordHash: $2y$10$8D6ui.zsSPZgNQ8RKUUpsOKP8TOPl/xKZO2lnYAaia1rBsb2t9nXq
     ingress:
       hosts:
         - host: ${CLUSTER_HOST}
