@@ -20,8 +20,5 @@ spec:
       passwordHash: $2y$10$8D6ui.zsSPZgNQ8RKUUpsOKP8TOPl/xKZO2lnYAaia1rBsb2t9nXq
     ingress:
       enabled: true
-      hosts:
-        - host: ${CLUSTER_HOST}
-          paths:
-            - path: /
-              pathType: Prefix
+      annotations:
+        traefik.ingress.kubernetes.io/router.middlewares: default-forwardauth-authelia@kubernetescrd

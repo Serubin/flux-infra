@@ -5,7 +5,7 @@ metadata:
   namespace: default
 spec:
   values:
-    domain: ${BASE_HOST}
+    domain: ${SECRET_DOMAIN}
     pod:
       extraVolumes:
         - name: users-volume

@@ -8,3 +8,4 @@ resources:
   - christianhuth.chart.yaml
   - prometheus.chart.yaml
   - vaultwarden.chart.yaml
+  - weave.chart.yaml
