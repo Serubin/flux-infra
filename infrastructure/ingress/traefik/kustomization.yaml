@@ -4,3 +4,4 @@ resources:
   - traefik.rbac.yaml
   - traefik.pvc.yaml
   - traefik.yaml
+  - authelia.middleware.yaml
