@@ -1,0 +1,62 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: restic-backup
+  namespace: default  # Change me
+spec:
+  concurrencyPolicy: Forbid
+  schedule: "12 2 * * *"  # Change me if needed (02:12 daily)
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: restic
+            image: restic/restic:latest
+            workingDir: /data
+            args:
+              - backup
+              - --host
+              - ${CLUSTER_HOST}  # set a consistent hostname to avoid restic rescans
+              - --exclude="#recycle
+              - .           # use workingDir to set path
+            env:
+              - name: RESTIC_REPOSITORY
+                valueFrom:
+                  secretKeyRef:
+                    name: restic-secrets
+                    key: RESTIC_REPOSITORY
+                    optional: false
+              - name: RESTIC_PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: restic-secrets
+                    key: RESTIC_PASSWORD
+                    optional: false
+              - name: B2_ACCOUNT_ID
+                valueFrom:
+                  secretKeyRef:
+                    name: restic-secrets
+                    key: B2_ACCOUNT_ID
+                    optional: false
+              - name: B2_ACCOUNT_KEY
+                valueFrom:
+                  secretKeyRef:
+                    name: restic-secrets
+                    key: B2_ACCOUNT_KEY
+                    optional: false
+            volumeMounts:
+              - name: lemonhope
+                mountPath: /data/lemonhope
+                readOnly: true
+              - name: vaultwarden
+                mountPath: /data/vaultwarden
+                readOnly: true
+          volumes:
+            - name: lemonhope
+              persistentVolumeClaim:
+                claimName: lemonhope-pvc
+            - name: vaultwarden
+              persistentVolumeClaim:
+                claimName: vaultwarden-data-vaultwarden-0
+          restartPolicy: OnFailure
