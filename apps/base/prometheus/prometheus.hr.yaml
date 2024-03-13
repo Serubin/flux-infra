@@ -43,6 +43,8 @@ spec:
         tag: v0.27.0
       ingress:
         enabled: true
+        annotations:
+          traefik.ingress.kubernetes.io/router.middlewares: default-forwardauth-authelia@kubernetescrd
         pathType: Prefix
         hosts:
           - "alert-manager.${SECRET_DOMAIN}"
@@ -107,6 +109,8 @@ spec:
         tag: v2.50.1
       ingress:
         enabled: true
+        annotations:
+          traefik.ingress.kubernetes.io/router.middlewares: default-forwardauth-authelia@kubernetescrd
         pathType: Prefix
         hosts:
           - "prometheus.${SECRET_DOMAIN}"
