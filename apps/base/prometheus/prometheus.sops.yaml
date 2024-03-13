@@ -1,38 +1,38 @@
 apiVersion: v1
 kind: Secret
 metadata:
-  name: grafana-secrets
+    name: grafana-secrets
 stringData:
-  admin-user: ENC[AES256_GCM,data:07HJwaITRQ==,iv:7FcCg3v5yySz0wgeRLNUm0q4HpSTgkoKJq6j+h+5txQ=,tag:USJgRh6cx1Q4nNrIej6rbg==,type:str]
-  admin-password: ENC[AES256_GCM,data:UCG95fuva/AUbRVSkaWBMwGrSUk2FY+nGx11sywD3siWSQOzdbQgfWz82jgGzcTYsiKRGwZgODDafDTCRdt3Kg==,iv:Y5EvzChA4ULej0Ecsjm9aPLFyt0+zOrPkY+kcS5RlK0=,tag:04u/olOCCA4MjfVMaQW2kA==,type:str]
+    admin-user: ENC[AES256_GCM,data:Q0bus24uAkZyhdIrRg==,iv:S1nMtJBoVcdSpAhfImJsg5eJHSeOb/pDiLccyUWZ11E=,tag:OmYiPEHzXSTHSoSJ3cTuEw==,type:str]
+    admin-password: ENC[AES256_GCM,data:UCG95fuva/AUbRVSkaWBMwGrSUk2FY+nGx11sywD3siWSQOzdbQgfWz82jgGzcTYsiKRGwZgODDafDTCRdt3Kg==,iv:Y5EvzChA4ULej0Ecsjm9aPLFyt0+zOrPkY+kcS5RlK0=,tag:04u/olOCCA4MjfVMaQW2kA==,type:str]
 sops:
-  kms: []
-  gcp_kms: []
-  azure_kv: []
-  hc_vault: []
-  age: []
-  lastmodified: "2024-03-01T05:08:50Z"
-  mac: ENC[AES256_GCM,data:P158Wgi9D6QC4C1Aryy/MM/Y8SEL20Buxnnf+LCXoO8aIlWScr2J7Cl84ddbohvNzFVoRIECNZnADl0YQUvX26QPpo4CxOk6fsSICfnGfFVcRccB8D4ajipnWBT+ohvKKklu3iJy87laZ3EvdyPJEETmolDqT1xC/EDT3y2jWBk=,iv:/VgIeGsUXgIs0yk9KhORnUm8vPgkUXovmWvGosiu/AY=,tag:IUOO1MFM8WuheXsTB1WVMA==,type:str]
-  pgp:
-    - created_at: "2024-03-01T05:08:50Z"
-      enc: |-
-        -----BEGIN PGP MESSAGE-----
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age: []
+    lastmodified: "2024-03-13T18:27:45Z"
+    mac: ENC[AES256_GCM,data:z984PM+ULj+P6QUcaY0f8PWm1rfkflbczHxm3RHz2RYuF5CYy1xoNsWgYGvx11Rnzn+mbqChmeawXnMYRwzNG7aQXMH4bw5mMErkuq+Sralx0BUEqiDMoVq3e1IXPN6UFuRflszj3+j9++DHs8BaFWA/YbV7YXqNWqsIXN9Xvvc=,iv:ymRJMSczCukhVTOdSL7NGaaBmep7vYCmLv1fB4Hm0uE=,tag:iHgZ0+obRm6bFAhbh3C17g==,type:str]
+    pgp:
+        - created_at: "2024-03-01T05:08:50Z"
+          enc: |-
+            -----BEGIN PGP MESSAGE-----
 
-        hQIMA1aihG1drcqCARAAhU2QNF58Uz30EDrIgBfqjrM0XPFCKaAy2ZStZx8B2+tL
-        uy0GkWSpez4gSTLp52sflCTyYbo1WPWSWPVe6N0dpE/sSWEJiyG92iLrLYl+sgws
-        pr4WoHDxrGnNlnE6Ju7Z62wsTYEy+lSDEy+9KrEp6yZmdxXMGWyWGVRstFCiDsc3
-        fxdMKMy9YSLLFng5LFTLt27N/dK6y37wNP+OIQO1OHZrAuSwi/xDLz7HuNJ+C7FC
-        aroqc9shAvct6c2wFQUC2oe45Y2yxl85t6WRohp1OqKADa2sMoucnHzSXd5kgoAt
-        wvO6/qa8PGHtrwEND8B+FvXSEpiVEmSQoMmXxtIHgOCa+YAIWA2pDoPJERIKLGbL
-        SJf7Pd9JkCWkYHoDaePwWf9Jh8uce7HX0V6nVJcw3RTPLNxrw0wgMpnnRIGkKvmP
-        ZhnGyk7m6f9aDE6V5WMY6l99nzpRIpL2tg7jUnPH9xPgOZt+APvah6pGZO7eJCCf
-        poAG1VJjD2yPANvErZMWSoFuhDVl4xufvBhnzJo79qnOZco83gNmIAHgxTjghdQs
-        hxwON3cvYj5xY/idElAAnaLxF6kNDjoVbwv3Pi1nmUnqUAjA5vChmOT1jBgocfkb
-        FNkw+gRfwH3QGczt+YkcjOA27oPoYLnqVKEj/94zmNPn94neJRZrQO0gNWkjkgbS
-        XgEv/LmXz3YWgvV+m087pVlCbX+EGchGi9mrCFrq+Jq7eWvmvwEiCfUWK8EFeDUb
-        ziOzGR/vkSXBuoaaWAiZtlyBEJ6DUlr6fNM+mA052WUBljRuceKftfyHDbmKdEg=
-        =pS1W
-        -----END PGP MESSAGE-----
-      fp: DE531CB90D5130B090569D4A3EAE9A3DA4F76EBD
-  encrypted_regex: ^(data|stringData)$
-  version: 3.8.1
+            hQIMA1aihG1drcqCARAAhU2QNF58Uz30EDrIgBfqjrM0XPFCKaAy2ZStZx8B2+tL
+            uy0GkWSpez4gSTLp52sflCTyYbo1WPWSWPVe6N0dpE/sSWEJiyG92iLrLYl+sgws
+            pr4WoHDxrGnNlnE6Ju7Z62wsTYEy+lSDEy+9KrEp6yZmdxXMGWyWGVRstFCiDsc3
+            fxdMKMy9YSLLFng5LFTLt27N/dK6y37wNP+OIQO1OHZrAuSwi/xDLz7HuNJ+C7FC
+            aroqc9shAvct6c2wFQUC2oe45Y2yxl85t6WRohp1OqKADa2sMoucnHzSXd5kgoAt
+            wvO6/qa8PGHtrwEND8B+FvXSEpiVEmSQoMmXxtIHgOCa+YAIWA2pDoPJERIKLGbL
+            SJf7Pd9JkCWkYHoDaePwWf9Jh8uce7HX0V6nVJcw3RTPLNxrw0wgMpnnRIGkKvmP
+            ZhnGyk7m6f9aDE6V5WMY6l99nzpRIpL2tg7jUnPH9xPgOZt+APvah6pGZO7eJCCf
+            poAG1VJjD2yPANvErZMWSoFuhDVl4xufvBhnzJo79qnOZco83gNmIAHgxTjghdQs
+            hxwON3cvYj5xY/idElAAnaLxF6kNDjoVbwv3Pi1nmUnqUAjA5vChmOT1jBgocfkb
+            FNkw+gRfwH3QGczt+YkcjOA27oPoYLnqVKEj/94zmNPn94neJRZrQO0gNWkjkgbS
+            XgEv/LmXz3YWgvV+m087pVlCbX+EGchGi9mrCFrq+Jq7eWvmvwEiCfUWK8EFeDUb
+            ziOzGR/vkSXBuoaaWAiZtlyBEJ6DUlr6fNM+mA052WUBljRuceKftfyHDbmKdEg=
+            =pS1W
+            -----END PGP MESSAGE-----
+          fp: DE531CB90D5130B090569D4A3EAE9A3DA4F76EBD
+    encrypted_regex: ^(data|stringData)$
+    version: 3.8.1

@@ -74,6 +74,9 @@ spec:
         period: 30
         algorithm: sha512
         digits: 6
+      identity_providers:
+        oidc:
+          enabled: true
       notifier:
         disable_startup_check: true
         smtp:
