@@ -25,6 +25,7 @@ spec:
               - alert-manager.${SECRET_DOMAIN}
               - grafana.${SECRET_DOMAIN}
               - prometheus.${SECRET_DOMAIN}
+              - weave.${SECRET_DOMAIN}
       notifier:
         smtp:
           username: ${NOREPLY_AUTH_EMAIL}
