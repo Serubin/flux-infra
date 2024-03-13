@@ -5,3 +5,5 @@ resources:
   - traefik.pvc.yaml
   - traefik.yaml
   - authelia.middleware.yaml
+  - dashboard.service.yaml
+  - dashboard.ingress.yaml
