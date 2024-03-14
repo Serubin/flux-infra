@@ -1,11 +1,11 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: restic-backup
+  name: restic-check
   namespace: default  # Change me
 spec:
   concurrencyPolicy: Forbid
-  schedule: "30 * * * *"
+  schedule: "20 0 * * *"
   jobTemplate:
     spec:
       template:
@@ -15,10 +15,9 @@ spec:
             image: restic/restic:latest
             workingDir: /data
             args:
-              - backup
+              - check
               - --host
               - ${CLUSTER_HOST}  # set a consistent hostname to avoid restic rescans
-              - --exclude="#recycle
               - .           # use workingDir to set path
             env:
               - name: RESTIC_REPOSITORY
@@ -45,18 +44,3 @@ spec:
                     name: restic-secrets
                     key: B2_ACCOUNT_KEY
                     optional: false
-            volumeMounts:
-              - name: lemonhope
-                mountPath: /data/lemonhope
-                readOnly: true
-              - name: vaultwarden
-                mountPath: /data/vaultwarden
-                readOnly: true
-          volumes:
-            - name: lemonhope
-              persistentVolumeClaim:
-                claimName: lemonhope-pvc
-            - name: vaultwarden
-              persistentVolumeClaim:
-                claimName: vaultwarden-data-vaultwarden-0
-          restartPolicy: OnFailure
