@@ -1,0 +1,12 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: whoami
+  namespace: default
+spec:
+  template:
+    spec:
+      containers:
+        - name: whoami
+          args:
+            - -name=${CLUSTER_HOST}
