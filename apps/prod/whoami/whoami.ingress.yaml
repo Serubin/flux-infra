@@ -5,7 +5,7 @@ metadata:
   namespace: default
 spec:
   rules:
-    - host: prod.${SECRET_DOMAIN}
+    - host: ${SECRET_DOMAIN}
       http:
         paths:
           - path: /whoami

@@ -5,7 +5,47 @@ metadata:
   namespace: default
 spec:
   rules:
-    - host: prod.${SECRET_DOMAIN}
+    - host: serubin.net
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: serubin-net
+                port:
+                  name: web
+    - host: serubin.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: serubin-net
+                port:
+                  name: web
+    - host: serub.in
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: serubin-net
+                port:
+                  name: web
+    - host: solomonrubin.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: serubin-net
+                port:
+                  name: web
+    - host: solomonrub.in
       http:
         paths:
           - path: /
