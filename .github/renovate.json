@@ -1,0 +1,32 @@
+{
+  "extends": [
+    "config:base",
+    ":disableRateLimiting",
+    ":semanticCommits",
+    ":rebaseStalePrs",
+    ":separateMultipleMajorReleases",
+    ":separatePatchReleases",
+    "github>serubin/flux-infra//.github/renovate/commit.json",
+    "github>serubin/flux-infra//.github/renovate/labels.json"
+  ],
+  "dependencyDashboardTitle": "Renovate Dashboard",
+  "suppressNotifications": ["prIgnoreNotification"],
+  "flux": {
+    "fileMatch": ["^[^\\.]*\\.ya?ml$"]
+  },
+  "helm-values": {
+    "fileMatch": ["^apps/[^\\.]*\\.ya?ml$"]
+  },
+  "kubernetes": {
+    "fileMatch": ["^apps/[^\\.]*\\.ya?ml$"]
+  },
+  "regexManagers": [
+    {
+      "fileMatch": ["^[^\\.]*\\.ya?ml$"],
+      "matchStrings": [
+        "datasource=(?<datasource>\\S+) depName=(?<depName>.*?)\n *version: (?<currentValue>.*)\n"
+      ],
+      "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}helm{{/if}}"
+    }
+  ]
+}
