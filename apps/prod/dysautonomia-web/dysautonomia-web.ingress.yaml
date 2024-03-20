@@ -5,7 +5,7 @@ metadata:
   namespace: default
 spec:
   rules:
-    - host: dysautonomia.${SECRET_DOMAIN}
+    - host: dysautonomia.chat
       http:
         paths:
           - path: /
