@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   - ../base/prometheus
   - authelia
-  - serubin-net
   - dysautonomia-web
+  - serubin-net
+  - weave-gitops
   - whoami

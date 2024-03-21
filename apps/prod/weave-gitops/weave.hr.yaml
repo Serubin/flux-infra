@@ -1,0 +1,16 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: weave-gitops
+  namespace: default
+spec:
+  values:
+    additionalArgs:
+      - --route-prefix=/weave
+      - --insecure-no-authentication-user=admin # Must duplicate from Base
+    ingress:
+      hosts:
+        - host: mgmt.${SECRET_DOMAIN}
+          paths:
+            - path: /weave
+              pathType: Prefix
