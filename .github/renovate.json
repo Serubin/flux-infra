@@ -16,7 +16,7 @@
     "fileMatch": ["^[^\\.]*\\.ya?ml$"]
   },
   "helm-values": {
-    "fileMatch": ["^apps/[^\\.]*\\.ya?ml$"]
+    "fileMatch": ["^apps/(base|prod|staging)/.*\\.ya?ml$"]
   },
   "kubernetes": {
     "fileMatch": ["^apps/[^\\.]*\\.ya?ml$"]
