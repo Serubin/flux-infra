@@ -9,7 +9,6 @@
     "github>serubin/flux-infra//.github/renovate/commit.json",
     "github>serubin/flux-infra//.github/renovate/labels.json"
   ],
-  "schedule": ["* */1 * * *"],
   "dependencyDashboardTitle": "Renovate Dashboard",
   "suppressNotifications": ["prIgnoreNotification"],
   "flux": {
