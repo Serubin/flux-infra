@@ -21,7 +21,7 @@ spec:
         rules:
           - policy: two_factor
             domain:
-              - ${CLUSTER_HOST}
+              - mgmt.${SECRET_DOMAIN}
               - alert-manager.${SECRET_DOMAIN}
               - grafana.${SECRET_DOMAIN}
               - prometheus.${SECRET_DOMAIN}
@@ -33,19 +33,19 @@ spec:
       identity_providers:
         oidc:
           clients:
-          - id: grafana
-            description: Grafana
-            secret: ${OIDC_GRAFANA_CLIENT_DIGEST}
-            public: false
-            authorization_policy: two_factor
-            redirect_uris:
-              - https://grafana.${SECRET_DOMAIN}/login/generic_oauth
-            scopes:
-              - openid
-              - profile
-              - groups
-              - email
-            userinfo_signing_algorithm: none
+            - id: grafana
+              description: Grafana
+              secret: ${OIDC_GRAFANA_CLIENT_DIGEST}
+              public: false
+              authorization_policy: two_factor
+              redirect_uris:
+                - https://grafana.${SECRET_DOMAIN}/login/generic_oauth
+              scopes:
+                - openid
+                - profile
+                - groups
+                - email
+              userinfo_signing_algorithm: none
 
     secret:
       existingSecret: authelia-secrets

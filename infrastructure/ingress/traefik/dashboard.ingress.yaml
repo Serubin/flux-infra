@@ -5,10 +5,10 @@ metadata:
   namespace: kube-system
 spec:
   routes:
-  - match: Host(`${CLUSTER_HOST}`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))
-    kind: Rule
-    services:
-    - name: api@internal
-      kind: TraefikService
-    middlewares:
-      - name: forwardauth-authelia
+    - match: Host(`mgmt.${SECRET_DOMAIN}`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))
+      kind: Rule
+      services:
+        - name: api@internal
+          kind: TraefikService
+      middlewares:
+        - name: forwardauth-authelia
