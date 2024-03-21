@@ -31,4 +31,4 @@ spec:
       enabled: true
       host: "smtp.gmail.com"
       port: 465
-      security: "force-tls"
+      security: "force_tls"
