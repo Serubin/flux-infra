@@ -14,6 +14,9 @@ spec:
         name: weave-gitops-charts
         namespace: default
   values:
+    image:
+      repository: ghcr.io/weaveworks/wego-app
+      tag: v0.38.0
     # This isn't using weave for auth, so we're providing a dummy password
     # for the admin user and disabling authentication.
     # Weave sits behind authelia
