@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: tandoor-secrets
+    namespace: default
+stringData:
+    SECRET_KEY: ENC[AES256_GCM,data:5W33sSX4Ie8/6k3wDYyiaeJdc/GbJ5PMugEbeNojHUlMowFsSKUEcb5zaEp1YXMJ49UxLfiyzw9YqAmArv2hBA==,iv:TKuKW6rRbkAV4CCyf81kmgMlG2QXDX7lV0MITWf9TQI=,tag:EuDXG8bmOucOL55NBom/Ag==,type:str]
+    POSTGRES_PASSWORD: ENC[AES256_GCM,data:Cvzo4G4nTp5dU9JDMsPHhOQt7x7r+xWFowwIEXCrC18r73g6hl0KuiZSyIzqO3W2nrJBBZJH4SGYS0KaY9G5PA==,iv:dLZWlSggSeLDbtZr9fi1YQZ6A09xYh15nErWlAP7Q6M=,tag:sEg8wyDzsbnBCETTskbbBA==,type:str]
+    POSTGRES_ROOT_PASSWORD: ENC[AES256_GCM,data:Z8Kotn/uAA70d8QPt5y8Q/fjMnYTzaY7avsrpmRkcKhELy5G8ertGxhy6+WTiUktIWNagF3AVrA6WU1DyRV6ig==,iv:1TmlPXFexWNGFFlfKBYqlEcbciGuZ3Es571Bf8uyn78=,tag:xpkb+tc2R3VCSuPJotX3Fg==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age: []
+    lastmodified: "2024-03-22T17:05:38Z"
+    mac: ENC[AES256_GCM,data:PiS4noWWt7KXooWiMevJILxJSpYrcJ9boJzRj54vyVkIJw8r46N3bIw6T3GIQYEqmOVwnMoSV2sdzAdWWP+1dTZMgynuc7OCymEWbpwMQhyvMRCwJOcFnGLLSsupMBXuhKdV9wALqfQkgwctTBnz/fLhTa5p0T7EhfNKyWBN0XY=,iv:4yzoge3ZOdu8JbBsqmBSZvecW5DfRRcmapQdIzKAnvo=,tag:31ohcyYd5UWrumNPtwyObw==,type:str]
+    pgp:
+        - created_at: "2024-03-11T15:25:14Z"
+          enc: |-
+            -----BEGIN PGP MESSAGE-----
+
+            hQIMA1aihG1drcqCAQ//WRgFvDkpOnMGo32NlQDGtOqjFNTxOecKJBpLcHPcG9c2
+            cc0Nq3nVUuzSq1djo4+ZyJo7fKjYzSbWwi2j2Rw6IrOgu3oDQtoTh7gY/LJvLn/L
+            ebFviPxeD/Uir+2TNUGIY75R7/NO5Qf0VGDXz289Lpj/DrIbT18nBMuBZ+Wt0rEW
+            WqMm4o+hO76PJiL5bK7GzRG0rZyWUecquowbSp8NZsoAiGkIiJYNNIBjHb4/NV1/
+            QPkeCe8naWE+lxUbL/BC3ac9zp20MC3cNvxog4F5JE0ISrboeS7YQscfR/c/IZf2
+            wFZwpuP0QJX6Tsi74tlVzTKG4e8dhxyeIOexK2k8dGRzXlOXespjxiPLFbdqRe1g
+            kKQVuW5c2fLUlsIGM80DeJKoyqwDq567TjvKo4JC+XJGk0TrkmrT9Qy2+9ljhCMC
+            kgfYeSVhIhZTtbqpav8+ApFMeaUyPLNMHp031yCwKu8Ud2NiPD/wt1nRtfneZSth
+            pnI0K2E6b6DowKH/Sl9NfbJymp2Ks/O1lRCk5uIiMlodBdklkt+149c9VHWlc/fo
+            MbGKQTSpCbHFfKZKtzsgpXogn7WFr5BIztxYn+kftE4WKHvQUk322YpmIN9rFqSn
+            N51rs/hRZn+CZto8hFoZhP6BqVBWZ4u95zzc3kTEs2L/78AT2SICqpygDuuds/jS
+            XgEYsEqoGnk56p/n2sWBZliAtHfMc7bx8CkgQimdtsA4aqx1yhfiuGBkUe8JRebf
+            7lW4eQ0P5y3IW6MgOjJc0I99ZjS5gj+v7g/O1xue9hKoCwLnX46xsT2sRYnGHzE=
+            =7uFL
+            -----END PGP MESSAGE-----
+          fp: DE531CB90D5130B090569D4A3EAE9A3DA4F76EBD
+    encrypted_regex: ^(data|stringData)$
+    version: 3.8.1

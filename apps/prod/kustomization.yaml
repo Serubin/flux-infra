@@ -8,6 +8,7 @@ resources:
   - kutt
   - lemonhope
   - serubin-net
+  - tandoor
   - vaultwarden
   - weave-gitops
   - whoami

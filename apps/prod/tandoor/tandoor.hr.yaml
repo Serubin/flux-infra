@@ -1,0 +1,36 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: tandoor-receipes
+  namespace: default
+spec:
+  values:
+    controllers:
+      main:
+        containers:
+          main:
+            env:
+              SECRET_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: tandoor-secrets
+                    key: SECRET_KEY
+              POSTGRES_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: tandoor-secrets
+                    key: POSTGRES_PASSWORD
+              ENABLE_SIGNUP: 0
+              EMAIL_HOST_USER: ${NOREPLY_AUTH_EMAIL}
+              EMAIL_HOST_PASSWORD: ${NOREPLY_PASSWORD}
+              DEFAULT_FROM_EMAIL: ${NOREPLY_SEND_EMAIL}
+    ingress:
+      main:
+        enabled: true
+        hosts:
+          - host: recipes.${SECRET_DOMAIN}
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
