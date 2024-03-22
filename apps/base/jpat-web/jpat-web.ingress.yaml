@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: jpat-web-ingress
+  namespace: default
+spec:
+  rules:
+    - host: jpat.${SECRET_DOMAIN}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: jpat-web
+                port:
+                  name: web

@@ -1,0 +1,24 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: jpat-web
+  namespace: default
+  labels:
+    app: jpat-web
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jpat-web
+  template:
+    metadata:
+      labels:
+        app: jpat-web
+    spec:
+      containers:
+        - name: jpat-web
+          image: ghcr.io/j-paterson/personalwebsite:5a80826 # TODO update to calver/semver tag
+          ports:
+            - name: web
+              containerPort: 80

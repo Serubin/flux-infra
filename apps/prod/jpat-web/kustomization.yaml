@@ -1,0 +1,8 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../base/jpat-web
+patches:
+  - path: jpat-web.ingress.yaml
+    target:
+      kind: Ingress
