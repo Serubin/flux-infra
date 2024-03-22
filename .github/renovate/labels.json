@@ -27,6 +27,14 @@
     {
       "matchPackageNames": ["k3s-io/k3s"],
       "addLabels": ["renovate/k3s"]
+    },
+    {
+      "matchPackageNames": [
+        "ghcr.io/serubin/serubin-net",
+        "ghcr.io/serubin/dysautonomia-lounge-website",
+        "ghcr.io/j-paterson/personalwebsite"
+      ],
+      "addLabels": ["renovate/automerge"]
     }
   ]
 }
