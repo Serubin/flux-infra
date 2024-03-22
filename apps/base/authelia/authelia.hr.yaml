@@ -27,12 +27,12 @@ spec:
       enabled: true
       subdomain: auth
     pod:
+      # Cluster must provide
+      # pod: extraVolumes, extraVolumeMounts for configuration files
       kind: Deployment
       replicas: 1
       strategy:
         type: Recreate
-      # Cluster must provide
-      # pod: extraVolumes, extraVolumeMounts for configuration files
     configMap:
       theme: light
       # Cluster must provide
