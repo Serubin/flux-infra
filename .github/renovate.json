@@ -37,6 +37,7 @@
         "ghcr.io/j-paterson/personalwebsite"
       ],
       "automerge": true,
+      "matchUpdateTypes": ["patch", "minor", "major"],
       "automergeStrategy": "squash",
       "platformAutomerge": true
     }
