@@ -1,0 +1,35 @@
+name: automerge
+on:
+  pull_request:
+    types:
+      - labeled
+      - unlabeled
+      - synchronize
+      - opened
+      - edited
+      - ready_for_review
+      - reopened
+      - unlocked
+  pull_request_review:
+    types:
+      - submitted
+  check_suite:
+    types:
+      - completed
+  status: {}
+jobs:
+  automerge:
+    runs-on: ubuntu-latest
+    if: contains(github.event.pull_request.labels.*.name, 'renovate/automerge')
+    permissions:
+      contents: write
+    steps:
+      - id: automerge
+        name: automerge
+        uses: "pascalgn/automerge-action@v0.16.2"
+        env:
+          MERGE_LABELS: "renovate/automerge"
+          MERGE_METHOD: "squash"
+          MERGE_RETRIES: "15"
+          MERGE_RETRY_SLEEP: "10000"
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
