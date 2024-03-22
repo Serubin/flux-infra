@@ -14,6 +14,7 @@ rules:
   brackets:
     min-spaces-inside: 0
     max-spaces-inside: 0
+  document-start: disable
   indentation:
     spaces: 2
     indent-sequences: consistent
