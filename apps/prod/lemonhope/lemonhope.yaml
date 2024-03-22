@@ -1,0 +1,21 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: lemonhope
+  namespace: default
+spec:
+  template:
+    spec:
+      containers:
+        - name: lemonhope
+          env:
+            - name: lemonhope_token
+              valueFrom:
+                secretKeyRef:
+                  name: lemonhope-secrets
+                  key: token
+            - name: exclude_channels
+              valueFrom:
+                secretKeyRef:
+                  name: lemonhope-secrets
+                  key: exclude_channels
