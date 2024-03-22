@@ -36,7 +36,9 @@
         "ghcr.io/serubin/dysautonomia-lounge-website",
         "ghcr.io/j-paterson/personalwebsite"
       ],
-      "automerge": true
+      "automerge": true,
+      "automergeStrategy": "squash",
+      "platformAutomerge": true
     }
   ]
 }
