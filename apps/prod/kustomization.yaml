@@ -4,6 +4,7 @@ resources:
   - ../base/prometheus
   - authelia
   - dysautonomia-web
+  - kutt
   - lemonhope
   - serubin-net
   - vaultwarden
