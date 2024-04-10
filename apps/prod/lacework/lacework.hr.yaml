@@ -1,0 +1,9 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: lacework-agent
+  namespace: default
+spec:
+  values:
+    laceworkConfig:
+      accessToken: "${LACEWORK_TOKEN}"

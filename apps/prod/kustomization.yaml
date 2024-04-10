@@ -6,6 +6,7 @@ resources:
   - dysautonomia-web
   - jpat-web
   - kutt
+  - lacework
   - lemonhope
   - serubin-net
   - tandoor
