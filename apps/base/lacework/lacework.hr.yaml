@@ -25,7 +25,6 @@ spec:
       serverUrl: https://api.lacework.net
       # Cluster must provide this
       accessToken: ""
-      containerEngineEndpoint: unix:///run/containerd/containerd.sock
-      containerRuntime: containerd
+      containerEngineEndpoint: unix:///run/k3s/containerd/containerd.sock
       codeaware:
         enable: true
