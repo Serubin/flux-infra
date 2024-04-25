@@ -26,5 +26,6 @@ spec:
       # Cluster must provide this
       accessToken: ""
       containerEngineEndpoint: unix:///run/k3s/containerd/containerd.sock
+      containerRuntime: containerd
       codeaware:
         enable: true
