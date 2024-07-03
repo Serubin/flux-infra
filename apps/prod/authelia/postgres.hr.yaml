@@ -8,7 +8,7 @@ spec:
     auth:
       username: authelia
       database: authelia
-      existingSecret: tandoor-secrets
+      existingSecret: authelia-secrets
       secretKeys:
         adminPasswordKey: "POSTGRES_ROOT_PASSWORD"
         userPasswordKey: "POSTGRES_PASSWORD"
