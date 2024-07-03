@@ -10,7 +10,7 @@ spec:
       - --insecure-no-authentication-user=admin # Must duplicate from Base
     ingress:
       hosts:
-        - host: mgmt.${SECRET_DOMAIN}
+        - host: ops.${SECRET_DOMAIN}
           paths:
             - path: /weave
               pathType: Prefix

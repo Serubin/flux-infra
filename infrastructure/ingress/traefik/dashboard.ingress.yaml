@@ -5,7 +5,7 @@ metadata:
   namespace: kube-system
 spec:
   routes:
-    - match: Host(`mgmt.${SECRET_DOMAIN}`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))
+    - match: Host(`ops.${SECRET_DOMAIN}`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))
       kind: Rule
       services:
         - name: api@internal

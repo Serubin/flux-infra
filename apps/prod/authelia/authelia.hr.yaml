@@ -21,7 +21,7 @@ spec:
         rules:
           - policy: two_factor
             domain:
-              - mgmt.${SECRET_DOMAIN}
+              - ops.${SECRET_DOMAIN}
               - alert-manager.${SECRET_DOMAIN}
               - grafana.${SECRET_DOMAIN}
               - prometheus.${SECRET_DOMAIN}
