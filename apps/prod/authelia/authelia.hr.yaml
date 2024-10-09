@@ -45,6 +45,7 @@ spec:
                 - profile
                 - groups
                 - email
+              userinfo_signing_algorithm: none
 
     secret:
       existingSecret: authelia-secrets
