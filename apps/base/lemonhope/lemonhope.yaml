@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: lemonhope
-          image: ghcr.io/anaximand/lemonhope:2024.8.1
+          image: ghcr.io/anaximand/lemonhope:2025.1.2
           volumeMounts:
             - mountPath: /opt/lemon/data
               name: data
