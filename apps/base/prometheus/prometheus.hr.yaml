@@ -55,7 +55,7 @@ spec:
       enabled: true
       image:
         repository: grafana/grafana
-        tag: 10.4.14
+        tag: 10.4.15
       admin:
         existingSecret: grafana-secrets
       env:
