@@ -17,7 +17,7 @@ spec:
     image:
       registry: docker.io
       repository: lacework/datacollector
-      tag: 7.7.0
+      tag: 7.8.0
     datacollector:
       # Not required, but trying to be verbose
       enabled: true
