@@ -23,7 +23,7 @@ spec:
           main:
             image:
               repository: ghcr.io/tandoorrecipes/recipes
-              tag: 2.0.1
+              tag: 2.2.2
             env:
               TIMEZONE: America/New_York
               DB_ENGINE: django.db.backends.postgresql
