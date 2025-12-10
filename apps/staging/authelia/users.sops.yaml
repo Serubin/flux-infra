@@ -4,35 +4,30 @@ metadata:
     name: authelia-users
     namespace: default
 stringData:
-    users_database.yml: ENC[AES256_GCM,data:Ecabvl0qPxQGiN75UsV2Jx9u0GsVIveTCmV/NBvujZA7d0TrAkemAMay+u1FAcWFazWOsXdvDXj0GPJI2pjkOueSbL9xYx8oUq6oUvqPREqzc1jvPYtEBlPspNPSYl2ZIqMDbPLXIhgHkCOyq4JbuGZwUMp5QSru814ivjmTQCtNpn4yv/roktriXYYyEqFe2cGpD2piepYKmendOS9jb+6CKg6IStexgkw6OQ2XjFfjWQD7yVHGKcV5V7Nc0U0sLZWVVAqPfVEZfpAwcxkyAOoGOTIp3liatICMIPBGPd94CeijTXenVSuRe37xxLfcLkLnlt5KO4lWQdPvhDypQ9xhRtXgfP2kWqqEXvBct9XizTxz,iv:H41rJb6L6VhCy/+dOKuUPSwdek3HOZME8vxxCK1Go4I=,tag:vfOD28ZQ2crF1279l855iw==,type:str]
+    users_database.yml: ENC[AES256_GCM,data:V8kf0mfjuIENzomV17/4xRa86oINhJFNJPYL+/HNiex0f2faBEHyzx7iJLFXLtRd5EjcfNN1QFQHh7NLL0dRDjI1u2Wm65D5QVSKSCosIjINX2qYuc/Zv9a6JPmcGc510hQMhg3S+oHYiBMvHXOdHq0juMBNxFt+F3/oz6zt/854OHKOhlj9lRqXF3I5AYV2fEQbtY8XDBzgPwkC4bUZ87mlZLCtS6VZGEF4X4KgNGaCm65Zly7wukF4Sc6WGAW8j0/ix24jKcQEvNRnrF7tXwPdmclhGSegpyWIuwiept4hMhckcwLSNxjfZvU6rV50h/7QfM6CwZHfPhK+cbMZS1yeXl0xtdTXzkQqUoDm8ETvODRE,iv:H41rJb6L6VhCy/+dOKuUPSwdek3HOZME8vxxCK1Go4I=,tag:2bBIOF4yWhjf7pFZ/hUJ8g==,type:str]
 sops:
-    kms: []
-    gcp_kms: []
-    azure_kv: []
-    hc_vault: []
-    age: []
-    lastmodified: "2024-03-12T20:25:16Z"
-    mac: ENC[AES256_GCM,data:ybo+Me310IdAKMj9bsdAi+BYEuE0Zin8QJRXTsRTJcQt4CRoUDhiadkHax61fJfzFnXDSUSR1K/M8GO7C1fzX+4y3zau2tSL3eRpIafOv7XTYcbV0ZkyVyqF41JTpO5DdZfobUJCmSrbwWAJJO2/oHhvxM4V0AHYj5OuYrJ3tsE=,iv:eSgnvo6kb+r1g7Z5LWSvEUFJmy+h40TU75fiJ7ZV8Yw=,tag:A7uxSPmXkDKnoTXLx6n0Iw==,type:str]
+    lastmodified: "2025-12-10T00:36:59Z"
+    mac: ENC[AES256_GCM,data:DB0sNpMRJkvhXda95mCRKc4167ZqQ8Q/+OmuR3lr8fDKcwE4vhss+EDcWTtxqvbPy/TtaC8oARyZOZJZeYOiMUdce9tta9CN3+PBEzTQSLdTDhjb/HLiX64/IKasX3Tpp6ro3u0WESidlHwiDzwIY174bPUASWX8ei9ekYXwydw=,iv:bC0j7wPnMJwOR+4911pWxDo2wjjb2gIyEf+8xMGuDyk=,tag:L7IO0Yljp5ANG7KlHrf5XQ==,type:str]
     pgp:
-        - created_at: "2024-03-11T21:28:29Z"
+        - created_at: "2025-12-10T00:36:45Z"
           enc: |-
             -----BEGIN PGP MESSAGE-----
 
-            hQIMA1aihG1drcqCAQ//arnreQEgLzv+2IEQeBMrKSgO763XOxxB5a5LkFimsizM
-            bkDD4XZ7/sFU0vHdxJ6NfZSMQig/GD1ir0zo0oajR6IZiyQVIzVKfCO1sjFncPWn
-            yQ0wza1ERccfD6IEZ62GiV8bfm+msOA0vzsJTIHhKREMJfR3yy5byGV5pnfF0Ene
-            iCxgawNO8/koob6jHpqIvjNi5IbkbhwJiRI8V2sPV3WLZx+POe0dkkIpNtv6P/ON
-            eaxD7Dps/mg0R/jXTyk9ngFv6qyM4UIl8rfFZ1osAMh7RVsgkjZ6Xn1bQaoQ4Z5i
-            /JYGkw/VUWYaiX2cQDKPKn/oneppzDu4phefuVOwF5VO3it1UIG3UOe72klHc/gk
-            AzUmwgYGKoK73V3rTrzajXiA12rpsXk3mtnaBkWJlQZXu7w75G1LO8dc57T05enD
-            +up+SrM2SZm7FBgKTJNu902Rx/6z2CNeLXWMPCBjSOXyHLmY8y9aWpegTYN2xhmZ
-            7fTjOnALJtYcl92LtUeK5VETJhunmFjwM1T4ZuN6Km4Osfud7NmomJ04mXcOdIYR
-            qk4WY0fEBh1DinPd0+ljSo8KMoXpigEqvvdXB3PzepjlD54hX08fCBKZnAgpP1wn
-            wUHSqEBg9oPE3WUz6c6ZjmQGi7zF+88/ugs6+9N2gjVX9P6NdHk/yvbG9ZMaVyvS
-            XAGUjWKV/16qheILPKvb7WTIbJXZnCw3X+wIvhazHaeUoxoJlMxI08Durcc+cd4j
-            9NUib9NORf6sVpUkuyxTZJdSsaEFU7MmL8sYyRCl+oW/NmHWtvmnha6xX+f/
-            =Le4W
+            hQIMA0i7SvTnDueaARAAkpaJqAzds1dKsbD8ZE8fFnniDm4fJKx4sUYo7/M+i/QE
+            aVlJCcDxxt3IP/gXg6h2WKGqfSZhvBFvOcIwoJRoAxYZodwv5XPooHVQu7LmG3PQ
+            iFC/aA2UZzc37PvhyYrlFvO1QRy986YDCiR3qsYkL7dFFr963d5S1ao4IJCO0kyQ
+            OdbuAZPVBjbJz2UY+1lsa45a8TQqCGeO3gxppxhJqbe5aOYNQDwflZzs8pxKV21k
+            DQ+M4SEZZ0uIOKTMSkArXA5gsodIN1u/4m5mpzGkiTsfIE3aRkJ4w9slwCgqtGgj
+            P6h/srq0ar+nTZYWrFcVcZUqrD4pAAmJt1JE8bv56bBi0DEn3bNP3u5c6nctbpUZ
+            Po6EQVOeEklIFwOB2TlNkFWfV/Z+0lBJ4tqj/RP58530bZn6fy58nOb5daMz/jB/
+            uisrE9YI56y0IrN3vlqjO6yaUuLZVUkDtB+E7CNDW23aZaMBZHgfSsgvdOR0FjFR
+            Z1k15jIzt/mE/i6KjCq7KQz9RieRt86iRZQfXndNlQk8eknt8EP8K/LPlwqfX7u1
+            Nh4O1RPYEpM4kFXMWlhtJkziVOzyDZ837/cQkV6XT1ETr5fJoEZp4secq0BvFPhl
+            R0OtgmkcloWItT32rASyeUHxuz10K2WvBvzvLtqbqPlU8Xp0kix2lULNbJnnbE7S
+            XAGv8Yy9SdVnwPJHyNTjOCm/rV+yW434CvifS4yoTR/xRvR+V1+jinJUlXoHTkYz
+            zLw1S/HSY8prAu7AlqLL+zib/UsfsBOgxYGZTCE1OJSpzTgG1aQXIIRx584b
+            =OcWa
             -----END PGP MESSAGE-----
-          fp: DE531CB90D5130B090569D4A3EAE9A3DA4F76EBD
+          fp: 7EB1A78D86B11352982D3A1F7037153C2DB9CDBD
     encrypted_regex: ^(data|stringData)$
     version: 3.8.1
