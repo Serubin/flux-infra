@@ -20,7 +20,7 @@ spec:
       secretKey: ${YUBICO_SECRET_KEY}
     smtp:
       from: "${NOREPLY_SEND_EMAIL}"
-      fromName: "Bitwarden @ Serubin.net"
+      fromName: "Bitwarden @ ${SECRET_DOMAIN}"
       username:
         value: "${NOREPLY_AUTH_EMAIL}"
       password:
