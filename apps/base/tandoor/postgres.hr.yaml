@@ -14,6 +14,8 @@ spec:
         name: bitnami-charts
       interval: 5m
   values:
+    image:
+      repository: bitnamilegacy/postgresql
     auth:
       username: tandoor-receipes
       database: tandoor-receipes
@@ -23,5 +25,7 @@ spec:
         existingClaim: tandoor-postgresql-pvc
     metrics:
       enabled: true
+      image:
+        repository: bitnamilegacy/postgres-exporter
       serviceMonitor:
         enabled: true
