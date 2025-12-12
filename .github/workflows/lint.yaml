@@ -8,7 +8,7 @@ on:
       - "**.yml"
 
 jobs:
-  yamllint:
+  lint:
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout
