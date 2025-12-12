@@ -5,6 +5,9 @@ metadata:
   namespace: default
 spec:
   values:
+    image:
+      repository: redis
+      tag: 8.4.0-alpine
     auth:
       existingSecret: authelia-secrets
       existingSecretPasswordKey: REDIS_PASSWORD

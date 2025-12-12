@@ -5,6 +5,9 @@ metadata:
   namespace: default
 spec:
   values:
+    image:
+      repository: postgres
+      tag: 18.1-alpine
     auth:
       username: authelia
       database: authelia
