@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: kutt
-      version: 4.0.2
+      version: 7.0.0
       sourceRef:
         kind: HelmRepository
         name: christianhuth-helm-chart
