@@ -3,5 +3,5 @@ kind: Kustomization
 resources:
   - restic.sops.yaml
   - backup.restic.yaml
-  - backup.prune.yaml
-  - backup.check.yaml
+  - check.restic.yaml
+  - prune.restic.yaml
