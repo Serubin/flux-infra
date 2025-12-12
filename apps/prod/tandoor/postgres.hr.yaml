@@ -5,6 +5,9 @@ metadata:
   namespace: default
 spec:
   values:
+    image:
+      repository: bitnamilegacy/postgresql
+      tag: 17.6.0-debian-12-r4
     auth:
       username: tandoor-receipes
       database: tandoor-receipes
