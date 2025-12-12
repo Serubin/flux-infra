@@ -1,7 +1,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: tandoor-receipes
+  name: tandoor-recipes
   namespace: default
 spec:
   interval: 5m

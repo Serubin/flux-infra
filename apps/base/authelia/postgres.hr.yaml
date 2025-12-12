@@ -16,6 +16,8 @@ spec:
         namespace: default
       interval: 5m
   values:
+    image:
+      repository: bitnamilegacy/postgresql
     auth:
       username: authelia
       database: authelia
@@ -25,5 +27,7 @@ spec:
         existingClaim: authelia-postgresql-pvc
     metrics:
       enabled: true
+      image:
+        repository: bitnamilegacy/postgres-exporter
       serviceMonitor:
         enabled: true
