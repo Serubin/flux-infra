@@ -16,12 +16,16 @@ spec:
       interval: 5m
   values:
     architecture: standalone
+    image:
+      repository: bitnamilegacy/redis
     master:
       persistence:
         enabled: true
         existingClaim: authelia-redis-pvc
     metrics:
       enabled: true
+      image:
+        repository: bitnamilegacy/redis-exporter
       serviceMonitor:
         enabled: true
     auth:
