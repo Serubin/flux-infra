@@ -8,6 +8,10 @@ spec:
     image:
       repository: bitnamilegacy/postgresql
       tag: 17.6.0-debian-12-r4
+    metrics:
+      image:
+      repository: bitnamilegacy/postgres-exporter
+      tag: 0.17.1-debian-12-r16
     auth:
       username: tandoor-receipes
       database: tandoor-receipes
