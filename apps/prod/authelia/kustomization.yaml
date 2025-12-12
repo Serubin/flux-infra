@@ -8,9 +8,12 @@ patches:
   - path: postgres.hr.yaml
     target:
       kind: HelmRelease
+      name: authelia-postgresql
   - path: redis.hr.yaml
     target:
       kind: HelmRelease
+      name: authelia-redis
   - path: authelia.hr.yaml
     target:
       kind: HelmRelease
+      name: authelia
