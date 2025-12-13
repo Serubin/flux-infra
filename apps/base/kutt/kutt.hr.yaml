@@ -33,13 +33,25 @@ spec:
         host: smtp.gmail.com
         secure: true
     postgresql:
-      enabled: true
+      enabled: false
+    externalPostgresql:
       # Cluster must provide
       # auth:
       #   existingSecret (secret key is password)
       #
+      hostname: kutt-postgresql
+      port: 5432
+      auth:
+        database: kutt
+        username: kutt
     redis:
-      enabled: true
+      enabled: false
+    externalRedis:
       # Cluster must provide
       # auth:
-      #   password
+      #   existingSecret (secret key is password)
+      #
+      hostname: kutt-redis-master
+      port: 6379
+      auth:
+        enabled: true

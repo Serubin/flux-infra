@@ -4,6 +4,15 @@ resources:
   - ../../base/kutt
   - kutt.sops.yaml
 patches:
+  - path: postgres.hr.yaml
+    target:
+      kind: HelmRelease
+      name: kutt-postgresql
+  - path: redis.hr.yaml
+    target:
+      kind: HelmRelease
+      name: kutt-redis
   - path: kutt.hr.yaml
     target:
+      name: kutt
       kind: HelmRelease
