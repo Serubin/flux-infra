@@ -6,6 +6,8 @@ metadata:
 stringData:
     password: ENC[AES256_GCM,data:Yh7CbCFcNqrjr8TJGnQP8+XKUHMOwsyXWc9d6XHZ17idCErsYZP4x1rpVX8fuRpmODc+Yng83J8rkT8iminVmA==,iv:LVPLJ/SoS1OYxopmgzWfzYzf+rT9ipvYCfRskM1BZI0=,tag:3lZNtS6ugIHA8wYQFrJtpA==,type:str]
     postgres-password: ENC[AES256_GCM,data:R97C+0NNGecrismkYQv4Osdlj18E7ai70n++BT4sluO2HdtYj3kksBXrmOW9Pt1MX7HH5PSWvnfxSlOCBP76eg==,iv:Zr2debSOZjLQcMavTopO35hJLluR1vnIKck0I5JiI7A=,tag:RJKXO/eh+cbLT0HnVPnORw==,type:str]
+    postgres-root-password: ENC[AES256_GCM,data:dVRG3vQv7Bir9oPLBUH/B7Uho34a/PScDVEc58vcc7RFnlaNHKYji2IsFZiOqnmWo88ejLKkQ4Ky1OhZ8jPmdQ==,iv:5ljs8+XaENW/Zy/nOsKJAn6eH4SHqcRJ5Us9wiQVozk=,tag:Tw2qae19/tzXVZhuPtFMyg==,type:str]
+    redis-password: ENC[AES256_GCM,data:h56LOoDbkiQL3jf6zEkK2PYQC7kL63psrbctu3hOkJvg0Nfknw4WWexiQR6EG0AwASkLtxpPA8ahGq1zBxxLXg==,iv:hNBqS2fMCFg5u3uVtyg0eUNE9jfrOuwjQDRBGUhBmAY=,tag:MItIvb2R55b3OPGX67aWcQ==,type:str]
     JWT_SECRET: ENC[AES256_GCM,data:5+FGjBGQKFiCDfvenZgazhZYuAn1JNdixN/4wl/hnKVRsQvUqZZnrmL3kfba6QMMc7mGyl9sSBxuaoX6Uig/f24Y2b6lDd7N02SNDht+NVOGRr5XZto2YParZzG/1XqpE4slouZrxtNYRdkxbuVUiCqdqNl/3SxFyh/+PT54wXw=,iv:X9i20+xF5z0BcazoIODmqzbxfxWDKfkgZzDmt7d4YOM=,tag:8LDQKFF0+h2l9dbr5OhWww==,type:str]
     #ENC[AES256_GCM,data:xmSiXcCbkw==,iv:HJCqfNIHUt3d4EdRmzBg6FtPg2wV0HVEUYrOdvtj1rE=,tag:HNf9Tanv+VyYQWzlg2h+2A==,type:comment]
     GOOGLE_SAFE_BROWSING_KEY: ENC[AES256_GCM,data:idklRpzsN+tiiJUXL7QbF2lEcNhldWsxSS5dQym2v0nrSKvZKPSR,iv:NJvd0nXCfVfjU6ZnBdu21KhghvFf4cd3g2P32jq3gT0=,tag:7xb0TH7Ffm4SFl5FNUcdEw==,type:str]
@@ -14,8 +16,8 @@ stringData:
     GOOGLE_ANALYTICS: ENC[AES256_GCM,data:n6a0U6vjBoqkhfgJ,iv:NOvMBCWIEyqdbZ4qu1bPxdpbEozbAxwT+Rk8dwLp9bs=,tag:Y29/AaojPFJYQsI6rB7iJA==,type:str]
     GOOGLE_ANALYTICS_UNIVERSAL: ENC[AES256_GCM,data:EUl3f7jAhAu6s9sy,iv:rXJxfRf8dnMjgX8OQOcem32hDMVeO8dtD/OHh1IBF5w=,tag:JmXTSlbd6PuBVD/R2ealmg==,type:str]
 sops:
-    lastmodified: "2025-12-10T00:36:58Z"
-    mac: ENC[AES256_GCM,data:TAUlLMXxxVx4UQR41tFSEJ3ZhxTt7YZe1DhvE0rYBiip+VLbHw12dTqcN2a0rK86hCRc/FSuXfnlSE7cvzxGejwE6Onp5C11cqSob7d/x/oWOl6JIX26+P7Ro4qJwDIgjMb4I6pionKI0OG3WeTSHpj2X/W0+WtWPKl27z8WcUk=,iv:gEqHw1c9zxRebEwzsG9y65riYjPVTggvtzwgtyBld8A=,tag:t8BQFwWNzDmhxUHwfmdW0w==,type:str]
+    lastmodified: "2025-12-13T17:10:05Z"
+    mac: ENC[AES256_GCM,data:vppr4U8ax1pf4bmtIrCvR8YyLjs7flhulVo+3+2RxYDzgX4ZuE3WwWR4t2OG3d+Ewj7oOMawWOH7vi16pqlXuGWckrHoRfdLe9kjg6Z105Q6uywn5rQIE0DvQKT92Iqa0oNIubl+qIC3q+HMDYFicbyOTOmm9RRc9bsrOAe8U+M=,iv:6WFMGLMx/KhPIc8lOnQ+kP8qbq5uZGO+MWnNsu10jpY=,tag:8DqFgKYPa+gZXDeoQiw5Xw==,type:str]
     pgp:
         - created_at: "2025-12-10T00:36:44Z"
           enc: |-
@@ -38,4 +40,4 @@ sops:
             -----END PGP MESSAGE-----
           fp: 7EB1A78D86B11352982D3A1F7037153C2DB9CDBD
     encrypted_regex: ^(data|stringData)$
-    version: 3.8.1
+    version: 3.11.0

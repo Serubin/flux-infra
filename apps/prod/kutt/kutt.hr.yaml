@@ -28,8 +28,15 @@ spec:
         password: "${NOREPLY_PASSWORD}"
         reportEmail: "${ADMIN_EMAIL}"
     postgresql:
+      enabled: false
+    externalPostgresql:
       auth:
         existingSecret: kutt-secrets
+        userPasswordKey: postgres-password
     redis:
+      enabled: false
+    externalRedis:
       auth:
-        password: "${KUTT_REDIS_PASSWORD}"
+        enabled: true
+        existingSecret: kutt-secrets
+        userPasswordKey: redis-password
