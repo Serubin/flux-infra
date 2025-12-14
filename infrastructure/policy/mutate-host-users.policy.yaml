@@ -1,0 +1,26 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: mutate-host-users
+  annotations:
+    policies.kyverno.io/title: Add hostUsers false to Pods
+    policies.kyverno.io/category: Security, Multi-Tenancy
+    policies.kyverno.io/subject: Pod
+    policies.kyverno.io/description: >-
+      This policy automatically adds `hostUsers: false` to all Pod specs to ensure
+      Kubernetes user namespaces are remapped to unprivileged users on the host.
+      This prevents container processes from having the same UIDs as host processes,
+      improving security isolation.
+spec:
+  background: true
+  rules:
+    - name: add-host-users-false
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+      mutate:
+        patchStrategicMerge:
+          spec:
+            hostUsers: false
