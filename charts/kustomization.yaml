@@ -6,6 +6,7 @@ resources:
   - bitnami.chart.yaml
   - bjw-s.chart.yaml
   - christianhuth.chart.yaml
+  - kyverno.chart.yaml
   - lacework.chart.yaml
   - prometheus.chart.yaml
   - vaultwarden.chart.yaml
