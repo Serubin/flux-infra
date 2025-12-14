@@ -1,0 +1,44 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: validate-pod-security-standard
+  annotations:
+    policies.kyverno.io/title: Validate Pod Security Standards
+    policies.kyverno.io/category: Pod Security Standards (Baseline)
+    policies.kyverno.io/subject: Pod
+    policies.kyverno.io/description: >-
+      This policy validates that Pods meet the Kubernetes Pod Security Standards
+      baseline level via the pod-security.kubernetes.io/enforce label. The baseline
+      standard prevents known privilege escalations and requires user namespace
+      remapping (hostUsers: false).
+spec:
+  background: true
+  validationFailureAction: Audit
+  rules:
+    - name: baseline-host-users
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+      validate:
+        message: >-
+          Pods must not use host user namespaces. Set spec.hostUsers to false
+          or remove it (it will be automatically added by the mutate-host-users policy).
+        pattern:
+          spec:
+            =(hostUsers): false
+    - name: validate-pod-security-label
+      match:
+        any:
+          - resources:
+              kinds:
+                - Namespace
+      validate:
+        message: >-
+          Namespaces should have the pod-security.kubernetes.io/enforce label
+          set to 'baseline' or 'restricted' to enforce Pod Security Standards.
+        pattern:
+          metadata:
+            labels:
+              pod-security.kubernetes.io/enforce: "baseline|restricted"
