@@ -9,7 +9,7 @@ resources:
   - lacework
   - lemonhope
   - serubin-net
-  - tandoor
+#  - tandoor
   - vaultwarden
   - weave-gitops
   - whoami
