@@ -21,6 +21,8 @@ spec:
     datacollector:
       # Not required, but trying to be verbose
       enabled: true
+    podLabels:
+      app.kubernetes.io/name: lacework-agent
     laceworkConfig:
       serverUrl: https://api.lacework.net
       # Cluster must provide this

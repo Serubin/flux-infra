@@ -21,6 +21,14 @@ spec:
           - resources:
               kinds:
                 - Pod
+      exclude:
+        any:
+          - resources:
+              namespaces:
+                - default
+              selector:
+                matchLabels:
+                  app.kubernetes.io/name: lacework-agent
       validate:
         message: >-
           Pods must not use host user namespaces. Set spec.hostUsers to false
