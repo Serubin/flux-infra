@@ -20,6 +20,14 @@ spec:
           - resources:
               kinds:
                 - Pod
+      exclude:
+        any:
+          - resources:
+              namespaces:
+                - default
+              selector:
+                matchLabels:
+                  app.kubernetes.io/name: lacework-agent
       mutate:
         patchStrategicMerge:
           spec:
