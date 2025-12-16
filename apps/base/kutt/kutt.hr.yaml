@@ -35,10 +35,8 @@ spec:
     postgresql:
       enabled: false
     externalPostgresql:
-      # During migration: points to old Bitnami PostgreSQL
-      # After migration: change to kutt-postgresql-cnpg-cluster-rw
-      #                  and update secret to kutt-postgresql-cnpg-cluster-app
-      hostname: kutt-postgresql
+      # Using CloudNativePG cluster
+      hostname: kutt-postgresql-cnpg-cluster-rw
       port: 5432
       auth:
         database: kutt
