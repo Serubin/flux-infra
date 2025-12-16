@@ -1,3 +1,4 @@
+# MIGRATION: Remove this file after migration to CloudNativePG is complete
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
