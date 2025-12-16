@@ -30,6 +30,8 @@ spec:
     postgresql:
       enabled: false
     externalPostgresql:
+      # During migration: use existing Bitnami secret
+      # After migration: change to kutt-postgresql-cnpg-app with key 'password'
       auth:
         existingSecret: kutt-secrets
         userPasswordKey: postgres-password
