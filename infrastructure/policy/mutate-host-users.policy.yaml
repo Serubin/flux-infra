@@ -25,9 +25,8 @@ spec:
           - resources:
               namespaces:
                 - default
-              selector:
-                matchLabels:
-                  app.kubernetes.io/name: lacework-agent
+              names:
+                - "lacework-agent*"
       mutate:
         patchStrategicMerge:
           spec:
