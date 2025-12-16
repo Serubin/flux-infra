@@ -35,10 +35,9 @@ spec:
     postgresql:
       enabled: false
     externalPostgresql:
-      # Cluster must provide
-      # auth:
-      #   existingSecret (secret key is password)
-      #
+      # During migration: points to old Bitnami PostgreSQL
+      # After migration: change to kutt-postgresql-cnpg-cluster-rw
+      #                  and update secret to kutt-postgresql-cnpg-cluster-app
       hostname: kutt-postgresql
       port: 5432
       auth:

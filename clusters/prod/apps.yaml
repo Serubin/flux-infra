@@ -4,6 +4,8 @@ metadata:
   name: staging-apps
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: staging-infrastructure
   interval: 10m0s
   sourceRef:
     kind: GitRepository
