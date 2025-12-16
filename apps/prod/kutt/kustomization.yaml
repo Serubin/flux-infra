@@ -4,11 +4,6 @@ resources:
   - ../../base/kutt
   - kutt.sops.yaml
 patches:
-  # MIGRATION: Keep postgres-bitnami.hr.yaml patch until migration is complete
-  - path: postgres-bitnami.hr.yaml
-    target:
-      kind: HelmRelease
-      name: kutt-postgresql
   - path: postgres.hr.yaml
     target:
       kind: HelmRelease
