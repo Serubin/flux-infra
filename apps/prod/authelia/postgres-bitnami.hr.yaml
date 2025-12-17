@@ -1,0 +1,21 @@
+# MIGRATION: Remove this file after migration to CloudNativePG is complete
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: authelia-postgresql
+  namespace: default
+spec:
+  values:
+    image:
+      tag: 17.6.0-debian-12-r4
+    metrics:
+      image:
+        tag: 0.17.1-debian-12-r16
+    auth:
+      username: authelia
+      database: authelia
+      existingSecret: authelia-secrets
+      secretKeys:
+        adminPasswordKey: "POSTGRES_ROOT_PASSWORD"
+        userPasswordKey: "POSTGRES_PASSWORD"
+

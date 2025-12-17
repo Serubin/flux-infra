@@ -5,10 +5,15 @@ resources:
   - authelia.sops.yaml
   - users.sops.yaml
 patches:
-  - path: postgres.hr.yaml
+  # MIGRATION: Keep postgres-bitnami.hr.yaml patch until migration is complete
+  - path: postgres-bitnami.hr.yaml
     target:
       kind: HelmRelease
       name: authelia-postgresql
+  - path: postgres.hr.yaml
+    target:
+      kind: HelmRelease
+      name: authelia-postgresql-cnpg
   - path: redis.hr.yaml
     target:
       kind: HelmRelease
