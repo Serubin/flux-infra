@@ -17,6 +17,7 @@ spec:
   dependsOn:
     - name: authelia-redis
     - name: authelia-postgresql
+    - name: authelia-postgresql-cnpg
   values:
     image:
       repository: ghcr.io/authelia/authelia
@@ -69,6 +70,8 @@ spec:
       storage:
         postgres:
           enabled: true
+          # During migration: points to old Bitnami PostgreSQL
+          # After migration: change to authelia-postgresql-cnpg-cluster-rw
           host: authelia-postgresql
           database: authelia
           username: authelia
