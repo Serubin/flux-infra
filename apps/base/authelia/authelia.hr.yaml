@@ -61,7 +61,7 @@ spec:
         redis:
           enabled: true
           enabledSecret: true
-          host: authelia-redis-master
+          host: authelia-redis
       regulation:
         max_retries: 3
         find_time: 2m
