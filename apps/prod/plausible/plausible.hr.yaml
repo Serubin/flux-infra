@@ -1,0 +1,26 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: plausible
+  namespace: default
+spec:
+  values:
+    image:
+      tag: v2.1.4
+    secret:
+      existingSecret: plausible-secrets
+    env:
+      - name: BASE_URL
+        value: https://analytics.${SECRET_DOMAIN}
+      - name: FAKE_VALUE_KEY
+        value: fake_value
+      - name: DATABASE_URL
+        valueFrom:
+          secretKeyRef:
+            name: plausible-db-urls
+            key: DATABASE_URL
+      - name: CLICKHOUSE_DATABASE_URL
+        valueFrom:
+          secretKeyRef:
+            name: plausible-db-urls
+            key: CLICKHOUSE_DATABASE_URL

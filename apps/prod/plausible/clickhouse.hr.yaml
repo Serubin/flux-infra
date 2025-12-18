@@ -1,0 +1,17 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: plausible-clickhouse
+  namespace: default
+spec:
+  values:
+    controllers:
+      main:
+        containers:
+          main:
+            env:
+              CLICKHOUSE_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: plausible-secrets
+                    key: clickhouse-password

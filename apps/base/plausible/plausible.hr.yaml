@@ -1,0 +1,38 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: plausible
+  namespace: default
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: plausible
+      version: 2.0.0
+      sourceRef:
+        kind: HelmRepository
+        name: pascaliske-charts
+        namespace: default
+  dependsOn:
+    - name: plausible-postgresql-cnpg
+      namespace: default
+    - name: plausible-clickhouse
+      namespace: default
+  values:
+    image:
+      repository: ghcr.io/plausible/community-edition
+    # Disable internal database deployments
+    postgresql:
+      enabled: false
+    clickhouse:
+      enabled: false
+    env:
+      - name: DISABLE_REGISTRATION
+        value: invite_only
+    ingress:
+      enabled: false
+    service:
+      main:
+        ports:
+          http:
+            port: 8000

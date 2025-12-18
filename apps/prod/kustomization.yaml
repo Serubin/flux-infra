@@ -8,6 +8,7 @@ resources:
   - kutt
   - lacework
   - lemonhope
+  - plausible
   - serubin-net
 #  - tandoor
   - vaultwarden

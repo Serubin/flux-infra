@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: plausible-secrets
+    namespace: default
+stringData:
+    SECRET_KEY_BASE: ENC[AES256_GCM,data:PXzq3NuTtaNXI/sOwSOidL9WT0VaotYrC+4/fcW2WWDE2T6k+7eztvG/di2kpRnCJtjFJzVr9X9J/ubBmxVWYg==,iv:q4vGx9onqF5hDrbpV9b8/0DK/3us9roDBWXVP+4Z0HM=,tag:eoepxd2bqeqJ75R2JZQOAg==,type:str]
+    TOTP_VAULT_KEY: ENC[AES256_GCM,data:ZEWC2PLxzgjkijFnzzRN/Id+CqpCLk00Ot+PreXNcoRQaCtrdQXi0Fy06N8=,iv:GdRbaGEb/Vr+Y3dKZa7bpeWY3jWWqDFsIsKw5jmdxmo=,tag:KXXYKZV1KZFDO1cx+BeYDQ==,type:str]
+    clickhouse-password: ENC[AES256_GCM,data:kAnA7bG+1l6imyNnao2855GJkTk/CReFn2ZRm6vzt/4jEdICI2urXXXyLvtDAsWuosqQmsFvy72F+HG6ilYkDg==,iv:OmsWNGO8ILlzkkAwcs5LYT0tipbA6bQjVkyALRxinCI=,tag:QlGGjiaJfj2KhRAwuU7WTw==,type:str]
+sops:
+    lastmodified: "2025-12-18T03:44:22Z"
+    mac: ENC[AES256_GCM,data:eDmMw26HNhLvHQth/4yXuf4wy9R8ZkBGp0tQtK9++cfNVcJAhep+XhdbQOGwJI8fN7TeWnL+f8PCL+GDArlLcuaw79LsDynUUrpoY8AlU2b4nKKbGX7aOQA8oBdyyI3FanzY4KQpJvKTddGXJTBf2BFHYB3BsUklUVFBYGB43BM=,iv:+Jx3W5AJDGPWJ8KJXFwWTQVdKtCbhZG9oNAa3RIXJlE=,tag:yZPJ1+3lxIjhQIxy2Th1jQ==,type:str]
+    pgp:
+        - created_at: "2025-12-18T03:42:34Z"
+          enc: |-
+            -----BEGIN PGP MESSAGE-----
+
+            hQIMA0i7SvTnDueaARAAj+qEYE7a1P+c70qoAm8BIQ1E9PRKFcQfvJcCewUMH9c/
+            mG23Xo0Tp7JK4co5UB3x+fufpRe65+EoE0QnP7CO5qh8S6A8YVKKlViG1II215GD
+            4xZoLWFbxJXrU7SEazO+mYKq1PcebuQqMmtr0v9NP4ZVe2xdWW/xGWxRhJEALdmI
+            zzrzzFSqbNfOUONk8FsgTirBk2VUkDqzTQ23ZM03cNLgoqGhQHlrxp+97cnSHm0D
+            QeeJAKMNmQ+M9ALRwEXeTvKVYFXjNlycQBqp6e7d7r0a0pnmPAwmC6couwnIeOdD
+            LYV39NxM7+bDOnRpvqUKvfJvrxtdS5eW+WugD+ZZJm+i84ab6pJKy69H0F9HoUYS
+            RC5w02cmQ9m3ttWGmkmBFnxqYXhFtLO6068vihYvIFeJ94zOg/yjv2M1UfY0fo1L
+            RCNJZE+uQowEnJXFcSyjfMt4a5a+YPjimmN/qtcbeNMci8yQMnhcA9SZgzdM+01l
+            uslMk+DRGvl0YTZaH1lZo7NvDc+JC14t/MIb96ww9083t2w9q2KHfBKKVB7iMv1E
+            JsL45m3+AppmHw1c/7WMxLgsFkdW0GC3pbuGtq8mNcoyfhmjMzdR510ZgJSSKSK1
+            G37bGkVN8sBLWwJslu0qD9ANngR0pbiivVtgozrNOulixPhVcxw074vJP6naAVbS
+            XgHv6iySFoWIjd9qBccxPmX64DsdNl2rs/DZnoYoYfxpgXqUKX3ClfQ0HsNYDosk
+            4zaISMQbJGrh9h/kwAUvD/EAljaDpgaWfwBYqq5AqKdD/+gunYk08AP5W9ukwKw=
+            =jtux
+            -----END PGP MESSAGE-----
+          fp: 7EB1A78D86B11352982D3A1F7037153C2DB9CDBD
+    encrypted_regex: ^(data|stringData)$
+    version: 3.11.0
