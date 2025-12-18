@@ -7,6 +7,7 @@ resources:
   - bjw-s.chart.yaml
   - christianhuth.chart.yaml
   - cloudnativepg.chart.yaml
+  - cloudpirates.chart.yaml
   - kyverno.chart.yaml
   - lacework.chart.yaml
   - prometheus.chart.yaml

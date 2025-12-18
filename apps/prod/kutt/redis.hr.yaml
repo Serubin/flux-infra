@@ -6,11 +6,7 @@ metadata:
 spec:
   values:
     image:
-      tag: 8.2.1-debian-12-r0
-    metrics:
-      image:
-        tag: 1.76.0-debian-12-r0
+      tag: 8.4.0
     auth:
       existingSecret: kutt-secrets
       existingSecretPasswordKey: redis-password
-

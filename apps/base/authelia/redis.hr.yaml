@@ -8,26 +8,20 @@ spec:
   chart:
     spec:
       chart: redis
-      version: 22.0.7
+      version: 0.17.5
       sourceRef:
         kind: HelmRepository
-        name: bitnami-charts
+        name: cloudpirates-charts
         namespace: default
       interval: 5m
   values:
+    fullnameOverride: authelia-redis
     architecture: standalone
-    image:
-      repository: bitnamilegacy/redis
     master:
       persistence:
         enabled: true
         existingClaim: authelia-redis-pvc
-    metrics:
-      enabled: true
-      image:
-        repository: bitnamilegacy/redis-exporter
-      serviceMonitor:
-        enabled: true
     auth:
+      enabled: true
       existingSecret: authelia-secrets
       existingSecretPasswordKey: REDIS_PASSWORD
