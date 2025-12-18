@@ -1,0 +1,40 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: plausible
+  namespace: default
+spec:
+  values:
+    image:
+      tag: v3.1.0
+    env:
+      BASE_URL: https://analytics.${SECRET_DOMAIN}
+      SECRET_KEY_BASE:
+        valueFrom:
+          secretKeyRef:
+            name: plausible-secrets
+            key: SECRET_KEY_BASE
+      TOTP_VAULT_KEY:
+        valueFrom:
+          secretKeyRef:
+            name: plausible-secrets
+            key: TOTP_VAULT_KEY
+    externalPostgresql:
+      password:
+        valueFrom:
+          secretKeyRef:
+            name: plausible-postgresql-cnpg-cluster-app
+            key: password
+    externalClickhouse:
+      password:
+        valueFrom:
+          secretKeyRef:
+            name: plausible-secrets
+            key: clickhouse-password
+    ingress:
+      hosts:
+        - host: analytics.${SECRET_DOMAIN}
+          paths:
+            - path: /
+              pathType: Prefix
+
