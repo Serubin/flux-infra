@@ -16,7 +16,6 @@ spec:
       interval: 5m
   dependsOn:
     - name: authelia-redis
-    - name: authelia-postgresql
     - name: authelia-postgresql-cnpg
   values:
     image:
@@ -70,9 +69,7 @@ spec:
       storage:
         postgres:
           enabled: true
-          # During migration: points to old Bitnami PostgreSQL
-          # After migration: change to authelia-postgresql-cnpg-cluster-rw
-          host: authelia-postgresql
+          host: authelia-postgresql-cnpg-cluster-rw
           database: authelia
           username: authelia
       totp:
