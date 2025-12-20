@@ -3,5 +3,3 @@ kind: Kustomization
 namespace: kyverno
 resources:
   - kyverno.hr.yaml
-  - mutate-host-users.policy.yaml
-  - validate-pod-security.policy.yaml
