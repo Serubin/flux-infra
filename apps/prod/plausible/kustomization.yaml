@@ -3,7 +3,7 @@ kind: Kustomization
 resources:
   - ../../base/plausible
   - plausible.sops.yaml
-  - plausible-db.sops.yaml
+  - plausible-cnpg-credentials.sops.yaml
 patches:
   - path: clickhouse.hr.yaml
     target:

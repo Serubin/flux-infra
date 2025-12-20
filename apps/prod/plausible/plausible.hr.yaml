@@ -17,10 +17,10 @@ spec:
       - name: DATABASE_URL
         valueFrom:
           secretKeyRef:
-            name: plausible-db-urls
+            name: plausible-secrets
             key: DATABASE_URL
       - name: CLICKHOUSE_DATABASE_URL
         valueFrom:
           secretKeyRef:
-            name: plausible-db-urls
+            name: plausible-secrets
             key: CLICKHOUSE_DATABASE_URL

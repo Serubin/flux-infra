@@ -28,3 +28,6 @@ spec:
       initdb:
         database: plausible
         owner: plausible
+        # Secret must have 'username' and 'password' keys
+        secret:
+          name: plausible-cnpg-credentials
