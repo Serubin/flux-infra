@@ -25,8 +25,7 @@ spec:
         enabled: true
         podMonitor:
           enabled: true
-      bootstrap:
-        initdb:
-          database: kutt
-          owner: kutt
-
+      initdb:
+        database: kutt
+        owner: kutt
+        # Secret must have 'username' and 'password' keys

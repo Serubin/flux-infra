@@ -33,7 +33,7 @@ spec:
       # Using password from kutt-secrets (set via CNPG cluster bootstrap)
       auth:
         existingSecret: kutt-secrets
-        userPasswordKey: postgres-password
+        userPasswordKey: password
     redis:
       enabled: false
     externalRedis:
