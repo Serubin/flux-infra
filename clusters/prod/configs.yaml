@@ -1,7 +1,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: staging-configs
+  name: prod-configs
   namespace: flux-system
 spec:
   path: ./configs/prod
