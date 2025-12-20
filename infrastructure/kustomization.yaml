@@ -4,4 +4,7 @@ resources:
   - crds
   - cloudnativepg
   - ingress/traefik
-  - policy
+  - kyverno
+  # Kyverno policies are applied via a separate Flux Kustomization
+  # that waits for Kyverno to be ready (see kyverno-policies.ks.yaml)
+  - kyverno-policies.ks.yaml
