@@ -32,8 +32,8 @@ spec:
     externalPostgresql:
       # Using password from kutt-secrets (set via CNPG cluster bootstrap)
       auth:
-        existingSecret: kutt-secrets
-        userPasswordKey: postgres-password
+        existingSecret: kutt-cnpg-credentials
+        userPasswordKey: password
     redis:
       enabled: false
     externalRedis:

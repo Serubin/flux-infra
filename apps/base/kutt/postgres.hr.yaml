@@ -29,4 +29,7 @@ spec:
         initdb:
           database: kutt
           owner: kutt
+          # Secret must have 'username' and 'password' keys
+          secret:
+            name: kutt-cnpg-credentials
 
