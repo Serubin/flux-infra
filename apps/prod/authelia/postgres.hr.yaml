@@ -9,3 +9,6 @@ spec:
       postgresql:
         parameters:
           max_connections: "100"
+      initdb:
+        secret:
+          name: authelia-secrets

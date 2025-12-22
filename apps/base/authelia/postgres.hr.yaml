@@ -25,7 +25,6 @@ spec:
         enabled: true
         podMonitor:
           enabled: true
-      bootstrap:
-        initdb:
-          database: authelia
-          owner: authelia
+      initdb:
+        database: authelia
+        owner: authelia
