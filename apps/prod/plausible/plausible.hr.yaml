@@ -12,8 +12,6 @@ spec:
     env:
       - name: BASE_URL
         value: https://analytics.${SECRET_DOMAIN}
-      - name: FAKE_VALUE_KEY
-        value: fake_value
       - name: DATABASE_URL
         valueFrom:
           secretKeyRef:

@@ -7,6 +7,9 @@ stringData:
     SECRET_KEY_BASE: ENC[AES256_GCM,data:PXzq3NuTtaNXI/sOwSOidL9WT0VaotYrC+4/fcW2WWDE2T6k+7eztvG/di2kpRnCJtjFJzVr9X9J/ubBmxVWYg==,iv:q4vGx9onqF5hDrbpV9b8/0DK/3us9roDBWXVP+4Z0HM=,tag:eoepxd2bqeqJ75R2JZQOAg==,type:str]
     TOTP_VAULT_KEY: ENC[AES256_GCM,data:ZEWC2PLxzgjkijFnzzRN/Id+CqpCLk00Ot+PreXNcoRQaCtrdQXi0Fy06N8=,iv:GdRbaGEb/Vr+Y3dKZa7bpeWY3jWWqDFsIsKw5jmdxmo=,tag:KXXYKZV1KZFDO1cx+BeYDQ==,type:str]
     clickhouse-password: ENC[AES256_GCM,data:kAnA7bG+1l6imyNnao2855GJkTk/CReFn2ZRm6vzt/4jEdICI2urXXXyLvtDAsWuosqQmsFvy72F+HG6ilYkDg==,iv:OmsWNGO8ILlzkkAwcs5LYT0tipbA6bQjVkyALRxinCI=,tag:QlGGjiaJfj2KhRAwuU7WTw==,type:str]
+    #ENC[AES256_GCM,data:03pnuDPqc8hY,iv:HG1PUmvqWpNaPe3x/g1y1zmmOvJGZ6AgwpRk5lOzCsM=,tag:7YNq2QIT5r41ssCYsvD+bg==,type:comment]
+    username: ENC[AES256_GCM,data:XO3KukOWeTHH,iv:CmaHGgdR+HLwMlLeoQShRhRMua4zFCJ8z87piQdARl8=,tag:m8O18lIZnZCSKdHBvJIzoQ==,type:str]
+    password: ENC[AES256_GCM,data:/k2o7+iRpt5dhKIKlfs/n8IR6sENZ+p9eLSqpGbhWZA+orWBcGeMr+VRCk/eNv5JoZu1bdSH5x9AUrcoY5LLwA==,iv:mZNSRTL0988MIkvBfgDAGw5Komq6D5EfxBWaYgrUfUE=,tag:M5HkiQCWVNaAGmkIe3/hrw==,type:str]
     #ENC[AES256_GCM,data:gji4AAm7dmtUCVO+Q7jP+eCkJeaG2dqH9OrSIEGUvhd1PUPzVP5ys6QDsCWie47o6cjy1S+VZ2M35B64SDZcYhvZzDwXVuZ/LQDn9FUg/5Uscj7mSyUN2Brq6A2ltgXVRDYx842YvrJ+domagTWcGzDs2x41pvLIivNw,iv:EFpUZI7YjjHLmiXM7KE3r6jyrVeJnd/mY7ZVq33hhpU=,tag:mAFLj/EVVTuorv0mwcqXiA==,type:comment]
     #ENC[AES256_GCM,data:duGU0OsreX52E4NFaph8DlowiddCD0xbMfxc9bUycEqjbWT6kz0+jfjobucjHShbQZb+BQ==,iv:eWyAgD31sppIxd48qLs7GSvFCmN0rpiNLaLS3J6D08M=,tag:DzUvsmVIFrERG3tnn8qdUQ==,type:comment]
     DATABASE_URL: ENC[AES256_GCM,data:TM+Y6nHHgZymALmxsVh4+vIAaRkArJA2X/ML0bvjLGBSBXc0gCNB8bbmGMyul5XQl2a5rAp4PI1NFvMxpwjvvIQpCNboHf7nBWE3LPAnxvrwPOstDgGbf7EwcNAamSGB7HlblqFHngL0O1B0dOwfr0Y5pqLHcCu1fjrKIrsbLIYho1TwwXFOIBw=,iv:v09rVt0slxZy301o8B9u9uFLdvAu/G8M57QkooFxEk8=,tag:wBZ86JkISOG9JtMtGAu/pw==,type:str]
@@ -14,8 +17,8 @@ stringData:
     #ENC[AES256_GCM,data:X4CcYLzK6q3SzRzGQB7ljS7+pMQOzXPbvHagkuvd/0Bt3rOK7yx66gbNJFVz8fdp,iv:jqgagENq3qmfIiS690icON9n2m7iZuAXKDf2WTKb5YU=,tag:R6kUNheeHJK12lgY5HRswg==,type:comment]
     CLICKHOUSE_DATABASE_URL: ENC[AES256_GCM,data:jlBgsPlB4LfaRqK21PbzBg8rVYioKb6LCPevx5oMKA8cWfuKD6LGaJGMVxCcG2UJhQc8aBZVLDfBMWV9PlNOqPQ+UISY2Iew9cqPHHT85qUcPLcS9bl4szFePXfqSg+wNBvZhK9QY1uGRAa7xCkL0R2URnqC,iv:OhpjTeRcF6iIOM/awujGGWvDTpTDtE88RaE1RoNZ70Y=,tag:SLZxNg515XlM1DOi0RLGGA==,type:str]
 sops:
-    lastmodified: "2025-12-20T15:24:52Z"
-    mac: ENC[AES256_GCM,data:VfHaDXZbHUVAit0mltkdwFc7b1Frb13gETzPb3Qww/ikt8wCvnUZoqrinKce+k2R8cnyTtSch7748N6iym7LqhMf/VrR7ZBmD+ORL2zWzWP2EHijqNH8NiIxAXWa45CbSdDHuoSUZI7leTeat0TF3MDnJXee8XcGkOIR1FfTDPQ=,iv:WXIYTg1lOCdYC42H9a/Wl3kLsV8LmsOwfff3VQfLt7g=,tag:9WI+V9b2IvoQ9bT8JC+aRw==,type:str]
+    lastmodified: "2025-12-22T21:41:49Z"
+    mac: ENC[AES256_GCM,data:GPZ4ov94BGcfXjK4rCjVN/kdAMJ0ajIfisAeVAw9XkgSf6dLlhbk1eovdyAQoCCZ366YwF+tak+hhXKc2VequKzL+btzDFzpMhIfxDRuZQYxgCa735toQOcGoutCRfFrsF58AtwOAYWPkztNUGyCTSE8Ye64aKGKtdzt5j/TTwA=,iv:4aNFDcshl79ZqLBrM2NRFXs7uXUHN/e4HJX0Yv4eZ8k=,tag:Y/GfZWxMiOjPoBfh0dhmEA==,type:str]
     pgp:
         - created_at: "2025-12-18T03:42:34Z"
           enc: |-

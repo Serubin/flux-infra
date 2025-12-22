@@ -3,12 +3,15 @@ kind: Kustomization
 resources:
   - ../../base/plausible
   - plausible.sops.yaml
-  - plausible-cnpg-credentials.sops.yaml
 patches:
   - path: clickhouse.hr.yaml
     target:
       kind: HelmRelease
       name: plausible-clickhouse
+  - path: postgres.hr.yaml
+    target:
+      kind: HelmRelease
+      name: plausible-postgresql-cnpg
   - path: plausible.hr.yaml
     target:
       kind: HelmRelease
