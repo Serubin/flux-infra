@@ -3,7 +3,6 @@ kind: Kustomization
 resources:
   - ../../base/authelia
   - authelia.sops.yaml
-  - authelia-pg-credentials.sops.yaml
   - users.sops.yaml
 patches:
   - path: postgres.hr.yaml
