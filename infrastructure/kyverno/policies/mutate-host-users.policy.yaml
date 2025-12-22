@@ -27,6 +27,11 @@ spec:
                 - default
               names:
                 - "lacework-agent*"
+          - resources:
+              namespaces:
+                - default
+              names:
+                - "kube-prometheus-stack-prometheus-node-exporter-*"
       mutate:
         patchStrategicMerge:
           spec:
