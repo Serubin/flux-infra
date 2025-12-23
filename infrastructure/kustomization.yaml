@@ -5,4 +5,4 @@ resources:
   - cloudnativepg
   - ingress/traefik
   - kyverno
-  # - longhorn
+  - longhorn

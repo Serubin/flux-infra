@@ -25,12 +25,13 @@ spec:
     persistence:
       # Don't set as default until Longhorn is healthy
       defaultClass: false
-      defaultClassReplicaCount: 2
+      defaultClassReplicaCount: 1
       # Retain volumes when PVC is deleted
       reclaimPolicy: Retain
     defaultSettings:
       # Number of replicas for new volumes
-      defaultReplicaCount: 2
+      defaultReplicaCount: 1
+      defaultDataPath: /opt/k3s/longhorn
       autoSalvage: true
     ingress:
       enabled: true
