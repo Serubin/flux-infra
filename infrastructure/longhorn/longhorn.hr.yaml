@@ -23,8 +23,8 @@ spec:
       retries: 3
   values:
     persistence:
-      # Set Longhorn as the default StorageClass
-      defaultClass: true
+      # Don't set as default until Longhorn is healthy
+      defaultClass: false
       defaultClassReplicaCount: 2
       # Retain volumes when PVC is deleted
       reclaimPolicy: Retain
