@@ -10,6 +10,7 @@ resources:
   - cloudpirates.chart.yaml
   - kyverno.chart.yaml
   - lacework.chart.yaml
+  - longhorn.chart.yaml
   - pascaliske.chart.yaml
   - prometheus.chart.yaml
   - vaultwarden.chart.yaml
