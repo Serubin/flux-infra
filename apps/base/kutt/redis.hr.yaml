@@ -17,9 +17,8 @@ spec:
   values:
     fullnameOverride: kutt-redis
     architecture: standalone
-    master:
-      persistence:
-        enabled: true
-        existingClaim: kutt-redis-pvc
+    persistence:
+      enabled: true
+      existingClaim: kutt-redis-pvc
     auth:
       enabled: true

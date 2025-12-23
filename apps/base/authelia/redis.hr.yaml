@@ -17,9 +17,8 @@ spec:
   values:
     fullnameOverride: authelia-redis
     architecture: standalone
-    master:
-      persistence:
-        enabled: true
-        existingClaim: authelia-redis-pvc
+    persistence:
+      enabled: true
+      existingClaim: authelia-redis-pvc
     auth:
       enabled: true
