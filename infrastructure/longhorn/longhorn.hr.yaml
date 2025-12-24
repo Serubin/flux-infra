@@ -34,10 +34,6 @@ spec:
       defaultDataPath: /opt/k3s/longhorn
       autoSalvage: true
     ingress:
-      enabled: true
-      ingressClassName: traefik
-      host: ops.${SECRET_DOMAIN}
-      path: /longhorn
-      pathType: Prefix
+      enabled: false
     longhornUI:
       replicas: 1
