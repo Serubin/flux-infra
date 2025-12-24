@@ -22,3 +22,10 @@ spec:
           ports:
             - name: web
               containerPort: 80
+          volumeMounts:
+            - name: data
+              mountPath: /data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: whoami-pvc
