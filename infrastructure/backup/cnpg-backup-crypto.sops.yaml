@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: cnpg-backup-crypto
+    namespace: default
+stringData:
+    #ENC[AES256_GCM,data:eVMRvPNnAOxHjFnUQstgE4s7CX6/Dpdnp0/Y0YeOBbVHTps3E3EkazLgvCKbGB8=,iv:kSj/JQEbn0KfWIPFHzALWiyTQVtuGaw3/pxVcjQnWyk=,tag:hSII53J6bzrvSNLPcc4ToQ==,type:comment]
+    CRYPTO_KEY_VALUE: ENC[AES256_GCM,data:mwRE5ex/slA12ItxjvcuBKQtDhbDeobsUDuBEe5hv8kpjizIUPrCKsZaYWE=,iv:UiHJb5HBqYbzY3bti9l8ZzrcSOXe6/WmkTvHJ51n6es=,tag:i1HMtqXwyL0AXeRUaYRPJA==,type:str]
+    CRYPTO_KEY_PROVIDER: ENC[AES256_GCM,data:PFt5PLfN,iv:BrsYz22PDA6hlZgC5X7TgNaHnWuaSZMtbQxyT8Y5/9A=,tag:/z67m81TMJ3DEk7eg0WnJg==,type:str]
+sops:
+    lastmodified: "2025-12-26T17:30:40Z"
+    mac: ENC[AES256_GCM,data:KgIofoz/KSk+4a0wh14D+XLkAu7CLv+Tiijgan6V+M2jN5ulYVywjHvbpTlkDNXMj5j8+2dCntqMC+v5+8g5MF5mgYHkZ+CGyOmOv8TZCOE/CgWNEAVMHGjBIQ2qjzaLKJMwqvecJDcBHi9ZIglTJHXMr1uwT6T8UYP1TXZ5HDk=,iv:7qvdhD4zvvLdp+Ckg74ijoqAWLExRLSeRbiXO7f2zYs=,tag:7qYpEKmO1Pzjn4+DLkGkFA==,type:str]
+    pgp:
+        - created_at: "2025-12-26T17:16:09Z"
+          enc: |-
+            -----BEGIN PGP MESSAGE-----
+
+            hQIMA0i7SvTnDueaAQ//fYtDt9BvF1wgMhhPesvqgWgnmsex4WcdaMtGKXrPUXn3
+            qjkMazSw7oYklnBhwNb4uz6Yi6HmAyCtWw4ilnocrWcoiH3j1q5emtqH3sj/vUU+
+            ZkhOPsE7eOnzGfFpV36w8kJVOR7ElD5eBozGr7h67pV5YQ93FIoxF4Llj4hc3R1x
+            5sdsyfRNPWafDb9vJ+nws+NkVA9i9hG6oDJ6kNACavUKZ7seskbXXp6N7mnIfJrn
+            hvhb28Wh1DVq2yFJkOZgE2Xim/fXDFipoHeVTBsBoCtGfn3xjnbmLSmEGLaHqmvf
+            PrTh9lnHOBGBL589dDJLVBFElcm/gzudYyEZaJgZ7AY0a/vJndaFeyw7GhoZL7jR
+            prA9nVcfe3iH2QjPWOaNqA1exqYIIbV0hWNEFVlmwOfmIqK157keAEKNw3d2L2sL
+            byt3IfvL34gGLVbjH8XXpi21IeIvoZClqqwvdTtjZyH0vh0LRIYS15HfXHYDXswF
+            ObUycggDS2dIptaLSyBBeaMy6oeXddN5EEq7QL6IID4cVTq+CO6/tYbtBH2/1Qcy
+            gxmzONzCIqhZhWbXrVyXFSGizSPfgtrMIHyNzJKIHx2yqg5mMQ3IjDrHLTEjN2Xz
+            Z7cnap25pR/56oQOYwSeThMdDOhK1d7ktUBfZ6ZogyINumZfTGI6puv2HEEUla7S
+            XgHysdhZwbDARIVTM32LQ0yWu9knwl/AC//4S/hH+N8Z87YfuyDSHzhRs7txur1k
+            r0Ito7pcCeam/bCinnrq2OFKtSxSoQgxWButPxJyn5Sn78NR1IqXphHLlVa+Ufg=
+            =Q869
+            -----END PGP MESSAGE-----
+          fp: 7EB1A78D86B11352982D3A1F7037153C2DB9CDBD
+    encrypted_regex: ^(data|stringData)$
+    version: 3.11.0

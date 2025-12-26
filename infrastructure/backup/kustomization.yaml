@@ -5,3 +5,8 @@ resources:
   - backup.restic.yaml
   - check.restic.yaml
   - prune.restic.yaml
+  - cnpg-backup.pvc.yaml
+  - cnpg-backup.cronjob.yaml
+  - cnpg-backup-crypto.sops.yaml
+  - cnpg-backup.networkpolicy.yaml
+  - cnpg-backup-crypto.policy.yaml
