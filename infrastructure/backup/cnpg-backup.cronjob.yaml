@@ -25,25 +25,25 @@ spec:
                 - -c
                 - |
                   set -e
-                  DATE=$(date +%Y%m%d-%H%M%S)
+                  DATE=$$(date +%Y%m%d-%H%M%S)
 
                   # Retention policy function
                   # Keeps: 6 hourly, 4 twelve-hourly, 5 daily backups
                   cleanup_backups() {
-                    DIR=$1
-                    PREFIX=$2
+                    DIR=$$1
+                    PREFIX=$$2
 
-                    cd "$DIR" || return
+                    cd "$$DIR" || return
 
                     # Get all backups sorted by time (newest first)
-                    BACKUPS=$(ls -t ${PREFIX}-*.dump 2>/dev/null || true)
+                    BACKUPS=$$(ls -t $${PREFIX}-*.dump 2>/dev/null || true)
 
-                    if [ -z "$BACKUPS" ]; then
-                      echo "No backups found in $DIR"
+                    if [ -z "$$BACKUPS" ]; then
+                      echo "No backups found in $$DIR"
                       return
                     fi
 
-                    NOW=$(date +%s)
+                    NOW=$$(date +%s)
                     HOUR=3600
 
                     # Track what we're keeping
@@ -54,66 +54,79 @@ spec:
                     LAST_TWELVEHOUR=""
                     LAST_DAILY=""
 
-                    for BACKUP in $BACKUPS; do
+                    for BACKUP in $$BACKUPS; do
                       # Extract timestamp from filename (YYYYMMDD-HHMMSS)
-                      TS=$(echo "$BACKUP" | sed "s/${PREFIX}-//" | sed 's/\.dump//')
+                      TS=$$(echo "$$BACKUP" | sed "s/$${PREFIX}-//" | sed 's/\.dump//')
                       # Parse date components
-                      YEAR=$(echo "$TS" | cut -c1-4)
-                      MONTH=$(echo "$TS" | cut -c5-6)
-                      DAY=$(echo "$TS" | cut -c7-8)
-                      HOUR_PART=$(echo "$TS" | cut -c10-11)
-                      MIN=$(echo "$TS" | cut -c12-13)
-                      SEC=$(echo "$TS" | cut -c14-15)
+                      YEAR=$$(echo "$$TS" | cut -c1-4)
+                      MONTH=$$(echo "$$TS" | cut -c5-6)
+                      DAY=$$(echo "$$TS" | cut -c7-8)
+                      HOUR_PART=$$(echo "$$TS" | cut -c10-11 | tr -d '[:space:]')
+                      MIN=$$(echo "$$TS" | cut -c12-13)
+                      SEC=$$(echo "$$TS" | cut -c14-15)
+
+                      # Ensure HOUR_PART is numeric, default to 0 if empty or non-numeric
+                      case "$$HOUR_PART" in
+                        ''|*[!0-9]*) HOUR_PART=0 ;;
+                      esac
 
                       # Convert to epoch (busybox compatible)
-                      BACKUP_EPOCH=$(date -d "${YEAR}-${MONTH}-${DAY} ${HOUR_PART}:${MIN}:${SEC}" +%s 2>/dev/null || echo "0")
+                      BACKUP_EPOCH=$$(date -d "$${YEAR}-$${MONTH}-$${DAY} $${HOUR_PART}:$${MIN}:$${SEC}" +%s 2>/dev/null || echo "0")
 
-                      if [ "$BACKUP_EPOCH" = "0" ]; then
+                      if [ "$$BACKUP_EPOCH" = "0" ]; then
                         # Keep files we can't parse
-                        KEEP="$KEEP $BACKUP"
+                        KEEP="$$KEEP $$BACKUP"
                         continue
                       fi
 
-                      AGE_HOURS=$(( (NOW - BACKUP_EPOCH) / HOUR ))
-                      BACKUP_DAY="${YEAR}${MONTH}${DAY}"
-                      BACKUP_TWELVEHOUR="${YEAR}${MONTH}${DAY}-$(( HOUR_PART / 12 ))"
+                      # Calculate age in hours
+                      AGE_SECONDS=$$(( NOW - BACKUP_EPOCH ))
+                      AGE_HOURS=$$(( AGE_SECONDS / HOUR ))
+                      BACKUP_DAY="$${YEAR}$${MONTH}$${DAY}"
+                      # Calculate twelve-hour slot (0 or 1)
+                      if [ $$HOUR_PART -lt 12 ]; then
+                        TWELVEHOUR_SLOT=0
+                      else
+                        TWELVEHOUR_SLOT=1
+                      fi
+                      BACKUP_TWELVEHOUR="$${YEAR}$${MONTH}$${DAY}-$${TWELVEHOUR_SLOT}"
 
                       SHOULD_KEEP=0
 
                       # Tier 1: Keep 6 most recent (hourly tier, ~12 hours coverage)
-                      if [ $AGE_HOURS -lt 12 ] && [ $HOURLY_COUNT -lt 6 ]; then
-                        HOURLY_COUNT=$((HOURLY_COUNT + 1))
+                      if [ $$AGE_HOURS -lt 12 ] && [ $$HOURLY_COUNT -lt 6 ]; then
+                        HOURLY_COUNT=$$((HOURLY_COUNT + 1))
                         SHOULD_KEEP=1
                       # Tier 2: Keep 4 twelve-hourly backups (12-48 hours old)
-                      elif [ $AGE_HOURS -ge 12 ] && [ $AGE_HOURS -lt 48 ] && [ $TWELVEHOUR_COUNT -lt 4 ]; then
-                        if [ "$BACKUP_TWELVEHOUR" != "$LAST_TWELVEHOUR" ]; then
-                          TWELVEHOUR_COUNT=$((TWELVEHOUR_COUNT + 1))
-                          LAST_TWELVEHOUR="$BACKUP_TWELVEHOUR"
+                      elif [ $$AGE_HOURS -ge 12 ] && [ $$AGE_HOURS -lt 48 ] && [ $$TWELVEHOUR_COUNT -lt 4 ]; then
+                        if [ "$$BACKUP_TWELVEHOUR" != "$$LAST_TWELVEHOUR" ]; then
+                          TWELVEHOUR_COUNT=$$((TWELVEHOUR_COUNT + 1))
+                          LAST_TWELVEHOUR="$$BACKUP_TWELVEHOUR"
                           SHOULD_KEEP=1
                         fi
                       # Tier 3: Keep 5 daily backups (48+ hours old)
-                      elif [ $AGE_HOURS -ge 48 ] && [ $DAILY_COUNT -lt 5 ]; then
-                        if [ "$BACKUP_DAY" != "$LAST_DAILY" ]; then
-                          DAILY_COUNT=$((DAILY_COUNT + 1))
-                          LAST_DAILY="$BACKUP_DAY"
+                      elif [ $$AGE_HOURS -ge 48 ] && [ $$DAILY_COUNT -lt 5 ]; then
+                        if [ "$$BACKUP_DAY" != "$$LAST_DAILY" ]; then
+                          DAILY_COUNT=$$((DAILY_COUNT + 1))
+                          LAST_DAILY="$$BACKUP_DAY"
                           SHOULD_KEEP=1
                         fi
                       fi
 
-                      if [ $SHOULD_KEEP -eq 1 ]; then
-                        KEEP="$KEEP $BACKUP"
+                      if [ $$SHOULD_KEEP -eq 1 ]; then
+                        KEEP="$$KEEP $$BACKUP"
                       fi
                     done
 
                     # Delete backups not in KEEP list
-                    for BACKUP in $BACKUPS; do
-                      if ! echo "$KEEP" | grep -q "$BACKUP"; then
-                        echo "Deleting old backup: $DIR/$BACKUP"
-                        rm -f "$BACKUP"
+                    for BACKUP in $$BACKUPS; do
+                      if ! echo "$$KEEP" | grep -q "$$BACKUP"; then
+                        echo "Deleting old backup: $$DIR/$$BACKUP"
+                        rm -f "$$BACKUP"
                       fi
                     done
 
-                    echo "Retention for $DIR: $HOURLY_COUNT hourly, $TWELVEHOUR_COUNT twelve-hourly, $DAILY_COUNT daily"
+                    echo "Retention for $$DIR: $$HOURLY_COUNT hourly, $$TWELVEHOUR_COUNT twelve-hourly, $$DAILY_COUNT daily"
                   }
 
                   # Create backup directories if they don't exist
@@ -121,33 +134,33 @@ spec:
 
                   # Backup authelia
                   echo "Backing up authelia..."
-                  PGPASSWORD=$(cat /secrets/authelia/password) pg_dump \
-                    -h authelia-postgresql-cnpg-rw \
+                  PGPASSWORD=$$(cat /secrets/authelia/password) pg_dump \
+                    -h authelia-postgresql-cnpg-cluster-rw \
                     -U authelia \
                     -d authelia \
                     -Fc \
-                    -f /backups/authelia/authelia-${DATE}.dump
-                  echo "Authelia backup complete: authelia-${DATE}.dump"
+                    -f /backups/authelia/authelia-$${DATE}.dump
+                  echo "Authelia backup complete: authelia-$${DATE}.dump"
 
                   # Backup kutt
                   echo "Backing up kutt..."
-                  PGPASSWORD=$(cat /secrets/kutt/password) pg_dump \
-                    -h kutt-postgresql-cnpg-rw \
+                  PGPASSWORD=$$(cat /secrets/kutt/password) pg_dump \
+                    -h kutt-postgresql-cnpg-cluster-rw \
                     -U kutt \
                     -d kutt \
                     -Fc \
-                    -f /backups/kutt/kutt-${DATE}.dump
-                  echo "Kutt backup complete: kutt-${DATE}.dump"
+                    -f /backups/kutt/kutt-$${DATE}.dump
+                  echo "Kutt backup complete: kutt-$${DATE}.dump"
 
                   # Backup plausible
                   echo "Backing up plausible..."
-                  PGPASSWORD=$(cat /secrets/plausible/password) pg_dump \
-                    -h plausible-postgresql-cnpg-rw \
+                  PGPASSWORD=$$(cat /secrets/plausible/password) pg_dump \
+                    -h plausible-postgresql-cnpg-cluster-rw \
                     -U plausible \
                     -d plausible \
                     -Fc \
-                    -f /backups/plausible/plausible-${DATE}.dump
-                  echo "Plausible backup complete: plausible-${DATE}.dump"
+                    -f /backups/plausible/plausible-$${DATE}.dump
+                  echo "Plausible backup complete: plausible-$${DATE}.dump"
 
                   # Apply retention policy
                   echo "Applying retention policy..."
@@ -179,22 +192,22 @@ spec:
             - name: backups
               persistentVolumeClaim:
                 claimName: cnpg-backups-pvc
-            # CNPG automatically creates <cluster-name>-app secrets
+            # Application secrets contain the database passwords
             - name: authelia-secrets
               secret:
-                secretName: authelia-postgresql-cnpg-app
+                secretName: authelia-secrets
                 items:
                   - key: password
                     path: password
             - name: kutt-secrets
               secret:
-                secretName: kutt-postgresql-cnpg-app
+                secretName: kutt-secrets
                 items:
                   - key: password
                     path: password
             - name: plausible-secrets
               secret:
-                secretName: plausible-postgresql-cnpg-app
+                secretName: plausible-secrets
                 items:
                   - key: password
                     path: password

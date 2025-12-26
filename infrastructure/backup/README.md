@@ -82,31 +82,26 @@ Maximum backups per database: 15
 Total across all databases: 45 dump files
 ```
 
-## Encryption
+## Storage
 
-The backup PVC uses Longhorn encryption with a user-managed key:
+The backup PVC uses standard Longhorn storage (unencrypted):
 
 ```
-┌─────────────────────────┐
-│  cnpg-backup-crypto     │──────┐
-│  Secret                 │      │
-│  (SOPS encrypted)       │      │
-└─────────────────────────┘      │
-                                 │ Referenced via PVC annotation
-                                 ▼
 ┌─────────────────────────────────────────────────────────────┐
-│  cnpg-backups-pvc                                           │
-│  annotations:                                               │
-│    longhorn.io/crypto-key-secret-name: cnpg-backup-crypto   │
-│    longhorn.io/crypto-key-secret-namespace: default         │
-│  storageClassName: longhorn-encrypted                       │
+│  PVC: cnpg-backups-pvc                                      │
+│  storageClassName: longhorn                                 │
 └─────────────────────────────────────────────────────────────┘
-                                 │
-                                 ▼
+               │
+               ▼
 ┌─────────────────────────────────────────────────────────────┐
-│  Longhorn Volume (LUKS encrypted at rest)                   │
+│  Longhorn Volume                                            │
+│  - Unencrypted at rest (allows portable Longhorn backups)   │
+│  - Access restricted by Kyverno policy                      │
 └─────────────────────────────────────────────────────────────┘
 ```
+
+**Why unencrypted?** This allows Longhorn's native backup feature to create
+portable backups that don't require an encryption key to restore.
 
 ---
 
@@ -127,26 +122,26 @@ The backup job is isolated via NetworkPolicy:
 │  EGRESS:                                                                    │
 │    ✅ DNS (UDP/TCP 53)                                                      │
 │    ✅ PostgreSQL clusters on port 5432:                                     │
-│       - authelia-postgresql-cnpg                                            │
-│       - kutt-postgresql-cnpg                                                │
-│       - plausible-postgresql-cnpg                                           │
+│       - authelia-postgresql-cnpg-cluster                                    │
+│       - kutt-postgresql-cnpg-cluster                                        │
+│       - plausible-postgresql-cnpg-cluster                                   │
 │    ❌ All other traffic denied                                              │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
-### Secret Access Control (Kyverno)
+### PVC Access Control (Kyverno)
 
-A Kyverno ClusterPolicy prevents unauthorized pods from mounting the encryption secret:
+A Kyverno ClusterPolicy prevents unauthorized pods from mounting the backup PVC:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│              ClusterPolicy: restrict-cnpg-backup-crypto-secret              │
+│              ClusterPolicy: restrict-cnpg-backup-pvc-access                 │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │  Action: Enforce (block violating pods)                                     │
 ├─────────────────────────────────────────────────────────────────────────────┤
-│  Rule: If a pod tries to mount "cnpg-backup-crypto" secret:                 │
+│  Rule: If a pod tries to mount "cnpg-backups-pvc":                          │
 │                                                                             │
-│    ✅ ALLOW: Longhorn CSI components (csi-attacher, csi-provisioner, etc.)  │
+│    ✅ ALLOW: Pods with label app=cnpg-backup (the backup CronJob)           │
 │    ❌ DENY:  All other pods                                                 │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
@@ -208,31 +203,20 @@ kubectl exec -i new-cluster-1 -- pg_restore -U authelia -d authelia -c < ./authe
 | File | Purpose |
 |------|---------|
 | `cnpg-backup.cronjob.yaml` | PostgreSQL backup job (every 2 hours) |
-| `cnpg-backup.pvc.yaml` | Encrypted storage for dumps |
-| `cnpg-backup-crypto.sops.yaml` | Longhorn encryption key (SOPS) |
+| `cnpg-backup.pvc.yaml` | Storage for dumps |
 | `cnpg-backup.networkpolicy.yaml` | Network isolation for backup pods |
-| `cnpg-backup-crypto.policy.yaml` | Kyverno policy restricting secret access |
+| `cnpg-backup-pvc.policy.yaml` | Kyverno policy restricting PVC access |
 
 ---
 
-## Secrets Management
+## Longhorn Backup
 
-The `cnpg-backup-crypto.sops.yaml` file is encrypted with SOPS.
+To backup the PVC to external storage using Longhorn:
 
-**To edit:**
 ```bash
-sops infrastructure/backup/cnpg-backup-crypto.sops.yaml
+# Create a backup via Longhorn UI or API
+# The backup will be unencrypted and portable
 ```
 
-**To rotate the encryption key:**
-```bash
-# Generate new key
-openssl rand -base64 32
-
-# Edit and re-encrypt
-sops infrastructure/backup/cnpg-backup-crypto.sops.yaml
-# Update CRYPTO_KEY_VALUE, save
-
-# Note: Existing encrypted volumes cannot be decrypted with the new key!
-# You must create a new PVC and migrate data.
-```
+For offsite backups, configure Longhorn's backup target (S3/NFS) with encryption
+at the destination level.
