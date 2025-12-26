@@ -4,4 +4,3 @@ namespace: longhorn-system
 resources:
   - longhorn.hr.yaml
   - longhorn.ingress.yaml
-  - longhorn-encrypted.storageclass.yaml

@@ -1,0 +1,34 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: restrict-cnpg-backup-pvc-access
+  annotations:
+    policies.kyverno.io/title: Restrict CNPG Backup PVC Access
+    policies.kyverno.io/description: >-
+      Only the cnpg-pg-dump-backup CronJob can mount the cnpg-backups-pvc.
+      This prevents unauthorized access to database backup files.
+spec:
+  validationFailureAction: Enforce
+  background: true
+  rules:
+    - name: restrict-pvc-mount
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+              namespaces:
+                - default
+      preconditions:
+        all:
+          # Only apply to pods that try to mount the backup PVC
+          - key: "cnpg-backups-pvc"
+            operator: AnyIn
+            value: "{{ request.object.spec.volumes[?persistentVolumeClaim].persistentVolumeClaim.claimName }}"
+      validate:
+        message: "Only the cnpg-backup CronJob can mount the cnpg-backups-pvc"
+        pattern:
+          metadata:
+            labels:
+              app: "cnpg-backup"
+
