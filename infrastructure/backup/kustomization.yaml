@@ -1,10 +1,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - restic.sops.yaml
-  - backup.restic.yaml
-  - check.restic.yaml
-  - prune.restic.yaml
   - cnpg-backup.pvc.yaml
   - cnpg-backup.cronjob.yaml
   - cnpg-backup-crypto.sops.yaml
