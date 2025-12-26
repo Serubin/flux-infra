@@ -6,3 +6,4 @@ resources:
   - ingress/traefik
   - kyverno
   - longhorn
+  - backup
