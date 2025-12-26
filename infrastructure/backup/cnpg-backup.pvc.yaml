@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: cnpg-backups-pvc
+  namespace: default
+  annotations:
+    longhorn.io/crypto-key-secret-name: "cnpg-backup-crypto"
+    longhorn.io/crypto-key-secret-namespace: "default"
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: longhorn-encrypted
+  resources:
+    requests:
+      storage: 15Gi
