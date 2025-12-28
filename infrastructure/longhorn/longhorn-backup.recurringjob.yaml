@@ -1,0 +1,57 @@
+apiVersion: longhorn.io/v1beta2
+kind: RecurringJob
+metadata:
+  name: longhorn-backup-hourly
+  namespace: longhorn-system
+spec:
+  # Target all volumes (empty groups means all volumes)
+  groups: []
+  # CRON schedule: every hour at minute 0
+  cron: "0 * * * *"
+  # Task type: backup (Longhorn automatically uses incremental/delta backups)
+  task: backup
+  # Retain 12 backups (covers last 12 hours)
+  retain: 12
+  # Concurrency: number of backup jobs to run simultaneously
+  concurrency: 2
+  # Labels to identify this backup tier
+  labels:
+    backup-tier: hourly
+    managed-by: flux
+---
+apiVersion: longhorn.io/v1beta2
+kind: RecurringJob
+metadata:
+  name: longhorn-backup-daily
+  namespace: longhorn-system
+spec:
+  # Target all volumes
+  groups: []
+  # CRON schedule: daily at 2 AM
+  cron: "0 2 * * *"
+  task: backup
+  # Retain 7 daily backups
+  retain: 7
+  concurrency: 2
+  labels:
+    backup-tier: daily
+    managed-by: flux
+---
+apiVersion: longhorn.io/v1beta2
+kind: RecurringJob
+metadata:
+  name: longhorn-backup-weekly
+  namespace: longhorn-system
+spec:
+  # Target all volumes
+  groups: []
+  # CRON schedule: every Sunday at 3 AM
+  cron: "0 3 * * 0"
+  task: backup
+  # Retain 8 weekly backups
+  retain: 8
+  concurrency: 2
+  labels:
+    backup-tier: weekly
+    managed-by: flux
+

@@ -211,11 +211,70 @@ kubectl exec -i new-cluster-1 -- pg_restore -U authelia -d authelia -c < ./authe
 
 ## Longhorn Backup
 
-To backup the PVC to external storage using Longhorn:
+The CNPG backup PVC (and all other Longhorn volumes) are automatically backed up to Longhorn's backup target using a tiered retention system with incremental (delta) backups.
+
+### Tiered Backup Retention Policy
+
+All Longhorn volumes are backed up using the tiered system defined in `infrastructure/longhorn/longhorn-backup.recurringjob.yaml`:
+
+| Tier | Schedule | Retention | Coverage |
+|------|----------|-----------|----------|
+| **Hourly** | Every hour at :00 | 12 backups | Last 12 hours |
+| **Daily** | Daily at 2:00 AM | 7 backups | Last 7 days |
+| **Weekly** | Every Sunday at 3:00 AM | 8 backups | Last 8 weeks |
+
+**Total backups per volume:** Up to 21 backups maintained across all tiers
+
+### Configuration
+
+- All jobs target **all Longhorn volumes** (no volume labeling required)
+- Each backup is labeled with its tier (`backup-tier: hourly|daily|weekly`)
+- Longhorn automatically uses incremental/delta backups for efficiency
+
+### Setup Steps
+
+1. **Configure Backup Target** (required):
+   - Via Longhorn UI: Settings > Backup Target
+   - Or via kubectl (see `infrastructure/longhorn/README.md`)
+
+### How Incremental Backups Work
+
+Longhorn automatically creates incremental backups by:
+- Taking snapshots of the volume before backing up
+- Only backing up changed blocks since the last snapshot
+- This makes frequent backups very efficient, even with hourly runs
+
+### Monitoring Backups
 
 ```bash
-# Create a backup via Longhorn UI or API
-# The backup will be unencrypted and portable
+# Check all recurring job statuses
+kubectl get recurringjobs -n longhorn-system | grep longhorn-backup
+
+# Find the CNPG backup volume name
+kubectl get volumes -n longhorn-system | grep cnpg-backups
+
+# List backups for a specific volume by tier
+kubectl get backups -n longhorn-system -l backup-tier=hourly
+kubectl get backups -n longhorn-system -l backup-tier=daily
+kubectl get backups -n longhorn-system -l backup-tier=weekly
+
+# View backup details in Longhorn UI
+# Navigate to Backup page and filter by volume or backup-tier
+```
+
+### Restoring from Longhorn Backup
+
+1. In Longhorn UI, go to Backup page
+2. Filter by volume name or `backup-tier`
+3. Select the desired backup timestamp
+4. Click "Restore" to restore the entire PVC
+
+### Backup Schedule Summary
+
+```
+Hourly:   Every hour at :00     → Keeps 12 most recent (12 hours coverage)
+Daily:    Daily at 02:00        → Keeps 7 most recent (7 days coverage)
+Weekly:   Sundays at 03:00     → Keeps 8 most recent (8 weeks coverage)
 ```
 
 For offsite backups, configure Longhorn's backup target (S3/NFS) with encryption
