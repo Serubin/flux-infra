@@ -33,6 +33,7 @@ spec:
       defaultReplicaCount: 1
       defaultDataPath: /opt/k3s/longhorn
       autoSalvage: true
+      allowRecurringJobWhileVolumeDetached: true
     ingress:
       enabled: false
     longhornUI:
