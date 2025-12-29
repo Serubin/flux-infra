@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - mutate-host-users.policy.yaml
   - validate-pod-security.policy.yaml
+  - restrict-longhorn-backup-secret.policy.yaml
