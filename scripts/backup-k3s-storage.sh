@@ -1,3 +1,4 @@
+
 #!/bin/bash
 #
 # K3s Storage Backup Script
@@ -40,4 +41,3 @@ echo "[$(date)] Cleaning up backups older than ${RETENTION_HOURS} hours..."
 find "$BACKUP_DIR" -maxdepth 1 -type d -name "storage_*" -mmin +$((RETENTION_HOURS * 60)) -exec rm -rf {} \; 2>/dev/null || true
 
 echo "[$(date)] Cleanup completed."
-

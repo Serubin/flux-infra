@@ -3,6 +3,9 @@ kind: PersistentVolumeClaim
 metadata:
   name: cnpg-backups-pvc
   namespace: default
+  labels:
+    longhorn-backup: enabled
+    backup-type: cnpg-dumps
 spec:
   accessModes:
     - ReadWriteOnce
