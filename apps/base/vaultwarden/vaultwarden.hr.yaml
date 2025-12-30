@@ -24,8 +24,8 @@ spec:
       class: ""
     data:
       name: "vaultwarden-data"
-      size: "10Gi"
-      class: "local-path"
+      size: "5Gi"
+      class: "longhorn"
       keepPvc: true
     smtp:
       enabled: true
