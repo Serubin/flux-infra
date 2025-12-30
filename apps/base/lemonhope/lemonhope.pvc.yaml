@@ -4,7 +4,7 @@ metadata:
   name: lemonhope-pvc
   namespace: default
 spec:
-  storageClassName: local-path
+  storageClassName: longhorn
   accessModes:
     - ReadWriteOnce
   resources:
