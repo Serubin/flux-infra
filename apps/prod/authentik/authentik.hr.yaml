@@ -1,0 +1,31 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: authentik
+  namespace: default
+spec:
+  valuesFrom:
+    - kind: Secret
+      name: authentik-secrets
+      valuesKey: secret_key
+      targetPath: authentik.secret_key
+      optional: false
+    - kind: Secret
+      name: authentik-secrets
+      valuesKey: password
+      targetPath: authentik.postgresql.password
+      optional: false
+  values:
+    authentik:
+      email:
+        host: smtp.gmail.com
+        port: 587
+        use_tls: true
+        from: "${NOREPLY_SEND_EMAIL}"
+        username: "${NOREPLY_AUTH_EMAIL}"
+        password: "${NOREPLY_PASSWORD}"
+    server:
+      ingress:
+        hosts:
+          - auth2.${SECRET_DOMAIN}
+

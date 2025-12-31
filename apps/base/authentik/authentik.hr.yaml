@@ -1,0 +1,42 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: authentik
+  namespace: default
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: authentik
+      version: 2025.10.3
+      sourceRef:
+        kind: HelmRepository
+        name: authentik-charts
+        namespace: default
+      interval: 5m
+  dependsOn:
+    - name: authentik-postgresql-cnpg
+  values:
+    authentik:
+      enabled: true
+      # Cluster must provide
+      # secret_key: required 50-character key
+      error_reporting:
+        enabled: false
+      postgresql:
+        host: authentik-postgresql-cnpg-cluster-rw
+        port: 5432
+        name: authentik
+        user: authentik
+        # Cluster must provide
+        # password: via secret
+    postgresql:
+      enabled: false
+    server:
+      ingress:
+        enabled: true
+        # Cluster must provide
+        # hosts: will be set in prod
+    # Cluster must provide
+    # authentik.email: SMTP configuration
+
