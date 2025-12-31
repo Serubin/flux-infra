@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: kube-prometheus-stack
-      version: 56.16.0
+      version: 80.9.2
       sourceRef:
         kind: HelmRepository
         name: prometheus-charts
@@ -55,7 +55,7 @@ spec:
       enabled: true
       image:
         repository: grafana/grafana
-        tag: 10.4.19
+        tag: 12.3.1
       admin:
         existingSecret: grafana-secrets
       env:
@@ -90,10 +90,10 @@ spec:
       dashboards:
         default:
           flux-cluster:
-            url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/refs/heads/main/monitoring/configs/dashboards/cluster.json
+            url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/monitoring-config/dashboards/cluster.json
             datasource: Prometheus
           flux-control-plane:
-            url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/refs/heads/main/monitoring/configs/dashboards/control-plane.json
+            url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/monitoring-config/dashboards/control-plane.json
             datasource: Prometheus
           ingress-traefik:
             gnetId: 17347
@@ -102,6 +102,10 @@ spec:
           postgresql:
             gnetId: 9628
             revision: 7
+            datasource: Prometheus
+          redis:
+            gnetId: 11835
+            revision: 1
             datasource: Prometheus
       sidecar:
         dashboards:
@@ -138,6 +142,7 @@ spec:
         storageSpec:
           volumeClaimTemplate:
             spec:
+              storageClassName: longhorn
               resources:
                 requests:
                   storage: 25Gi
