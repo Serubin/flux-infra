@@ -1,0 +1,12 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: authentik-postgresql-cnpg
+  namespace: default
+spec:
+  values:
+    cluster:
+      initdb:
+        secret:
+          name: authentik-secrets
+
