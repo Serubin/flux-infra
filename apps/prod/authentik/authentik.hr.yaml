@@ -15,15 +15,27 @@ spec:
       valuesKey: password
       targetPath: authentik.postgresql.password
       optional: false
+    - kind: Secret
+      name: noreply-email-secrets
+      valuesKey: NOREPLY_SEND_EMAIL
+      targetPath: authentik.email.from
+      optional: false
+    - kind: Secret
+      name: noreply-email-secrets
+      valuesKey: NOREPLY_AUTH_EMAIL
+      targetPath: authentik.email.username
+      optional: false
+    - kind: Secret
+      name: noreply-email-secrets
+      valuesKey: NOREPLY_PASSWORD
+      targetPath: authentik.email.password
+      optional: false
   values:
     authentik:
       email:
         host: smtp.gmail.com
         port: 587
         use_tls: true
-        from: "${NOREPLY_SEND_EMAIL}"
-        username: "${NOREPLY_AUTH_EMAIL}"
-        password: "${NOREPLY_PASSWORD}"
     server:
       ingress:
         hosts:

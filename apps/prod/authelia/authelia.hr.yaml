@@ -4,6 +4,17 @@ metadata:
   name: authelia
   namespace: default
 spec:
+  valuesFrom:
+    - kind: Secret
+      name: noreply-email-secrets
+      valuesKey: NOREPLY_AUTH_EMAIL
+      targetPath: configMap.notifier.smtp.username
+      optional: false
+    - kind: Secret
+      name: noreply-email-secrets
+      valuesKey: NOREPLY_SEND_EMAIL
+      targetPath: configMap.notifier.smtp.sender
+      optional: false
   values:
     domain: ${SECRET_DOMAIN}
     pod:
@@ -28,8 +39,6 @@ spec:
               - weave.${SECRET_DOMAIN}
       notifier:
         smtp:
-          username: ${NOREPLY_AUTH_EMAIL}
-          sender: ${NOREPLY_SEND_EMAIL}
       identity_providers:
         oidc:
           clients:
