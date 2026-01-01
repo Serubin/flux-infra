@@ -4,6 +4,22 @@ metadata:
   name: kutt
   namespace: default
 spec:
+  valuesFrom:
+    - kind: Secret
+      name: noreply-email-secrets
+      valuesKey: NOREPLY_SEND_EMAIL
+      targetPath: kutt.mail.from
+      optional: false
+    - kind: Secret
+      name: noreply-email-secrets
+      valuesKey: NOREPLY_AUTH_EMAIL
+      targetPath: kutt.mail.username
+      optional: false
+    - kind: Secret
+      name: noreply-email-secrets
+      valuesKey: NOREPLY_PASSWORD
+      targetPath: kutt.mail.password
+      optional: false
   values:
     ingress:
       hosts:
@@ -23,9 +39,6 @@ spec:
       jwt:
         existingSecret: kutt-secrets
       mail:
-        from: "${NOREPLY_SEND_EMAIL}"
-        username: "${NOREPLY_AUTH_EMAIL}"
-        password: "${NOREPLY_PASSWORD}"
         reportEmail: "${ADMIN_EMAIL}"
     postgresql:
       enabled: false

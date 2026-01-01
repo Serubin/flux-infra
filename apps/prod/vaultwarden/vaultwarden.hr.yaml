@@ -4,6 +4,22 @@ metadata:
   name: vaultwarden-hr
   namespace: default
 spec:
+  valuesFrom:
+    - kind: Secret
+      name: noreply-email-secrets
+      valuesKey: NOREPLY_SEND_EMAIL
+      targetPath: smtp.from
+      optional: false
+    - kind: Secret
+      name: noreply-email-secrets
+      valuesKey: NOREPLY_AUTH_EMAIL
+      targetPath: smtp.username.value
+      optional: false
+    - kind: Secret
+      name: noreply-email-secrets
+      valuesKey: NOREPLY_PASSWORD
+      targetPath: smtp.password.value
+      optional: false
   values:
     resourceType: Deployment
     domain: https://vault.${SECRET_DOMAIN}
@@ -19,9 +35,4 @@ spec:
       clientId: ${YUBICO_CLIENT_ID}
       secretKey: ${YUBICO_SECRET_KEY}
     smtp:
-      from: "${NOREPLY_SEND_EMAIL}"
       fromName: "Bitwarden @ Serubin.net"
-      username:
-        value: "${NOREPLY_AUTH_EMAIL}"
-      password:
-        value: "${NOREPLY_PASSWORD}"
