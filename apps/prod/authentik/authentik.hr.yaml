@@ -31,13 +31,19 @@ spec:
       targetPath: authentik.email.password
       optional: false
   values:
+    global:
+      envFrom:
+        - secretRef:
+            name: grafana-auth-secrets
     authentik:
       email:
         host: smtp.gmail.com
         port: 587
         use_tls: true
+    blueprints:
+      configMaps:
+        - grafana-blueprint
     server:
       ingress:
         hosts:
           - auth2.${SECRET_DOMAIN}
-

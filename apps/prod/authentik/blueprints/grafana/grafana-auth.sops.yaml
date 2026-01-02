@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: grafana-auth-secrets
+    namespace: default
+type: Opaque
+stringData:
+    GRAFANA_CLIENT_SECRET: ENC[AES256_GCM,data:ubI7D5GP2+Dmq2AOZUJ8KuMWjBP5WvbyfjEibYtiAS4lkE0GEhvJKXiNACMDFW2l7CleYyyK2qqw8yN/AW/zvuuxjgB2BfCbkzqMbD2QMjFntxSa6OpKhQ==,iv:9nrD8BacnPE3AluQauxPzn3ZsqF/TJPMWRpodRjkci8=,tag:iYZNA2HJSONONDrbodk4Ag==,type:str]
+sops:
+    lastmodified: "2026-01-03T01:05:43Z"
+    mac: ENC[AES256_GCM,data:gUSA0upfWGIcln5yrs4xRlo4CgmjquXEg9a8pceuRukdhwV6pDQOdyLveOMoNKMTogHGrfCpvUiYKIqrE5ZGkyKHX1wU7nEueyHrNXxyth0pkYf2Tp+SFUlmAsBdrChbeJGOF7DppUXAj7i2Ok6QxzQ9MqqFWF80RuT4HTGAfeE=,iv:UGKiVa5ZuSLb2W7ZI9zOVlWdMefRssbnzxjIkSPXSok=,tag:oBl7UsuDqh35BfOwQL4M7w==,type:str]
+    pgp:
+        - created_at: "2026-01-02T02:28:47Z"
+          enc: |-
+            -----BEGIN PGP MESSAGE-----
+
+            hQIMA0i7SvTnDueaAQ/+PL4faUWAee7NHU5rlGK1Dce6ei9mjWyIK3IKhD4zoxhK
+            QskeaRV/U+wDjvqHGCDNbZYwu98CCpeeAtSJ24YVADIwrCxDO9W/VwyINX/eEcyR
+            Rm/wxIZrrW6rMuStxs6lvKP+R8hGPdFFlrR5f5X8cjSDMrGcK2f+OjU3y25yc2m8
+            tMBfAu0kFyKyfkIw3z60uHBafequr+D6yCJnqcw5Wl6Ck/ikK+siHekC72RtqELp
+            fN9iKDuFU6Xj5d28mGobo5fEsQnxkUeDihiO3sBRcTsckEAK4gi/Z38KquSeeYgs
+            /z3ZPwLH48K3lHPf/IpONVBF4VemTFflHj5XrvE/9CMVkqn3WX+VXqRG6FEj85r0
+            cN/TkjTJaF1jnfrXz2aKfQrKufILG+KPsbmv61GfOaKkuhgRAiFNaMKcxodhMuIP
+            1aVNppTLmrGVEvdS5EfBxzmBJFWZxvMog7NaYJeaSHcYLBHcz1RTIfdU4HiAAXqi
+            DAcmn2HF8Bz7XFve7/5NiD3oAkgatEpqllvFsFomIRXr5Oacdf1nXNVVBRYKYn9m
+            Edjs3Hv3wuQS3ZVze/jWlmFdaivnO1+EA+FVFws660Ve6e3QxswqtGvNmQIwyqjk
+            lbo5rhaUADfix1x1cWzyU+x9aw1+QNiOagU4tX9qtHbbzfa+GJEmqKCJSPG3f6vS
+            XgGuoYX36tBAm0Zex6KREhO8xpbVWnhKsd/+D68I6WLVrxWwT8MyV3CRWtwYcwWB
+            r9/VBlE6bFu4HVwVTd5thShNEc6l6/3J2SYh0OecJ2Oj4APcsuW3xE0uFJTkX+o=
+            =xAEv
+            -----END PGP MESSAGE-----
+          fp: 7EB1A78D86B11352982D3A1F7037153C2DB9CDBD
+    encrypted_regex: ^(data|stringData)$
+    version: 3.11.0

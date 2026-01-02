@@ -40,14 +40,11 @@ spec:
       image:
         registry: quay.io
         repository: prometheus/alertmanager
-        tag: v0.30.0
       ingress:
         enabled: true
         annotations:
           traefik.ingress.kubernetes.io/router.middlewares: default-forwardauth-authelia@kubernetescrd
         pathType: Prefix
-        hosts:
-          - "alert-manager.${SECRET_DOMAIN}"
       config:
         global:
           resolve_timeout: 5m
@@ -55,24 +52,8 @@ spec:
       enabled: true
       image:
         repository: grafana/grafana
-        tag: 12.3.1
       admin:
         existingSecret: grafana-secrets
-      env:
-        GF_SERVER_ROOT_URL: https://grafana.${SECRET_DOMAIN}
-        GF_AUTH_GENERIC_OAUTH_ENABLED: true
-        GF_AUTH_GENERIC_OAUTH_NAME: Authelia
-        GF_AUTH_GENERIC_OAUTH_CLIENT_ID: grafana
-        GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET: ${OIDC_GRAFANA_CLIENT_SECRET}
-        GF_AUTH_GENERIC_OAUTH_SCOPES: openid profile email groups
-        GF_AUTH_GENERIC_OAUTH_EMPTY_SCOPES: false
-        GF_AUTH_GENERIC_OAUTH_AUTH_URL: https://auth.${SECRET_DOMAIN}/api/oidc/authorization
-        GF_AUTH_GENERIC_OAUTH_TOKEN_URL: https://auth.${SECRET_DOMAIN}/api/oidc/token
-        GF_AUTH_GENERIC_OAUTH_API_URL: https://auth.${SECRET_DOMAIN}/api/oidc/userinfo
-        GF_AUTH_GENERIC_OAUTH_LOGIN_ATTRIBUTE_PATH: preferred_username
-        GF_AUTH_GENERIC_OAUTH_GROUPS_ATTRIBUTE_PATH: groups
-        GF_AUTH_GENERIC_OAUTH_NAME_ATTRIBUTE_PATH: name
-        GF_AUTH_GENERIC_OAUTH_USE_PKCE: true
       dashboardProviders:
         dashboardproviders.yaml:
           apiVersion: 1
@@ -119,20 +100,15 @@ spec:
       ingress:
         enabled: true
         pathType: Prefix
-        hosts:
-          - "grafana.${SECRET_DOMAIN}"
     prometheus:
       image:
         registry: quay.io
         repository: prometheus/prometheus
-        tag: v3.8.1
       ingress:
         enabled: true
         annotations:
           traefik.ingress.kubernetes.io/router.middlewares: default-forwardauth-authelia@kubernetescrd
         pathType: Prefix
-        hosts:
-          - "prometheus.${SECRET_DOMAIN}"
       prometheusSpec:
         ruleSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
