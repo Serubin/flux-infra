@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   - ../../base/authentik
   - authentik.sops.yaml
+  - blueprints
 patches:
   - path: postgres.hr.yaml
     target:

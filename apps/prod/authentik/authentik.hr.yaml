@@ -36,8 +36,16 @@ spec:
         host: smtp.gmail.com
         port: 587
         use_tls: true
+      env:
+      - name: GRAFANA_CLIENT_SECRET
+        valueFrom:
+          secretKeyRef:
+            name: grafana-auth-secrets
+            key: grafana-client-secret
+    blueprints:
+      configMaps:
+        - grafana-blueprint
     server:
       ingress:
         hosts:
           - auth2.${SECRET_DOMAIN}
-
