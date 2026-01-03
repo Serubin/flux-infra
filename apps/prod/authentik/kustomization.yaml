@@ -17,3 +17,11 @@ patches:
     target:
       kind: HelmRelease
       name: authentik
+  - path: blueprints/infra-admin/authentik-infra-admin.hr.yaml
+    target:
+      kind: HelmRelease
+      name: authentik
+  - path: blueprints/infra-services/authentik-infra-services.hr.yaml
+    target:
+      kind: HelmRelease
+      name: authentik

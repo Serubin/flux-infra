@@ -29,6 +29,16 @@ data:
             - !Find [authentik_providers_oauth2.scopemapping, [scope_name, "openid"]]
             - !Find [authentik_providers_oauth2.scopemapping, [scope_name, "email"]]
             - !Find [authentik_providers_oauth2.scopemapping, [scope_name, "profile"]]
+            - !Find [authentik_providers_oauth2.scopemapping, [scope_name, "groups"]]
+      # Create group membership policy for Grafana
+      - model: authentik_policies_group.groupmembershippolicy
+        id: grafana-infra-admin-policy
+        identifiers:
+          name: Grafana Infra Admin Policy
+        attrs:
+          name: Grafana Infra Admin Policy
+          group: !Find [authentik_core.group, [name, Infra Admin]]
+          user_group: false
           
       # Create the Application
       - model: authentik_core.application
@@ -43,3 +53,5 @@ data:
           meta_icon: https://raw.githubusercontent.com/grafana/grafana/main/public/img/grafana_icon.svg
           meta_description: Grafana Monitoring Dashboard
           policy_engine_mode: any
+          policies:
+            - !KeyOf grafana-infra-admin-policy

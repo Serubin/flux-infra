@@ -20,6 +20,10 @@ spec:
     global:
       image:
         repository: ghcr.io/goauthentik/server
+      env: []
+      envFrom: []
+    blueprints:
+      configMaps: []
     authentik:
       enabled: true
       # Cluster must provide

@@ -5,10 +5,6 @@ metadata:
   namespace: default
 spec:
   values:
-    global:
-      envFrom:
-        - secretRef:
-            name: grafana-auth-secrets
     blueprints:
       configMaps:
-        - grafana-blueprint
+        - infra-admin-blueprint
