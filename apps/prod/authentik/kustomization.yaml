@@ -13,4 +13,7 @@ patches:
     target:
       kind: HelmRelease
       name: authentik
-
+  - path: blueprints/grafana/authentik-grafana.hr.yaml
+    target:
+      kind: HelmRelease
+      name: authentik

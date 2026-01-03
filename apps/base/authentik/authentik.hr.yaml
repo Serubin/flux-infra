@@ -17,6 +17,9 @@ spec:
   dependsOn:
     - name: authentik-postgresql-cnpg
   values:
+    global:
+      image:
+        repository: ghcr.io/goauthentik/server
     authentik:
       enabled: true
       # Cluster must provide
