@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: infra-admin-blueprint
+  namespace: default
+data:
+  infra-admin.yaml: |
+    version: 1
+    metadata:
+      name: infra-admin-group
+    entries:
+      # Create the Infra Admin group
+      - model: authentik_core.group
+        id: infra-admin-group
+        identifiers:
+          name: Infra Admin
+        attrs:
+          name: Infra Admin
+          is_superuser: false

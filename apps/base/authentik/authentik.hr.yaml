@@ -20,6 +20,10 @@ spec:
     global:
       image:
         repository: ghcr.io/goauthentik/server
+      env: []
+      envFrom: []
+    blueprints:
+      configMaps: []
     authentik:
       enabled: true
       # Cluster must provide
@@ -40,6 +44,8 @@ spec:
         enabled: true
         # Cluster must provide
         # hosts: will be set in prod
+      outpost:
+        enabled: true
     # Cluster must provide
     # authentik.email: SMTP configuration
 
