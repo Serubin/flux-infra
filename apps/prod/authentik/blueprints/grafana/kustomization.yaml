@@ -3,3 +3,8 @@ kind: Kustomization
 resources:
   - grafana.blueprint.yaml
   - grafana-auth.sops.yaml
+patches:
+  - path: authentik-grafana.hr.yaml
+    target:
+      kind: HelmRelease
+      name: authentik

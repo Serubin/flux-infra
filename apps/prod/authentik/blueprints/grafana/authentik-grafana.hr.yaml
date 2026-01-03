@@ -1,0 +1,14 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: authentik
+  namespace: default
+spec:
+  values:
+    global:
+      envFrom:
+        - secretRef:
+            name: grafana-auth-secrets
+    blueprints:
+      configMaps:
+        - grafana-blueprint
