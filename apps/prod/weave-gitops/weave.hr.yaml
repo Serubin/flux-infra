@@ -9,6 +9,9 @@ spec:
       - --route-prefix=/weave
       - --insecure-no-authentication-user=admin # Must duplicate from Base
     ingress:
+      enabled: true
+      annotations:
+        traefik.ingress.kubernetes.io/router.middlewares: default-forwardauth-authentik@kubernetescrd
       hosts:
         - host: ops.${SECRET_DOMAIN}
           paths:

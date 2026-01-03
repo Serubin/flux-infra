@@ -1,0 +1,121 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: infra-services-blueprint
+  namespace: default
+data:
+  infra-services.yaml: |
+    version: 1
+    metadata:
+      name: infra-services-proxy
+    entries:
+      # Create Proxy Provider for Traefik forward authentication
+      - model: authentik_providers_proxy.proxyprovider
+        id: traefik-proxy-provider
+        identifiers:
+          name: Traefik Proxy Provider
+        attrs:
+          name: Traefik Proxy Provider
+          internal_host: http://authentik-server.default.svc.cluster.local:80
+          external_host: https://auth2.${SECRET_DOMAIN}
+          internal_host_ssl_validation: false
+          authorization_flow: !Find [authentik_flows.flow, [slug, default-provider-authorization-implicit-consent]]
+          invalidation_flow: !Find [authentik_flows.flow, [slug, default-provider-invalidation-flow]]
+          forward_auth_mode: true
+          basic_auth_enabled: false
+          intercept_header_auth: false
+          cookie_domain: ${SECRET_DOMAIN}
+          mode: forward_single
+      
+      # Find or create embedded outpost for Traefik
+      # The embedded outpost runs in the authentik server container
+      - model: authentik_outposts.outpost
+        id: traefik-embedded-outpost
+        identifiers:
+          name: default
+        attrs:
+          name: default
+          type: proxy
+          service_connection: null
+          config:
+            authentik_host: https://auth2.${SECRET_DOMAIN}
+            docker_network: null
+            docker_network_external: false
+            kubernetes_namespaces: []
+            kubernetes_replicas: 1
+            kubernetes_ingress_annotations: {}
+            kubernetes_ingress_secret_name: authentik-outpost-tls-cert
+            kubernetes_ingress_class_name: traefik
+            kubernetes_service_type: ClusterIP
+            kubernetes_disabled: true
+            container_port: 9000
+            host: ""
+            path_prefix: /outpost.goauthentik.io/
+            bind_host: 0.0.0.0
+            disable_embedded_outpost: false
+          providers:
+            - !KeyOf traefik-proxy-provider
+      # Create Application for Traefik Dashboard
+      - model: authentik_core.application
+        id: traefik-dashboard-app
+        identifiers:
+          slug: traefik-dashboard
+        attrs:
+          name: Traefik Dashboard
+          slug: traefik-dashboard
+          provider: !KeyOf traefik-proxy-provider
+          meta_launch_url: https://ops.${SECRET_DOMAIN}/dashboard
+          meta_description: Traefik Dashboard
+          policy_engine_mode: any
+      
+      # Create Application for Prometheus
+      - model: authentik_core.application
+        id: prometheus-app
+        identifiers:
+          slug: prometheus
+        attrs:
+          name: Prometheus
+          slug: prometheus
+          provider: !KeyOf traefik-proxy-provider
+          meta_launch_url: https://prometheus.${SECRET_DOMAIN}
+          meta_description: Prometheus Monitoring
+          policy_engine_mode: any
+      
+      # Create Application for Alertmanager
+      - model: authentik_core.application
+        id: alertmanager-app
+        identifiers:
+          slug: alertmanager
+        attrs:
+          name: Alertmanager
+          slug: alertmanager
+          provider: !KeyOf traefik-proxy-provider
+          meta_launch_url: https://alert-manager.${SECRET_DOMAIN}
+          meta_description: Alertmanager
+          policy_engine_mode: any
+      
+      # Create Application for Longhorn
+      - model: authentik_core.application
+        id: longhorn-app
+        identifiers:
+          slug: longhorn
+        attrs:
+          name: Longhorn
+          slug: longhorn
+          provider: !KeyOf traefik-proxy-provider
+          meta_launch_url: https://ops.${SECRET_DOMAIN}/longhorn
+          meta_description: Longhorn Storage
+          policy_engine_mode: any
+      
+      # Create Application for Weave GitOps
+      - model: authentik_core.application
+        id: weave-app
+        identifiers:
+          slug: weave
+        attrs:
+          name: Weave GitOps
+          slug: weave
+          provider: !KeyOf traefik-proxy-provider
+          meta_launch_url: https://ops.${SECRET_DOMAIN}/weave
+          meta_description: Weave GitOps
+          policy_engine_mode: any

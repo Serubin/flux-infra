@@ -32,6 +32,9 @@ spec:
       ingress:
         hosts:
           - "alert-manager.${SECRET_DOMAIN}"
+        annotations:
+          traefik.ingress.kubernetes.io/router.middlewares: default-forwardauth-authentik@kubernetescrd
+        pathType: Prefix
     grafana:
       image:
         tag: 12.3.1
@@ -58,3 +61,6 @@ spec:
       ingress:
         hosts:
           - "prometheus.${SECRET_DOMAIN}"
+        annotations:
+          traefik.ingress.kubernetes.io/router.middlewares: default-forwardauth-authentik@kubernetescrd
+        pathType: Prefix
