@@ -34,11 +34,17 @@ spec:
     global:
       image:
         tag: 2025.10.3
+      envFrom:
+        - secretRef:
+            name: grafana-auth-secrets
     authentik:
       email:
         host: smtp.gmail.com
         port: 587
         use_tls: true
+    blueprints:
+      configMaps:
+        - grafana-blueprint
     server:
       ingress:
         hosts:
