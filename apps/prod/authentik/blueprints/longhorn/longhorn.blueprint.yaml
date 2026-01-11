@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: longhorn-blueprint
+  namespace: default
+data:
+  longhorn.yaml: |
+    version: 1
+    metadata:
+      name: longhorn-forward-auth
+    entries:
+      # Create a Proxy Provider for forward auth
+      - model: authentik_providers_proxy.proxyprovider
+        id: longhorn-provider
+        identifiers:
+          name: longhorn-forward-auth
+        attrs:
+          name: Longhorn Forward Auth Provider
+          external_host: https://ops.${SECRET_DOMAIN}/longhorn
+          internal_host: http://longhorn-frontend.longhorn-system.svc.cluster.local:80
+          internal_host_ssl_validation: false
+          mode: forward_single
+          authorization_flow: !Find [authentik_flows.flow, [slug, default-provider-authorization-implicit-consent]]
+          invalidation_flow: !Find [authentik_flows.flow, [slug, default-provider-invalidation-flow]]
+          redirect_uris:
+            - matching_mode: regex
+              url: https://ops\.[^/]+/longhorn/outpost\.goauthentik\.io/callback.*
+      # Add provider to the embedded outpost
+      - model: authentik_outposts.outpost
+        id: embedded-outpost
+        identifiers:
+          name: authentik Embedded Outpost
+        attrs:
+          providers:
+            - !KeyOf longhorn-provider
+      # Create the Application
+      - model: authentik_core.application
+        id: longhorn-app
+        identifiers:
+          slug: longhorn
+        attrs:
+          name: Longhorn
+          slug: longhorn
+          provider: !KeyOf longhorn-provider
+          meta_launch_url: https://ops.${SECRET_DOMAIN}/longhorn
+          meta_icon: https://raw.githubusercontent.com/longhorn/longhorn-ui/master/src/assets/images/longhorn-logo.svg
+          meta_description: Longhorn Storage Management UI
+          policy_engine_mode: any

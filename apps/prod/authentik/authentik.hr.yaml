@@ -45,6 +45,7 @@ spec:
     blueprints:
       configMaps:
         - grafana-blueprint
+        - longhorn-blueprint
     server:
       ingress:
         hosts:
