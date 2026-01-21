@@ -4,6 +4,10 @@ resources:
   - ../../base/nocodb
   - nocodb.sops.yaml
 patches:
+  - path: minio.hr.yaml
+    target:
+      kind: HelmRelease
+      name: nocodb-minio
   - path: nocodb.hr.yaml
     target:
       kind: HelmRelease

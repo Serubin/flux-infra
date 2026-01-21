@@ -16,6 +16,8 @@ spec:
   dependsOn:
     - name: nocodb-postgresql-cnpg
       namespace: default
+    - name: nocodb-minio
+      namespace: default
   values:
     image:
       repository: nocodb/nocodb

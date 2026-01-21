@@ -3,4 +3,6 @@ kind: Kustomization
 namespace: default
 resources:
   - postgres.hr.yaml
+  - minio.pvc.yaml
+  - minio.hr.yaml
   - nocodb.hr.yaml
