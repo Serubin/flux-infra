@@ -30,6 +30,12 @@ spec:
       NC_S3_BUCKET_NAME: nocodb
       NC_S3_ENDPOINT: http://nocodb-minio:9000
       NC_S3_FORCE_PATH_STYLE: "true"
+      NC_SMTP_FROM: ${NOREPLY_AUTH_EMAIL}
+      NC_SMTP_USERNAME: ${NOREPLY_AUTH_EMAIL}
+      NC_SMTP_PASSWORD: ${NOREPLY_PASSWORD}
+      NC_SMTP_HOST: ${NOREPLY_HOST}
+      NC_SMTP_PORT: 465
+      NC_SMTP_SECURE: true
     ingress:
       main:
         enabled: true
