@@ -12,3 +12,7 @@ patches:
     target:
       kind: HelmRelease
       name: nocodb
+  - path: postgres.hr.yaml
+    target:
+      kind: HelmRelease
+      name: nocodb-postgresql-cnpg
