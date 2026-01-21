@@ -16,3 +16,4 @@ resources:
   - prometheus.chart.yaml
   - vaultwarden.chart.yaml
   - weave.chart.yaml
+  - zekker6.chart.yaml

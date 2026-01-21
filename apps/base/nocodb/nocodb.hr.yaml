@@ -1,0 +1,37 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: nocodb
+  namespace: default
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: nocodb
+      version: 1.6.0
+      sourceRef:
+        kind: HelmRepository
+        name: zekker6-charts
+        namespace: default
+  dependsOn:
+    - name: nocodb-postgresql-cnpg
+      namespace: default
+  values:
+    image:
+      repository: nocodb/nocodb
+      tag: "0.301.2"
+    env:
+      TZ: America/New_York
+    service:
+      main:
+        ports:
+          http:
+            port: 8080
+    ingress:
+      main:
+        enabled: false
+    postgresql:
+      enabled: false
+      auth:
+        username: nocodb
+        database: nocodb

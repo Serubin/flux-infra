@@ -1,0 +1,9 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: zekker6-charts
+  namespace: default
+spec:
+  interval: 30m
+  url: https://zekker6.github.io/helm-charts
+  timeout: 2m
