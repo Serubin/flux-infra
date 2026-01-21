@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: nocodb-secrets
+    namespace: default
+stringData:
+    username: ENC[AES256_GCM,data:QKVztqla,iv:QvsVdgGZEAGkVFAf2w1rsRSTDc9LNbd7HsPBCvDRHAE=,tag:xNfCtHtgmCEb0O3TnZsPiA==,type:str]
+    password: ENC[AES256_GCM,data:8v//Xx3x4BKsqKB2QP7Rm78b6SV3Sq90S6xjXchhbUblucmceIENedMQxaeNXHTUZLyKhAChIg/FvfvoFV0sQddacJu514LNaiAZlYa/71I=,iv:B7t8yGwzEIQjXp79KaAqw5KVZxp+Ke9HzCM1whJPxMg=,tag:neJRN6+L7X95WDoNnvIbNg==,type:str]
+    JWT_SECRET: ENC[AES256_GCM,data:fmd5AVP6c4cL9eg9MJ82RkoRZa6xV89JCln9kQT1ynm3FGwT/WATUrwFD1ngwi0ZY+YzJvVuhaL68XjA9CbKNlNHicmVpOUHvqVwEztih0s=,iv:ZoA01mJ3/e57n4I6g6d+LpxzMAeU/d9BlJtZ5DcaHLQ=,tag:7iUTm/Q8XznRGlHkqM6GlQ==,type:str]
+sops:
+    lastmodified: "2026-01-21T21:27:39Z"
+    mac: ENC[AES256_GCM,data:yZn7uwtuuWeE9LI/G8NAwYBhP8/6dEhrIYW3S1ByJ/2QRn4HGuh/VjORnoS9mV70lkYUiqVl95Hxik8r6ro+VnPNfPCdqGzuGPPFPg/vBgJHeRdIhyFE9YEiJx6y9gE839wGn6hzbhwgiEQX1MT6jIlkJwSTRYsKY59LHAuGUvU=,iv:7gUvBbo9jTS/vBDnwY0bEWKh3UqRn65ehgh8CkxEVhY=,tag:7wyRgpe3SGRlfReWFw5beQ==,type:str]
+    pgp:
+        - created_at: "2026-01-21T21:27:39Z"
+          enc: |-
+            -----BEGIN PGP MESSAGE-----
+
+            hQIMA0i7SvTnDueaAQ//d4I1AYkxM90e4qxsjC6ePCsa+SOA+91ZccEXBOxX2X8z
+            7nIJ8G8yOvdreMTMEOu+prutSaMFoNKQiljS//9gs8YcwdZ3kHJ2b1oRIK/OnCjn
+            SgxodKUvTtmkH+m7daOrpGPo7PM2Wpl6snjZhHO1Oi0KKEg29qNkDjax+NdgsvxT
+            BKUMqOxGmd8icJLhsXfsmCLUM0CNVgx0npDLd7WJCOkT/haljJ/47psZaS3NtjDW
+            akiVisgNRHY6Axanr7fMNxRDUJtMf07fJhtSwl6tHmXE29/OoM9Rwc5QZnAxfANy
+            bc5+0gHuiqQPQeMnW/EjjvILJUYXPQFsMMIpun3+sjD8DARdUYn+dlOEWYtlOpEs
+            kjK7qjTxNNUpODGGszunyOcZXs4kjwCC1sY8/d4BnKU6xCqJO94uIOO+jLUo8FsO
+            ePScaCiVe3NthUdS5u8VPS6oVH95LAEKZ00vy+abXXx8JBn20Vy5y2xu1rhsRv+r
+            L7S7Hs6sxNW5ebNPGvsXAgDL+9anUiV/pQQlpUNU5SfB2qDlBcEBZsMGed7LmZbZ
+            UrFLvZNbSoRbY9vQp+tXHAM9h1His4SusaCn88qAR2vKuUJ4yoMJBcMxIxpH3Jvd
+            kKIFU4M8LfM1hbqyHnJ8IPgbjxvketXzM73fKhoKLIdApj/5tvl011AKMPnacjXS
+            XgHbnJlsZPAGIWJFBjLy5eQ+ZXcPf0P+86QCeDTsA9Va8AZQXttyovt1k0HSdieD
+            NNy+epbaphkSTTqBtru4Urwdwo8vZ9RUhXOP5j6GtJFPLCxBzJznOCpbEvOq7G8=
+            =NMAm
+            -----END PGP MESSAGE-----
+          fp: 7EB1A78D86B11352982D3A1F7037153C2DB9CDBD
+    encrypted_regex: ^(data|stringData)$
+    version: 3.11.0

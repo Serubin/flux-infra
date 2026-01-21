@@ -1,0 +1,30 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: nocodb
+  namespace: default
+spec:
+  valuesFrom:
+    - kind: Secret
+      name: nocodb-secrets
+      valuesKey: JWT_SECRET
+      targetPath: env.NC_AUTH_JWT_SECRET
+      optional: false
+    - kind: Secret
+      name: nocodb-secrets
+      valuesKey: password
+      targetPath: postgresql.auth.password
+      optional: false
+  values:
+    ingress:
+      main:
+        enabled: true
+        hosts:
+          - host: nocodb.${SECRET_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+          - host: db.${SECRET_DOMAIN_HJP}
+            paths:
+              - path: /
+                pathType: Prefix

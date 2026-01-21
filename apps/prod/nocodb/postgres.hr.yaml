@@ -1,0 +1,14 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: nocodb-postgresql-cnpg
+  namespace: default
+spec:
+  values:
+    cluster:
+      postgresql:
+        parameters:
+          max_connections: "100"
+      initdb:
+        secret:
+          name: nocodb-secrets
