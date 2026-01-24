@@ -1,0 +1,37 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: aj4democracy-ingress
+  namespace: default
+spec:
+  rules:
+    - host: ${SECRET_DOMAIN_HJP_ORG}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: aj4democracy
+                port:
+                  name: web
+    - host: ${SECRET_DOMAIN_HJP_COM}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: aj4democracy
+                port:
+                  name: web
+    - host: ${SECRET_DOMAIN_HJP_US}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: aj4democracy
+                port:
+                  name: web
