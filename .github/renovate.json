@@ -1,6 +1,6 @@
 {
   "extends": [
-    "config:base",
+    "config:recommended",
     ":disableRateLimiting",
     ":semanticCommits",
     ":rebaseStalePrs",
@@ -10,19 +10,30 @@
     "github>serubin/flux-infra//.github/renovate/labels.json"
   ],
   "dependencyDashboardTitle": "Renovate Dashboard",
-  "suppressNotifications": ["prIgnoreNotification"],
+  "suppressNotifications": [
+    "prIgnoreNotification"
+  ],
   "flux": {
-    "fileMatch": ["^[^\\.]*\\.ya?ml$"]
+    "managerFilePatterns": [
+      "/^[^\\.]*\\.ya?ml$/"
+    ]
   },
   "helm-values": {
-    "fileMatch": ["^apps/(base|prod|staging)/.*\\.ya?ml$"]
+    "managerFilePatterns": [
+      "/^apps/(base|prod|staging)/.*\\.ya?ml$/"
+    ]
   },
   "kubernetes": {
-    "fileMatch": ["^apps/[^\\.]*\\.ya?ml$"]
+    "managerFilePatterns": [
+      "/^apps/[^\\.]*\\.ya?ml$/"
+    ]
   },
-  "regexManagers": [
+  "customManagers": [
     {
-      "fileMatch": ["^[^\\.]*\\.ya?ml$"],
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/^[^\\.]*\\.ya?ml$/"
+      ],
       "matchStrings": [
         "datasource=(?<datasource>\\S+) depName=(?<depName>.*?)\n *version: (?<currentValue>.*)\n"
       ],
@@ -38,7 +49,11 @@
         "ghcr.io/anaximand/lemonhope"
       ],
       "automerge": true,
-      "matchUpdateTypes": ["patch", "minor", "major"],
+      "matchUpdateTypes": [
+        "patch",
+        "minor",
+        "major"
+      ],
       "automergeStrategy": "squash",
       "platformAutomerge": true
     }
