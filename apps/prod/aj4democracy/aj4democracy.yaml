@@ -1,0 +1,31 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: aj4democracy
+  namespace: default
+spec:
+  template:
+    spec:
+      containers:
+        - name: aj4democracy
+          env:
+            - name: CMS_API_BASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: aj4democracy-secrets
+                  key: CMS_API_BASE_URL
+            - name: CMS_API_TABLE_ID
+              valueFrom:
+                secretKeyRef:
+                  name: aj4democracy-secrets
+                  key: CMS_API_TABLE_ID
+            - name: CMS_API_VIEW_ID
+              valueFrom:
+                secretKeyRef:
+                  name: aj4democracy-secrets
+                  key: CMS_API_VIEW_ID
+            - name: NOCODB_API_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: aj4democracy-secrets
+                  key: NOCODB_API_TOKEN

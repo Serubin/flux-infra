@@ -2,7 +2,11 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ../../base/aj4democracy
+  - aj4democracy.sops.yaml
 patches:
   - path: aj4democracy.ingress.yaml
     target:
       kind: Ingress
+  - path: aj4democracy.yaml
+    target:
+      kind: Deployment
