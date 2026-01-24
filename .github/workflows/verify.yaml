@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
   pull_request:
   push:
-    branches: [ '*' ]
-    tags-ignore: [ '*' ]
+    branches: ["*"]
+    tags-ignore: ["*"]
 
 jobs:
   verify:
@@ -13,11 +13,27 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+      - name: Check for changes
+        uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            project:
+              - "apps/**"
+              - "charts/**"
+              - "clusters/**"
+              - "configs/**"
+              - "infrastructure/**"
+              - "scripts/**"
       - name: Setup yq
+        if: ${{ steps.filter.outputs.project == 'true' }}
         uses: fluxcd/pkg/actions/yq@main
       - name: Setup kubeconform
+        if: ${{ steps.filter.outputs.project == 'true' }}
         uses: fluxcd/pkg/actions/kubeconform@main
       - name: Setup kustomize
+        if: ${{ steps.filter.outputs.project == 'true' }}
         uses: fluxcd/pkg/actions/kustomize@main
       - name: Validate manifests
+        if: ${{ steps.filter.outputs.project == 'true' }}
         run: ./scripts/verify.sh
