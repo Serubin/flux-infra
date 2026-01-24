@@ -3,9 +3,6 @@ name: Lint YAML files
 
 on:
   pull_request:
-    paths:
-      - "**.yaml"
-      - "**.yml"
 
 jobs:
   lint:
@@ -22,6 +19,8 @@ jobs:
             yaml:
               - added|modified: "**.yaml"
               - added|modified: "**.yml"
+              - "!.github/**"
+              - "!**.md"
       - name: Lint files
         if: ${{ steps.filter.outputs.yaml == 'true' }}
         uses: reviewdog/action-yamllint@v1.21
