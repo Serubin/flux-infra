@@ -34,7 +34,7 @@
         "ghcr.io/serubin/dysautonomia-lounge-website",
         "ghcr.io/j-paterson/personalwebsite",
         "ghcr.io/anaximand/lemonhope",
-        "ghcr.io/serubin/aj4d-site"
+        "ghcr.io/serubin/ajd-site"
       ],
       "addLabels": ["renovate/automerge"]
     }
