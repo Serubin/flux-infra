@@ -49,7 +49,7 @@ spec:
             paths:
               - path: /
                 pathType: Prefix
-          - host: db.${SECRET_DOMAIN_HJP}
+          - host: db.${SECRET_DOMAIN_HJP_ORG}
             paths:
               - path: /
                 pathType: Prefix
