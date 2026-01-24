@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: aj4democracy
-          image: ghcr.io/serubin/ajd-site:2026.1.6
+          image: ghcr.io/serubin/ajd-site:2026.1.8
           ports:
             - name: web
               containerPort: 80
