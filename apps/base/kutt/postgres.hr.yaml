@@ -18,6 +18,11 @@ spec:
     name: kutt-postgresql-cnpg
     cluster:
       instances: 1
+      resources:
+        requests:
+          memory: 64Mi
+        limits:
+          memory: 256Mi
       storage:
         size: 4Gi
         storageClass: longhorn

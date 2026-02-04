@@ -21,6 +21,11 @@ spec:
   values:
     image:
       repository: ghcr.io/plausible/community-edition
+    resources:
+      requests:
+        memory: 64Mi
+      limits:
+        memory: 512Mi
     # Disable internal database deployments
     postgresql:
       enabled: false
