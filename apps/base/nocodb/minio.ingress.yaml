@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nocodb-minio-ingress
+  namespace: default
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+    - host: ${SECRET_DOMAIN}
+      http:
+        paths:
+          - path: /s3(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: nocodb-minio
+                port:
+                  number: 9000

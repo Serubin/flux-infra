@@ -8,6 +8,10 @@ patches:
     target:
       kind: HelmRelease
       name: nocodb-minio
+  - path: minio.ingress.yaml
+    target:
+      kind: Ingress
+      name: nocodb-minio-ingress
   - path: nocodb.hr.yaml
     target:
       kind: HelmRelease

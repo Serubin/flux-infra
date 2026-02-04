@@ -5,4 +5,5 @@ resources:
   - postgres.hr.yaml
   - minio.pvc.yaml
   - minio.hr.yaml
+  - minio.ingress.yaml
   - nocodb.hr.yaml
