@@ -33,11 +33,6 @@ spec:
       replicas: 1
       strategy:
         type: Recreate
-      resources:
-        requests:
-          memory: 32Mi
-        limits:
-          memory: 128Mi
     configMap:
       theme: light
       # Cluster must provide

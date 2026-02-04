@@ -17,11 +17,6 @@ spec:
     image:
       repository: kutt/kutt
       tag: "v3.2.3"
-    resources:
-      requests:
-        memory: 128Mi
-      limits:
-        memory: 384Mi
     labels:
       app: kutt
     ingress:

@@ -36,19 +36,8 @@ spec:
     postgresql:
       enabled: false
     server:
-      resources:
-        requests:
-          memory: 64Mi
-        limits:
-          memory: 256Mi
       ingress:
         enabled: true
-    worker:
-      resources:
-        requests:
-          memory: 64Mi
-        limits:
-          memory: 256Mi
         # Cluster must provide
         # hosts: will be set in prod
     # Cluster must provide

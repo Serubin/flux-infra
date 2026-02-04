@@ -24,11 +24,6 @@ spec:
             image:
               repository: ghcr.io/tandoorrecipes/recipes
               tag: 2.3.6
-            resources:
-              requests:
-                memory: 128Mi
-              limits:
-                memory: 512Mi
             env:
               TIMEZONE: America/New_York
               DB_ENGINE: django.db.backends.postgresql

@@ -22,11 +22,6 @@ spec:
     image:
       repository: nocodb/nocodb
       tag: "0.301.2"
-    resources:
-      requests:
-        memory: 128Mi
-      limits:
-        memory: 384Mi
     env:
       TZ: America/New_York
     service:

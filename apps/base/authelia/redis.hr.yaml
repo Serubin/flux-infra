@@ -17,11 +17,6 @@ spec:
   values:
     fullnameOverride: authelia-redis
     architecture: standalone
-    resources:
-      requests:
-        memory: 32Mi
-      limits:
-        memory: 128Mi
     persistence:
       enabled: true
       existingClaim: authelia-redis-pvc

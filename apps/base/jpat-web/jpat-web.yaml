@@ -22,8 +22,3 @@ spec:
           ports:
             - name: web
               containerPort: 80
-          resources:
-            requests:
-              memory: 8Mi
-            limits:
-              memory: 64Mi

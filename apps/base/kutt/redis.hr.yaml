@@ -17,11 +17,6 @@ spec:
   values:
     fullnameOverride: kutt-redis
     architecture: standalone
-    resources:
-      requests:
-        memory: 32Mi
-      limits:
-        memory: 128Mi
     persistence:
       enabled: true
       existingClaim: kutt-redis-pvc
