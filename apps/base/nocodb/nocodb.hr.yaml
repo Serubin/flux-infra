@@ -19,6 +19,11 @@ spec:
     - name: nocodb-minio
       namespace: default
   values:
+    resources:
+      requests:
+        memory: 128Mi
+      limits:
+        memory: 384Mi
     image:
       repository: nocodb/nocodb
       tag: "0.301.2"

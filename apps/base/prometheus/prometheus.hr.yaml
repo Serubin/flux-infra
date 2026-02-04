@@ -68,6 +68,11 @@ spec:
                 path: /var/lib/grafana/dashboards/default
       plugins:
         - grafana-piechart-panel
+      resources:
+        requests:
+          memory: 256Mi
+        limits:
+          memory: 1Gi
       dashboards:
         default:
           flux-cluster:
