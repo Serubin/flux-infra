@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nocodb-minio-ingress
+  namespace: default
+spec:
+  rules:
+    - host: ${SECRET_DOMAIN}
+      http:
+        paths:
+          - path: /s3
+            pathType: Prefix
+            backend:
+              service:
+                name: nocodb-minio
+                port:
+                  number: 9000

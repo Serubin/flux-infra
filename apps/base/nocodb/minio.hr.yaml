@@ -32,6 +32,8 @@ spec:
     consoleService:
       type: ClusterIP
       port: "9001"
+    console:
+      enabled: false
     resources:
       requests:
         memory: 512Mi
