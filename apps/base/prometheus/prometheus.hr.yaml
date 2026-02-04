@@ -26,8 +26,24 @@ spec:
           operator: Exists
         - effect: NoExecute
           operator: Exists
+      resources:
+        requests:
+          memory: 16Mi
+        limits:
+          memory: 64Mi
     prometheusOperator:
       createCustomResource: false
+      resources:
+        requests:
+          memory: 32Mi
+        limits:
+          memory: 128Mi
+    kube-state-metrics:
+      resources:
+        requests:
+          memory: 32Mi
+        limits:
+          memory: 128Mi
     kubeControllerManager:
       enabled: false
     kubeScheduler:
@@ -40,6 +56,12 @@ spec:
       image:
         registry: quay.io
         repository: prometheus/alertmanager
+      alertmanagerSpec:
+        resources:
+          requests:
+            memory: 32Mi
+          limits:
+            memory: 128Mi
       ingress:
         enabled: true
         annotations:
@@ -52,6 +74,11 @@ spec:
       enabled: true
       image:
         repository: grafana/grafana
+      resources:
+        requests:
+          memory: 256Mi
+        limits:
+          memory: 1Gi
       admin:
         existingSecret: grafana-secrets
       dashboardProviders:
@@ -110,6 +137,11 @@ spec:
           traefik.ingress.kubernetes.io/router.middlewares: default-forwardauth-authelia@kubernetescrd
         pathType: Prefix
       prometheusSpec:
+        resources:
+          requests:
+            memory: 256Mi
+          limits:
+            memory: 1Gi
         ruleSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false

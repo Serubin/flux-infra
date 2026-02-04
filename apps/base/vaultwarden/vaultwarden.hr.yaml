@@ -18,6 +18,11 @@ spec:
       registry: docker.io
       repository: vaultwarden/server
       tag: "1.35.2-alpine"
+    resources:
+      requests:
+        memory: 32Mi
+      limits:
+        memory: 256Mi
     signupsAllowed: false
     ingress:
       enabled: true

@@ -24,6 +24,11 @@ spec:
             env:
               CLICKHOUSE_DB: plausible
               CLICKHOUSE_USER: plausible
+            resources:
+              requests:
+                memory: 512Mi
+              limits:
+                memory: 1536Mi
             probes:
               liveness:
                 enabled: true

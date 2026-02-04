@@ -17,6 +17,11 @@ spec:
     image:
       repository: ghcr.io/weaveworks/wego-app
       tag: v0.38.0
+    resources:
+      requests:
+        memory: 32Mi
+      limits:
+        memory: 192Mi
     # This isn't using weave for auth, so we're providing a dummy password
     # for the admin user and disabling authentication.
     # Weave sits behind authelia
