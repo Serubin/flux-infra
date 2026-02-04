@@ -14,6 +14,11 @@ spec:
         name: christianhuth-helm-chart
         namespace: default
   values:
+    resources:
+      requests:
+        memory: 128Mi
+      limits:
+        memory: 384Mi
     image:
       repository: kutt/kutt
       tag: "v3.2.3"
