@@ -35,6 +35,7 @@ spec:
       NC_S3_BUCKET_NAME: nocodb
       NC_S3_ENDPOINT: http://nocodb-minio:9000
       NC_S3_FORCE_PATH_STYLE: "true"
+      NC_S3_REGION: us-east-1
       NC_SMTP_FROM: ${NOREPLY_AUTH_EMAIL}
       NC_SMTP_USERNAME: ${NOREPLY_AUTH_EMAIL}
       NC_SMTP_PASSWORD: ${NOREPLY_PASSWORD}
