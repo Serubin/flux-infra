@@ -8,12 +8,9 @@ stringData:
     password: ENC[AES256_GCM,data:QFcpESk/93h0KnqFe9yQoiM1l7URa9XQca8KbziF8PAmYkWbZpoeJJyKG9vIVZga5gyYRDiKxpFqeSdoFNcdJg==,iv:bfiWeDwuKbyPhGDoAi3wdRBtv9lJpWTpU1FzXeppD5A=,tag:WMwWJBEudFg59q+5mJyeUA==,type:str]
     NC_DB: ENC[AES256_GCM,data:RQ2ebhGqvwbsyXtqwvuthClyd15fg3uSaGWwI2uBk5p7r4W4i4SfLjOnMke17eYDXiliNPCwXRpPFOnJoO/vy2Z5sBriuTEfV5EUfOfuWntQPS2rczU2nkdkVcszwPeWx8YwgwQyw5qy4UG2G4qgTgbeW9PyXqOL6Fc+nDHSV9c=,iv:iRgekALMzFQ+2yZAm6zhCpyRukxtCwNVuFzgv0PuNDc=,tag:nSI38LJTo8ZJaZQKYvmIKQ==,type:str]
     JWT_SECRET: ENC[AES256_GCM,data:uDYsq90hflMMw37YxA/suQ+c3nAene9V3+hRRSJ5IGNxgHqMqZMk1WyQLfbqxqni3F8rmgXfXMUt2j/ASREWow==,iv:asuXBCHagLdwQwo0aFHtjy3apXlZVtNakJWbkFxm4Po=,tag:OvZ7yIzsQ+XG44Ic0aeBUg==,type:str]
-    #ENC[AES256_GCM,data:u6wK8IoeGrtvqqSNnhaMZiR/,iv:3fLula+ZvWklMDKuSD3vnxIUcsTUvmXwCb/tYFXLhZs=,tag:9mD6eONOwuI/Zcst3ow70g==,type:comment]
-    rootUser: ENC[AES256_GCM,data:dbMVX2Nn,iv:KEeWc0JB2n6TJ9af+wN8FAX1osq4ft+cMeXXtEogkKo=,tag:IIt3gzGkiJoYYFi7HoMs/w==,type:str]
-    rootPassword: ENC[AES256_GCM,data:na0e+tj/slQ+szCv8gxgtFnhvGOx6XtMVXjyrRnI255/XGkpNgNpOA3rCdyvP+Iu1L9XGTQvPILaYe0nbAuTtA==,iv:eXhWEGDoF4j76HpMw7xabmMC2g/gOL9ptoeUQuYMK54=,tag:svwUazaOKqDgZT9/GbJJAw==,type:str]
 sops:
-    lastmodified: "2026-01-22T04:21:14Z"
-    mac: ENC[AES256_GCM,data:pXMJFolyqvRJ2EoJZZgIOysoLYCj1rZBWQPaDEoTw4tPvwAv3GeYy3uJou8gblHTx8bfJwwBxFFOngPS7y98fk65+rjjiTl2vBU0GlCIhSW5SuhJO90S8vw5NBwv/07MaVGCyMGYq3c1sHB4guFhT6hg1PoP9TxjIwqHbVCqbAw=,iv:JCi+umV6MqLdF7xSXkmCPZNrtnfY4yuh3/Pq02/d07Y=,tag:vhJBYrxN0CcBWmv955Qj1g==,type:str]
+    lastmodified: "2026-02-07T23:54:34Z"
+    mac: ENC[AES256_GCM,data:lMDbLZRKBQ5ZHetxkf4+NgeIzaanUvAlLKpzufgTzbUoQBchGf9SVMgwDYSo9+sh0OrMPvXsz8TdOTj0LAJsy19Em+Tewy1+4dp8JrnwQNYI1p6dufciWyiJsacl/Q31la/Ujg7Mfo33evwmo055Yl1TypDItyTI/ZRbXB9LS/M=,iv:CYraSk/TdgmkC3Iwdap2/PH+Fdb4u9DlG8Cuhiez+pE=,tag:jocUUqg5tQ9qwvBim2w9Zg==,type:str]
     pgp:
         - created_at: "2026-01-21T21:27:39Z"
           enc: |-

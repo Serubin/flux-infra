@@ -12,7 +12,6 @@ resources:
   - kyverno.chart.yaml
   - lacework.chart.yaml
   - longhorn.chart.yaml
-  - minio.chart.yaml
   - pascaliske.chart.yaml
   - prometheus.chart.yaml
   - vaultwarden.chart.yaml

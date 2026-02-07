@@ -17,25 +17,11 @@ spec:
       optional: false
     - kind: Secret
       name: nocodb-secrets
-      valuesKey: rootUser
-      targetPath: env.NC_S3_ACCESS_KEY
-      optional: false
-    - kind: Secret
-      name: nocodb-secrets
-      valuesKey: rootPassword
-      targetPath: env.NC_S3_ACCESS_SECRET
-      optional: false
-    - kind: Secret
-      name: nocodb-secrets
       valuesKey: NC_DB
       targetPath: env.NC_DB
       optional: false
   values:
     env:
-      NC_S3_BUCKET_NAME: nocodb
-      NC_S3_ENDPOINT: http://nocodb-minio:9000
-      NC_S3_FORCE_PATH_STYLE: "true"
-      NC_S3_REGION: us-east-1
       NC_SMTP_FROM: ${NOREPLY_AUTH_EMAIL}
       NC_SMTP_USERNAME: ${NOREPLY_AUTH_EMAIL}
       NC_SMTP_PASSWORD: ${NOREPLY_PASSWORD}
