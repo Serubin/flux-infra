@@ -16,8 +16,6 @@ spec:
   dependsOn:
     - name: nocodb-postgresql-cnpg
       namespace: default
-    - name: nocodb-minio
-      namespace: default
   values:
     image:
       repository: nocodb/nocodb
@@ -32,6 +30,11 @@ spec:
     ingress:
       main:
         enabled: false
+    persistence:
+      data:
+        existingClaim: nocodb-data-pvc
+        globalMounts:
+          - path: /usr/app/data
     postgresql:
       enabled: false
       auth:
