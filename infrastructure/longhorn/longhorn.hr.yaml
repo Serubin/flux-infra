@@ -34,6 +34,12 @@ spec:
       defaultDataPath: /opt/k3s/longhorn
       autoSalvage: true
       allowRecurringJobWhileVolumeDetached: true
+      # Disable auto pod deletion on unexpected volume detach.
+      # On a single-node cluster, this prevents a race condition where
+      # Longhorn instance-manager restarts cause mass volume remounts,
+      # and operators like CNPG recreate pods faster than VolumeAttachments
+      # can be cleaned up, creating a deadlock.
+      autoDeletePodWhenVolumeDetachedUnexpectedly: false
     ingress:
       enabled: false
     longhornUI:
