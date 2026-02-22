@@ -3,5 +3,4 @@ kind: Kustomization
 resources:
   - cluster-secrets.sops.yaml
   - longhorn-backup-secret.sops.yaml
-  - longhorn-backup-target.setting.yaml
   - noreply-email-secrets.sops.yaml

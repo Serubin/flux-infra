@@ -26,17 +26,17 @@ All backups use incremental (delta) backups for efficiency.
 
 ### Backup Target Setup
 
-The S3 backup target is configured via GitOps in the `configs/` directory for each environment.
+The S3 backup target is configured via the `defaultBackupStore` Helm values in `longhorn.hr.yaml`,
+using Flux variable substitution for the env-specific backup target URL.
 
 #### Configuration Files
 
-**Production** (`configs/prod/`):
-- `longhorn-backup-secret.sops.yaml`: SOPS-encrypted S3 credentials
-- `longhorn-backup-target.setting.yaml`: Backup target Settings
+**Shared** (`infrastructure/longhorn/`):
+- `longhorn.hr.yaml`: HelmRelease with `defaultBackupStore` config (uses `${LONGHORN_BACKUP_TARGET}`)
 
-**Staging** (`configs/staging/`):
+**Per-environment** (`configs/<env>/`):
 - `longhorn-backup-secret.sops.yaml`: SOPS-encrypted S3 credentials
-- `longhorn-backup-target.setting.yaml`: Backup target Settings
+- `cluster-secrets.sops.yaml`: Must include `LONGHORN_BACKUP_TARGET` variable
 
 #### Setting Up Backblaze B2 Credentials
 
@@ -72,10 +72,13 @@ The S3 backup target is configured via GitOps in the `configs/` directory for ea
    sops -e -i configs/prod/longhorn-backup-secret.sops.yaml
    ```
 
-5. **Update the backup target** in the Setting file with your bucket name:
+5. **Add `LONGHORN_BACKUP_TARGET`** to your cluster-secrets for each environment:
+   ```bash
+   sops configs/prod/cluster-secrets.sops.yaml
+   ```
+   Add under `stringData`:
    ```yaml
-   # configs/prod/longhorn-backup-target.setting.yaml
-   value: s3://your-bucket-name@dummyregion/
+   LONGHORN_BACKUP_TARGET: "s3://your-bucket-name@dummyregion/"
    ```
    
    Note: The `dummyregion` is a placeholder - the actual endpoint is specified in `AWS_ENDPOINTS` in the secret.
