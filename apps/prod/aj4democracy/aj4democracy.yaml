@@ -39,11 +39,6 @@ spec:
                 secretKeyRef:
                   name: aj4democracy-secrets
                   key: nocodb__users__view_id
-            - name: nocodb__users__view_id
-              valueFrom:
-                secretKeyRef:
-                  name: aj4democracy-secrets
-                  key: nocodb__users__view_id
             - name: nocodb__presigned_links__table_id
               valueFrom:
                 secretKeyRef:
