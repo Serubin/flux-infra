@@ -40,6 +40,9 @@ spec:
       # and operators like CNPG recreate pods faster than VolumeAttachments
       # can be cleaned up, creating a deadlock.
       autoDeletePodWhenVolumeDetachedUnexpectedly: false
+    defaultBackupStore:
+      backupTarget: ${LONGHORN_BACKUP_TARGET}
+      backupTargetCredentialSecret: longhorn-backup-secret
     ingress:
       enabled: false
     longhornUI:
