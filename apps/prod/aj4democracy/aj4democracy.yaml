@@ -9,23 +9,53 @@ spec:
       containers:
         - name: aj4democracy
           env:
-            - name: CMS_API_BASE_URL
+            - name: NOCODB_BASE_URL
               valueFrom:
                 secretKeyRef:
                   name: aj4democracy-secrets
-                  key: CMS_API_BASE_URL
-            - name: CMS_API_TABLE_ID
-              valueFrom:
-                secretKeyRef:
-                  name: aj4democracy-secrets
-                  key: CMS_API_TABLE_ID
-            - name: CMS_API_VIEW_ID
-              valueFrom:
-                secretKeyRef:
-                  name: aj4democracy-secrets
-                  key: CMS_API_VIEW_ID
+                  key: NOCODB_BASE_URL
             - name: NOCODB_API_TOKEN
               valueFrom:
                 secretKeyRef:
                   name: aj4democracy-secrets
                   key: NOCODB_API_TOKEN
+            - name: CMS_TABLE_ID
+              valueFrom:
+                secretKeyRef:
+                  name: aj4democracy-secrets
+                  key: CMS_TABLE_ID
+            - name: CMS_VIEW_ID
+              valueFrom:
+                secretKeyRef:
+                  name: aj4democracy-secrets
+                  key: CMS_VIEW_ID
+            - name: USERS_TABLE_ID
+              valueFrom:
+                secretKeyRef:
+                  name: aj4democracy-secrets
+                  key: USERS_TABLE_ID
+            - name: USERS_VIEW_ID
+              valueFrom:
+                secretKeyRef:
+                  name: aj4democracy-secrets
+                  key: USERS_VIEW_ID
+            - name: PRESIGNED_LINKS_TABLE_ID
+              valueFrom:
+                secretKeyRef:
+                  name: aj4democracy-secrets
+                  key: PRESIGNED_LINKS_TABLE_ID
+            - name: PRESIGNED_LINKS_VIEW_ID
+              valueFrom:
+                secretKeyRef:
+                  name: aj4democracy-secrets
+                  key: PRESIGNED_LINKS_VIEW_ID
+            - name: GEOCODIO_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: aj4democracy-secrets
+                  key: GEOCODIO_API_KEY
+            - name: WHATSAPP_LINK
+              valueFrom:
+                secretKeyRef:
+                  name: aj4democracy-secrets
+                  key: WHATSAPP_LINK
