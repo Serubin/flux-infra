@@ -17,7 +17,7 @@ spec:
     image:
       registry: docker.io
       repository: vaultwarden/server
-      tag: "1.35.3-alpine"
+      tag: "1.35.4-alpine"
     signupsAllowed: false
     ingress:
       enabled: true
