@@ -19,7 +19,7 @@ spec:
   values:
     image:
       repository: nocodb/nocodb
-      tag: "0.301.2"
+      tag: "0.301.3"
     env:
       TZ: America/New_York
     service:
