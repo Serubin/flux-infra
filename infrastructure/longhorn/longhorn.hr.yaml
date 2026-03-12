@@ -43,6 +43,7 @@ spec:
     defaultBackupStore:
       backupTarget: ${LONGHORN_BACKUP_TARGET}
       backupTargetCredentialSecret: longhorn-backup-secret
+      pollInterval: 0
     ingress:
       enabled: false
     longhornUI:
