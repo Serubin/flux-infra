@@ -1,0 +1,55 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: velero
+  namespace: velero
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: velero
+      version: 12.0.0
+      sourceRef:
+        kind: HelmRepository
+        name: velero-charts
+        namespace: default
+      interval: 5m
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    initContainers:
+      - name: velero-plugin-for-aws
+        image: velero/velero-plugin-for-aws:v1.14.0
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+          - mountPath: /target
+            name: plugins
+    deployNodeAgent: true
+    nodeAgent:
+      podVolumePath: /var/lib/kubelet/pods
+    credentials:
+      useSecret: true
+      existingSecret: velero-b2-credentials
+    backupsEnabled: true
+    snapshotsEnabled: false
+    configuration:
+      backupSyncPeriod: 60m
+      backupStorageLocation:
+        - name: default
+          provider: aws
+          bucket: ${VELERO_B2_BUCKET}
+          prefix: velero-backups
+          default: true
+          accessMode: ReadWrite
+          credential:
+            name: velero-b2-credentials
+            key: cloud
+          config:
+            region: us-east-1
+            s3ForcePathStyle: "true"
+            s3Url: ${VELERO_B2_ENDPOINT}

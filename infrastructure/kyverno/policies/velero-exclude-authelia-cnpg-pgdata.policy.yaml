@@ -1,0 +1,28 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: velero-exclude-authelia-cnpg-pgdata
+  annotations:
+    policies.kyverno.io/title: Velero exclude authelia CNPG pgdata volume
+    policies.kyverno.io/description: >-
+      Authelia Postgres uses local-path; add Velero opt-out for the pgdata volume
+      because the CloudNativePG cluster Helm chart does not expose pod annotations.
+spec:
+  mutateExistingOnPolicyUpdate: true
+  rules:
+    - name: annotate-authelia-cnpg-pods
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+              namespaces:
+                - default
+              selector:
+                matchLabels:
+                  cnpg.io/cluster: authelia-postgresql-cnpg
+      mutate:
+        patchStrategicMerge:
+          metadata:
+            annotations:
+              backup.velero.io/backup-volumes-excludes: pgdata

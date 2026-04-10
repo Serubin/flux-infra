@@ -1,0 +1,35 @@
+apiVersion: velero.io/v1
+kind: Schedule
+metadata:
+  name: hourly-backup
+  namespace: velero
+spec:
+  schedule: "0 * * * *"
+  template:
+    ttl: 12h0m0s
+    storageLocation: default
+    defaultVolumesToFsBackup: true
+---
+apiVersion: velero.io/v1
+kind: Schedule
+metadata:
+  name: daily-backup
+  namespace: velero
+spec:
+  schedule: "0 2 * * *"
+  template:
+    ttl: 168h0m0s
+    storageLocation: default
+    defaultVolumesToFsBackup: true
+---
+apiVersion: velero.io/v1
+kind: Schedule
+metadata:
+  name: weekly-backup
+  namespace: velero
+spec:
+  schedule: "0 3 * * 0"
+  template:
+    ttl: 1680h0m0s
+    storageLocation: default
+    defaultVolumesToFsBackup: true

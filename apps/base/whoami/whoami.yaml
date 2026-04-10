@@ -15,6 +15,8 @@ spec:
     metadata:
       labels:
         app: whoami
+      annotations:
+        backup.velero.io/backup-volumes-excludes: data
     spec:
       containers:
         - name: whoami
