@@ -19,6 +19,9 @@ spec:
   values:
     controllers:
       main:
+        pod:
+          annotations:
+            backup.velero.io/backup-volumes-excludes: static,media
         containers:
           main:
             image:

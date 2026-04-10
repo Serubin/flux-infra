@@ -16,7 +16,7 @@ The Git repository contains the following directories:
 │  └─📁 prod
 ├─📁 configs         # configs per cluster
 └─📁 infrastructure
-   ├─📁 backup       # backup configurations (not operational)
+   ├─📁 backup       # CNPG pg_dump + Velero offsite (see backup/ and velero/ READMEs)
    ├─📁 crds         # cluster crds
    └─📁 ingress      # traefik ingress definitions
 

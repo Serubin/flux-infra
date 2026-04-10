@@ -4,6 +4,8 @@ metadata:
   name: prod-configs
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: prod-infrastructure
   path: ./configs/prod
   interval: 10m
   prune: true
