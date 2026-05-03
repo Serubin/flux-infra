@@ -26,14 +26,10 @@ data:
           mode: forward_single
           authorization_flow: !Find [authentik_flows.flow, [slug, default-provider-authorization-implicit-consent]]
           invalidation_flow: !Find [authentik_flows.flow, [slug, default-provider-invalidation-flow]]
-      # Bind provider to the embedded outpost
-      - model: authentik_outposts.outpost
-        id: embedded-outpost
-        identifiers:
-          name: authentik Embedded Outpost
-        attrs:
-          providers:
-            - !KeyOf ops-provider
+      # The embedded outpost binding for ops-provider lives in the
+      # embedded-outpost blueprint, which is the single binder for the embedded
+      # outpost across all forward-auth blueprints. See
+      # apps/prod/authentik/blueprints/embedded-outpost/.
       # The auth-gate Application: Application.provider is OneToOne, so exactly
       # one Application can link to ops-provider. This is it. Authentication
       # for every path on ops.${SECRET_DOMAIN} flows through this app.

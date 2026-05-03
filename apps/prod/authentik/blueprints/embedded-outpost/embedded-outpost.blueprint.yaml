@@ -1,0 +1,28 @@
+# Single binder for the Authentik embedded outpost's `providers` list.
+#
+# The embedded outpost has one M2M `providers` field. DRF replaces (does not
+# merge) that list on each blueprint apply, so only ONE blueprint can bind the
+# outpost without flapping. Per-app forward-auth blueprints define their
+# ProxyProvider and Application; this blueprint is the only place that binds
+# providers to the embedded outpost, referencing each by name via !Find.
+#
+# To add a new forward-auth host: create the per-app blueprint, then add a
+# !Find entry for its provider name to the providers list below.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: embedded-outpost-blueprint
+  namespace: default
+data:
+  embedded-outpost.yaml: |
+    version: 1
+    metadata:
+      name: embedded-outpost-bindings
+    entries:
+      - model: authentik_outposts.outpost
+        id: embedded-outpost
+        identifiers:
+          name: authentik Embedded Outpost
+        attrs:
+          providers:
+            - !Find [authentik_providers_proxy.proxyprovider, [name, ops-forward-auth]]
