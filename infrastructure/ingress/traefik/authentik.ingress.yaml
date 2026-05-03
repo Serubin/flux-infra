@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/name: authentik
 spec:
   routes:
-    - match: Host(`ops.${SECRET_DOMAIN}`) && PathPrefix(`/outpost.goauthentik.io`)
+    - match: (Host(`ops.${SECRET_DOMAIN}`) || Host(`prometheus.${SECRET_DOMAIN}`) || Host(`alert-manager.${SECRET_DOMAIN}`)) && PathPrefix(`/outpost.goauthentik.io`)
       kind: Rule
       services:
         - name: authentik-server

@@ -46,6 +46,8 @@ spec:
       configMaps:
         - grafana-blueprint
         - ops-blueprint
+        - prometheus-blueprint
+        - alertmanager-blueprint
         - embedded-outpost-blueprint
     server:
       ingress:
