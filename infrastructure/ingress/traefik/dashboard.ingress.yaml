@@ -11,4 +11,4 @@ spec:
         - name: api@internal
           kind: TraefikService
       middlewares:
-        - name: forwardauth-authelia
+        - name: forwardauth-authentik

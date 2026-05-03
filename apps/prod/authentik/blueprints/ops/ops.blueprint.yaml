@@ -1,0 +1,84 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ops-blueprint
+  namespace: default
+data:
+  ops.yaml: |
+    version: 1
+    metadata:
+      name: ops-forward-auth
+    entries:
+      # Single Proxy Provider for the entire ops.${SECRET_DOMAIN} host.
+      # external_host MUST be domain-only (no path) so set_oauth_defaults()
+      # generates a redirect_uri the embedded outpost actually sends back.
+      - model: authentik_providers_proxy.proxyprovider
+        id: ops-provider
+        identifiers:
+          name: ops-forward-auth
+        attrs:
+          name: Ops Forward Auth Provider
+          external_host: https://ops.${SECRET_DOMAIN}
+          # internal_host is unused in forward_single mode but the serializer
+          # still needs a valid value. Use a placeholder.
+          internal_host: http://localhost
+          internal_host_ssl_validation: false
+          mode: forward_single
+          authorization_flow: !Find [authentik_flows.flow, [slug, default-provider-authorization-implicit-consent]]
+          invalidation_flow: !Find [authentik_flows.flow, [slug, default-provider-invalidation-flow]]
+      # Bind provider to the embedded outpost
+      - model: authentik_outposts.outpost
+        id: embedded-outpost
+        identifiers:
+          name: authentik Embedded Outpost
+        attrs:
+          providers:
+            - !KeyOf ops-provider
+      # The auth-gate Application: Application.provider is OneToOne, so exactly
+      # one Application can link to ops-provider. This is it. Authentication
+      # for every path on ops.${SECRET_DOMAIN} flows through this app.
+      - model: authentik_core.application
+        id: ops-app
+        identifiers:
+          slug: ops
+        attrs:
+          name: Ops Dashboard
+          slug: ops
+          provider: !KeyOf ops-provider
+          meta_launch_url: https://ops.${SECRET_DOMAIN}/
+          meta_description: Auth gate for ops.${SECRET_DOMAIN} (Longhorn, Weave, Traefik)
+          policy_engine_mode: any
+      # Tile-only Applications: no provider, just deep-link launchers in the
+      # user library. Forward-auth on each path still goes through ops-provider
+      # (Traefik middleware), so these are protected just by virtue of the host.
+      - model: authentik_core.application
+        id: longhorn-app
+        identifiers:
+          slug: longhorn
+        attrs:
+          name: Longhorn
+          slug: longhorn
+          meta_launch_url: https://ops.${SECRET_DOMAIN}/longhorn
+          meta_icon: https://raw.githubusercontent.com/longhorn/longhorn-ui/master/src/assets/images/longhorn-logo.svg
+          meta_description: Longhorn Storage Management UI
+          policy_engine_mode: any
+      - model: authentik_core.application
+        id: weave-app
+        identifiers:
+          slug: weave-gitops
+        attrs:
+          name: Weave GitOps
+          slug: weave-gitops
+          meta_launch_url: https://ops.${SECRET_DOMAIN}/weave
+          meta_description: Flux GitOps Dashboard
+          policy_engine_mode: any
+      - model: authentik_core.application
+        id: traefik-app
+        identifiers:
+          slug: traefik-dashboard
+        attrs:
+          name: Traefik Dashboard
+          slug: traefik-dashboard
+          meta_launch_url: https://ops.${SECRET_DOMAIN}/dashboard/
+          meta_description: Traefik Reverse Proxy Dashboard
+          policy_engine_mode: any

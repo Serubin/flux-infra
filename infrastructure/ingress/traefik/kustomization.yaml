@@ -6,5 +6,6 @@ resources:
   - traefik.yaml
   - authelia.middleware.yaml
   - authentik.middleware.yaml
+  - authentik.ingress.yaml
   - dashboard.service.yaml
   - dashboard.ingress.yaml

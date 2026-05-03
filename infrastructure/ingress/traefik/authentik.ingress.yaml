@@ -1,0 +1,15 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: authentik-outpost-ops
+  namespace: default
+  labels:
+    app.kubernetes.io/instance: authentik
+    app.kubernetes.io/name: authentik
+spec:
+  routes:
+    - match: Host(`ops.${SECRET_DOMAIN}`) && PathPrefix(`/outpost.goauthentik.io`)
+      kind: Rule
+      services:
+        - name: authentik-server
+          port: 80

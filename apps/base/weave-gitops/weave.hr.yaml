@@ -19,7 +19,7 @@ spec:
       tag: v0.38.0
     # This isn't using weave for auth, so we're providing a dummy password
     # for the admin user and disabling authentication.
-    # Weave sits behind authelia
+    # Weave sits behind Authentik forward auth (ops.${SECRET_DOMAIN})
     adminUser:
       create: true
       username: admin
@@ -29,4 +29,4 @@ spec:
     ingress:
       enabled: true
       annotations:
-        traefik.ingress.kubernetes.io/router.middlewares: default-forwardauth-authelia@kubernetescrd
+        traefik.ingress.kubernetes.io/router.middlewares: default-forwardauth-authentik@kubernetescrd
