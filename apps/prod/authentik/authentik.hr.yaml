@@ -46,6 +46,7 @@ spec:
       configMaps:
         - grafana-blueprint
         - ops-blueprint
+        - embedded-outpost-blueprint
     server:
       ingress:
         hosts:
