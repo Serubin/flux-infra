@@ -8,6 +8,9 @@ spec:
     prefixes:
       - /longhorn
 ---
+# Local copy of forwardauth-authentik. Traefik isn't started with
+# allowCrossNamespace=true, so IngressRoutes can only reference middlewares
+# in their own namespace.
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
@@ -49,4 +52,3 @@ spec:
       middlewares:
         - name: forwardauth-authentik
         - name: longhorn-stripprefix
-
