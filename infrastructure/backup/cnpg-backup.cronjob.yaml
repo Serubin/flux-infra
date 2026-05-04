@@ -130,7 +130,7 @@ spec:
                   }
 
                   # Create backup directories if they don't exist
-                  mkdir -p /backups/kutt /backups/plausible
+                  mkdir -p /backups/kutt /backups/plausible /backups/authentik
 
                   # Backup kutt
                   echo "Backing up kutt..."
@@ -152,10 +152,21 @@ spec:
                     -f /backups/plausible/plausible-$${DATE}.dump
                   echo "Plausible backup complete: plausible-$${DATE}.dump"
 
+                  # Backup authentik
+                  echo "Backing up authentik..."
+                  PGPASSWORD=$$(cat /secrets/authentik/password) pg_dump \
+                    -h authentik-postgresql-cnpg-cluster-rw \
+                    -U authentik \
+                    -d authentik \
+                    -Fc \
+                    -f /backups/authentik/authentik-$${DATE}.dump
+                  echo "Authentik backup complete: authentik-$${DATE}.dump"
+
                   # Apply retention policy
                   echo "Applying retention policy..."
                   cleanup_backups /backups/kutt kutt
                   cleanup_backups /backups/plausible plausible
+                  cleanup_backups /backups/authentik authentik
 
                   # List current backups
                   echo ""
@@ -173,6 +184,9 @@ spec:
                 - name: plausible-secrets
                   mountPath: /secrets/plausible
                   readOnly: true
+                - name: authentik-secrets
+                  mountPath: /secrets/authentik
+                  readOnly: true
           restartPolicy: OnFailure
           volumes:
             - name: backups
@@ -188,6 +202,12 @@ spec:
             - name: plausible-secrets
               secret:
                 secretName: plausible-secrets
+                items:
+                  - key: password
+                    path: password
+            - name: authentik-secrets
+              secret:
+                secretName: authentik-secrets
                 items:
                   - key: password
                     path: password
