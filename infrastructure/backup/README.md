@@ -11,6 +11,7 @@ This directory contains backup configurations for CloudNativePG PostgreSQL datab
 ├─────────────────────────────────────────────────────────────────────────────┤
 │  • kutt-postgresql-cnpg                                                     │
 │  • plausible-postgresql-cnpg                                                │
+│  • authentik-postgresql-cnpg                                                │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -28,12 +29,12 @@ This directory contains backup configurations for CloudNativePG PostgreSQL datab
 │  │                         Image: postgres:16-alpine                    │  │
 │  └───────────────────────────────────┬──────────────────────────────────┘  │
 │                                      │                                      │
-│                      ┌──────────────┴──────────────┐                       │
-│                      ▼                             ▼                       │
-│            ┌──────────────────┐           ┌──────────────────┐              │
-│            │  kutt-pg-cnpg    │           │plausible-pg-cnpg │              │
-│            │   Port 5432      │           │   Port 5432      │              │
-│            └──────────────────┘           └──────────────────┘              │
+│              ┌───────────────────────┼───────────────────────┐              │
+│              ▼                       ▼                       ▼              │
+│   ┌──────────────────┐    ┌──────────────────┐    ┌──────────────────┐      │
+│   │  kutt-pg-cnpg    │    │plausible-pg-cnpg │    │authentik-pg-cnpg │      │
+│   │   Port 5432      │    │   Port 5432      │    │   Port 5432      │      │
+│   └──────────────────┘    └──────────────────┘    └──────────────────┘      │
 │                                      │                                      │
 │                                      ▼                                      │
 │  ┌──────────────────────────────────────────────────────────────────────┐  │
@@ -45,7 +46,9 @@ This directory contains backup configurations for CloudNativePG PostgreSQL datab
 │  │    ├── kutt/                                                         │  │
 │  │    │   ├── kutt-20241226-140000.dump                                 │  │
 │  │    │   └── ...                                                       │  │
-│  │    └── plausible/                                                    │  │
+│  │    ├── plausible/                                                    │  │
+│  │    │   └── ...                                                       │  │
+│  │    └── authentik/                                                    │  │
 │  │        └── ...                                                       │  │
 │  └──────────────────────────────────────────────────────────────────────┘  │
 └─────────────────────────────────────────────────────────────────────────────┘
@@ -75,8 +78,13 @@ Now                    12h ago              48h ago                    7d ago
  └────────────────────────┴────────────────────┴──────────────────────────┘
 
 Maximum backups per database: 15
-Total across all databases: 30 dump files
+Total across all databases: 45 dump files
 ```
+
+> **PVC headroom:** the 15Gi PVC was sized for two databases. Authentik dumps
+> are typically small (tens of MB), but verify free space after the first full
+> retention cycle (`kubectl exec`/`df` against `cnpg-backups-pvc`) and bump
+> `cnpg-backup.pvc.yaml` if utilisation exceeds ~70%.
 
 ## Storage
 
@@ -120,6 +128,7 @@ The backup job is isolated via NetworkPolicy:
 │    ✅ PostgreSQL clusters on port 5432:                                     │
 │       - kutt-postgresql-cnpg-cluster                                        │
 │       - plausible-postgresql-cnpg-cluster                                   │
+│       - authentik-postgresql-cnpg-cluster                                   │
 │    ❌ All other traffic denied                                              │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
