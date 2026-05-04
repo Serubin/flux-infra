@@ -42,4 +42,5 @@ data:
           meta_launch_url: https://grafana.${SECRET_DOMAIN}
           meta_icon: https://raw.githubusercontent.com/grafana/grafana/main/public/img/grafana_icon.svg
           meta_description: Grafana Monitoring Dashboard
+          group: Ops
           policy_engine_mode: any

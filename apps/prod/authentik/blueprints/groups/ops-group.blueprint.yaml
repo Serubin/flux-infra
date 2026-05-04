@@ -1,0 +1,79 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ops-group-blueprint
+  namespace: default
+data:
+  ops-group.yaml: |
+    version: 1
+    metadata:
+      name: ops-access-group
+    entries:
+      # state: created -> the worker creates this group ONCE with akadmin as
+      # the seed member and never reconciles it again. Members added or
+      # removed via the authentik UI thereafter survive every blueprint
+      # re-apply. Renaming the group or flipping is_superuser will require
+      # deleting it manually first.
+      # https://docs.goauthentik.io/customize/blueprints/v1/structure/
+      - model: authentik_core.group
+        id: ops-group
+        state: created
+        identifiers:
+          name: Ops
+        attrs:
+          is_superuser: false
+          users:
+            - !Find [authentik_core.user, [username, akadmin]]
+      # PolicyBindings stay state: present (default) so this file is the
+      # authoritative source for "which apps does the Ops group gate?".
+      # Removing a binding requires setting state: absent here, NOT just
+      # deleting the entry — authentik does not prune unmanaged bindings.
+      - model: authentik_policies.policybinding
+        identifiers:
+          target: !Find [authentik_core.application, [slug, grafana]]
+          group: !KeyOf ops-group
+          order: 0
+        attrs:
+          enabled: true
+      - model: authentik_policies.policybinding
+        identifiers:
+          target: !Find [authentik_core.application, [slug, ops]]
+          group: !KeyOf ops-group
+          order: 0
+        attrs:
+          enabled: true
+      - model: authentik_policies.policybinding
+        identifiers:
+          target: !Find [authentik_core.application, [slug, longhorn]]
+          group: !KeyOf ops-group
+          order: 0
+        attrs:
+          enabled: true
+      - model: authentik_policies.policybinding
+        identifiers:
+          target: !Find [authentik_core.application, [slug, weave-gitops]]
+          group: !KeyOf ops-group
+          order: 0
+        attrs:
+          enabled: true
+      - model: authentik_policies.policybinding
+        identifiers:
+          target: !Find [authentik_core.application, [slug, traefik-dashboard]]
+          group: !KeyOf ops-group
+          order: 0
+        attrs:
+          enabled: true
+      - model: authentik_policies.policybinding
+        identifiers:
+          target: !Find [authentik_core.application, [slug, prometheus]]
+          group: !KeyOf ops-group
+          order: 0
+        attrs:
+          enabled: true
+      - model: authentik_policies.policybinding
+        identifiers:
+          target: !Find [authentik_core.application, [slug, alertmanager]]
+          group: !KeyOf ops-group
+          order: 0
+        attrs:
+          enabled: true

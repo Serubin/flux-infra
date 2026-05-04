@@ -39,4 +39,5 @@ data:
           provider: !KeyOf alertmanager-provider
           meta_launch_url: https://alert-manager.${SECRET_DOMAIN}/
           meta_description: Alertmanager UI for Prometheus alerts
+          group: Ops
           policy_engine_mode: any
