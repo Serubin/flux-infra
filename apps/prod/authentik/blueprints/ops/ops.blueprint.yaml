@@ -30,7 +30,9 @@ data:
           name: Ops Dashboard
           slug: ops
           provider: !KeyOf ops-provider
-          meta_launch_url: https://ops.${SECRET_DOMAIN}/
+          # blank://blank hides the tile from the user library while keeping
+          # the forward-auth proxy provider for ops.${SECRET_DOMAIN} active.
+          meta_launch_url: blank://blank
           meta_description: Auth gate for ops.${SECRET_DOMAIN} (Longhorn, Weave, Traefik)
           open_in_new_tab: true
           group: Ops
