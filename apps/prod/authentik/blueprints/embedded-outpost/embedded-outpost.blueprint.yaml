@@ -24,6 +24,31 @@ data:
         identifiers:
           name: authentik Embedded Outpost
         attrs:
+          # config is a single JSONField — DRF replaces it wholesale rather than
+          # deep-merging, so we declare every default key alongside the override.
+          # authentik_host is the URL the outpost redirects browsers to when
+          # starting the auth flow for forward-auth; must track ${OAUTH_URL}.
+          config:
+            authentik_host: https://${OAUTH_URL}
+            authentik_host_browser: https://${OAUTH_URL}
+            authentik_host_insecure: false
+            log_level: info
+            error_reporting_enabled: false
+            object_naming_template: "ak-outpost-%(name)s"
+            container_image: null
+            docker_network: null
+            docker_map_ports: true
+            docker_labels: null
+            kubernetes_replicas: 1
+            kubernetes_namespace: default
+            kubernetes_service_type: ClusterIP
+            kubernetes_disabled_components: []
+            kubernetes_image_pull_secrets: []
+            kubernetes_json_patches: null
+            kubernetes_ingress_class_name: null
+            kubernetes_ingress_secret_name: null
+            kubernetes_ingress_annotations: {}
+            refresh_interval: minutes=5
           providers:
             - !Find [authentik_providers_proxy.proxyprovider, [name, ops-forward-auth]]
             - !Find [authentik_providers_proxy.proxyprovider, [name, prometheus-forward-auth]]
