@@ -9,9 +9,6 @@ data:
     metadata:
       name: ops-forward-auth
     entries:
-      # Single Proxy Provider for the entire ops.${SECRET_DOMAIN} host.
-      # external_host MUST be domain-only (no path) so set_oauth_defaults()
-      # generates a redirect_uri the embedded outpost actually sends back.
       - model: authentik_providers_proxy.proxyprovider
         id: ops-provider
         identifiers:
@@ -19,20 +16,12 @@ data:
         attrs:
           name: Ops Forward Auth Provider
           external_host: https://ops.${SECRET_DOMAIN}
-          # internal_host is unused in forward_single mode but the serializer
-          # still needs a valid value. Use a placeholder.
+          # internal_host is unused in forward_single mode but required by the serializer.
           internal_host: http://localhost
           internal_host_ssl_validation: false
           mode: forward_single
           authorization_flow: !Find [authentik_flows.flow, [slug, default-provider-authorization-implicit-consent]]
           invalidation_flow: !Find [authentik_flows.flow, [slug, default-provider-invalidation-flow]]
-      # The embedded outpost binding for ops-provider lives in the
-      # embedded-outpost blueprint, which is the single binder for the embedded
-      # outpost across all forward-auth blueprints. See
-      # apps/prod/authentik/blueprints/embedded-outpost/.
-      # The auth-gate Application: Application.provider is OneToOne, so exactly
-      # one Application can link to ops-provider. This is it. Authentication
-      # for every path on ops.${SECRET_DOMAIN} flows through this app.
       - model: authentik_core.application
         id: ops-app
         identifiers:
@@ -46,9 +35,7 @@ data:
           open_in_new_tab: true
           group: Ops
           policy_engine_mode: any
-      # Tile-only Applications: no provider, just deep-link launchers in the
-      # user library. Forward-auth on each path still goes through ops-provider
-      # (Traefik middleware), so these are protected just by virtue of the host.
+      # Tile-only Applications: deep-link launchers in the user library; protection comes from the host-level forward-auth above.
       - model: authentik_core.application
         id: longhorn-app
         identifiers:
