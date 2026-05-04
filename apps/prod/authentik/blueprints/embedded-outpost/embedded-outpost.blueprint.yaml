@@ -26,3 +26,5 @@ data:
         attrs:
           providers:
             - !Find [authentik_providers_proxy.proxyprovider, [name, ops-forward-auth]]
+            - !Find [authentik_providers_proxy.proxyprovider, [name, prometheus-forward-auth]]
+            - !Find [authentik_providers_proxy.proxyprovider, [name, alertmanager-forward-auth]]

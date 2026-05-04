@@ -43,7 +43,7 @@ spec:
       ingress:
         enabled: true
         annotations:
-          traefik.ingress.kubernetes.io/router.middlewares: default-forwardauth-authelia@kubernetescrd
+          traefik.ingress.kubernetes.io/router.middlewares: default-forwardauth-authentik@kubernetescrd
         pathType: Prefix
       config:
         global:
@@ -107,7 +107,7 @@ spec:
       ingress:
         enabled: true
         annotations:
-          traefik.ingress.kubernetes.io/router.middlewares: default-forwardauth-authelia@kubernetescrd
+          traefik.ingress.kubernetes.io/router.middlewares: default-forwardauth-authentik@kubernetescrd
         pathType: Prefix
       prometheusSpec:
         ruleSelectorNilUsesHelmValues: false
