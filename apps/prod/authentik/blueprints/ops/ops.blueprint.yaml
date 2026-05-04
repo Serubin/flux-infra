@@ -43,6 +43,7 @@ data:
           provider: !KeyOf ops-provider
           meta_launch_url: https://ops.${SECRET_DOMAIN}/
           meta_description: Auth gate for ops.${SECRET_DOMAIN} (Longhorn, Weave, Traefik)
+          open_in_new_tab: true
           group: Ops
           policy_engine_mode: any
       # Tile-only Applications: no provider, just deep-link launchers in the
@@ -56,8 +57,9 @@ data:
           name: Longhorn
           slug: longhorn
           meta_launch_url: https://ops.${SECRET_DOMAIN}/longhorn
-          meta_icon: https://raw.githubusercontent.com/longhorn/longhorn-ui/master/src/assets/images/longhorn-logo.svg
+          icon: https://raw.githubusercontent.com/longhorn/longhorn-ui/master/src/assets/images/longhorn-logo.svg
           meta_description: Longhorn Storage Management UI
+          open_in_new_tab: true
           group: Ops
           policy_engine_mode: any
       - model: authentik_core.application
@@ -68,7 +70,9 @@ data:
           name: Weave GitOps
           slug: weave-gitops
           meta_launch_url: https://ops.${SECRET_DOMAIN}/weave
+          icon: https://raw.githubusercontent.com/weaveworks/weave-gitops/main/website/static/img/logo.svg
           meta_description: Flux GitOps Dashboard
+          open_in_new_tab: true
           group: Ops
           policy_engine_mode: any
       - model: authentik_core.application
@@ -79,6 +83,8 @@ data:
           name: Traefik Dashboard
           slug: traefik-dashboard
           meta_launch_url: https://ops.${SECRET_DOMAIN}/dashboard/
+          icon: https://raw.githubusercontent.com/traefik/traefik/master/docs/content/assets/img/traefikproxy-icon-color.png
           meta_description: Traefik Reverse Proxy Dashboard
+          open_in_new_tab: true
           group: Ops
           policy_engine_mode: any
