@@ -33,6 +33,7 @@ spec:
   values:
     global:
       image:
+        repository: ghcr.io/goauthentik/server
         tag: 2025.10.3
       envFrom:
         - secretRef:
