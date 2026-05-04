@@ -42,7 +42,7 @@ Defined under `values.schedules` in the HelmRelease. The chart names resources `
 | `daily-backup` | `0 2 * * *` | 7d (`168h`) |
 | `weekly-backup` | `0 3 * * 0` | 10 weeks (`1680h`) |
 
-All use `defaultVolumesToFsBackup: true`. Local-path and explicitly excluded volumes are opted out via `backup.velero.io/backup-volumes-excludes` on pods (and a Kyverno mutate policy for Authelia CNPG pods).
+All use `defaultVolumesToFsBackup: true`. Local-path and explicitly excluded volumes are opted out via `backup.velero.io/backup-volumes-excludes` on pods.
 
 ## Verification
 

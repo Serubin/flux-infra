@@ -24,9 +24,6 @@ spec:
     - to:
         - podSelector:
             matchLabels:
-              cnpg.io/cluster: authelia-postgresql-cnpg-cluster
-        - podSelector:
-            matchLabels:
               cnpg.io/cluster: kutt-postgresql-cnpg-cluster
         - podSelector:
             matchLabels:
