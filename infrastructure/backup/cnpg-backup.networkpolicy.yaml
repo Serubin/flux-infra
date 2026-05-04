@@ -28,6 +28,9 @@ spec:
         - podSelector:
             matchLabels:
               cnpg.io/cluster: plausible-postgresql-cnpg-cluster
+        - podSelector:
+            matchLabels:
+              cnpg.io/cluster: authentik-postgresql-cnpg-cluster
       ports:
         - protocol: TCP
           port: 5432
