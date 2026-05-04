@@ -39,4 +39,5 @@ data:
           provider: !KeyOf prometheus-provider
           meta_launch_url: https://prometheus.${SECRET_DOMAIN}/
           meta_description: Prometheus metrics and query UI
+          group: Ops
           policy_engine_mode: any

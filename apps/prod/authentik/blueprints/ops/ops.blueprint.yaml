@@ -43,6 +43,7 @@ data:
           provider: !KeyOf ops-provider
           meta_launch_url: https://ops.${SECRET_DOMAIN}/
           meta_description: Auth gate for ops.${SECRET_DOMAIN} (Longhorn, Weave, Traefik)
+          group: Ops
           policy_engine_mode: any
       # Tile-only Applications: no provider, just deep-link launchers in the
       # user library. Forward-auth on each path still goes through ops-provider
@@ -57,6 +58,7 @@ data:
           meta_launch_url: https://ops.${SECRET_DOMAIN}/longhorn
           meta_icon: https://raw.githubusercontent.com/longhorn/longhorn-ui/master/src/assets/images/longhorn-logo.svg
           meta_description: Longhorn Storage Management UI
+          group: Ops
           policy_engine_mode: any
       - model: authentik_core.application
         id: weave-app
@@ -67,6 +69,7 @@ data:
           slug: weave-gitops
           meta_launch_url: https://ops.${SECRET_DOMAIN}/weave
           meta_description: Flux GitOps Dashboard
+          group: Ops
           policy_engine_mode: any
       - model: authentik_core.application
         id: traefik-app
@@ -77,4 +80,5 @@ data:
           slug: traefik-dashboard
           meta_launch_url: https://ops.${SECRET_DOMAIN}/dashboard/
           meta_description: Traefik Reverse Proxy Dashboard
+          group: Ops
           policy_engine_mode: any

@@ -49,6 +49,7 @@ spec:
         - prometheus-blueprint
         - alertmanager-blueprint
         - embedded-outpost-blueprint
+        - ops-group-blueprint
     server:
       ingress:
         hosts:
