@@ -38,6 +38,8 @@ data:
           slug: alertmanager
           provider: !KeyOf alertmanager-provider
           meta_launch_url: https://alert-manager.${SECRET_DOMAIN}/
+          meta_icon: https://raw.githubusercontent.com/cncf/artwork/main/projects/prometheus/icon/color/prometheus-icon-color.svg
           meta_description: Alertmanager UI for Prometheus alerts
+          open_in_new_tab: true
           group: Ops
           policy_engine_mode: any

@@ -38,6 +38,8 @@ data:
           slug: prometheus
           provider: !KeyOf prometheus-provider
           meta_launch_url: https://prometheus.${SECRET_DOMAIN}/
+          meta_icon: https://raw.githubusercontent.com/cncf/artwork/main/projects/prometheus/icon/color/prometheus-icon-color.svg
           meta_description: Prometheus metrics and query UI
+          open_in_new_tab: true
           group: Ops
           policy_engine_mode: any
