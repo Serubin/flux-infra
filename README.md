@@ -35,7 +35,7 @@ The following apps are installed on the clusters.
 | [Grafana](https://grafana.com)                                                    | Monitoring & Logging Dashboard                                |
 | [Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager)           | Monitoring Alerts                                             |
 | [Grafana Loki](https://grafana.com/oss/loki)                                      | Log aggregation system                                        |
-| [Authelia](https://www.authelia.com)                                              | SSO & 2FA authentication server for Cluster Web Apps          |
+| [Authentik](https://goauthentik.io)                                               | SSO & forward-auth identity provider for Cluster Web Apps     |
 | [Kutt](https://kutt.it/)                                                          | URL Shortener                                                 |
 | [Vaultwarden](https://github.com/guerzon/vaultwarden/)                            | Password Manager                                              |
 | [Plausible](https://plausible.io/)                                                | Analytics                                                     |

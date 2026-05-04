@@ -9,7 +9,6 @@ This directory contains backup configurations for CloudNativePG PostgreSQL datab
 │                       CNPG PostgreSQL Backups                               │
 │                       (pg_dump to Longhorn)                                 │
 ├─────────────────────────────────────────────────────────────────────────────┤
-│  • authelia-postgresql-cnpg                                                 │
 │  • kutt-postgresql-cnpg                                                     │
 │  • plausible-postgresql-cnpg                                                │
 └─────────────────────────────────────────────────────────────────────────────┘
@@ -29,13 +28,12 @@ This directory contains backup configurations for CloudNativePG PostgreSQL datab
 │  │                         Image: postgres:16-alpine                    │  │
 │  └───────────────────────────────────┬──────────────────────────────────┘  │
 │                                      │                                      │
-│            ┌─────────────────────────┼─────────────────────────┐            │
-│            │                         │                         │            │
-│            ▼                         ▼                         ▼            │
-│  ┌──────────────────┐     ┌──────────────────┐     ┌──────────────────┐    │
-│  │ authelia-pg-cnpg │     │  kutt-pg-cnpg    │     │plausible-pg-cnpg │    │
-│  │   Port 5432      │     │   Port 5432      │     │   Port 5432      │    │
-│  └──────────────────┘     └──────────────────┘     └──────────────────┘    │
+│                      ┌──────────────┴──────────────┐                       │
+│                      ▼                             ▼                       │
+│            ┌──────────────────┐           ┌──────────────────┐              │
+│            │  kutt-pg-cnpg    │           │plausible-pg-cnpg │              │
+│            │   Port 5432      │           │   Port 5432      │              │
+│            └──────────────────┘           └──────────────────┘              │
 │                                      │                                      │
 │                                      ▼                                      │
 │  ┌──────────────────────────────────────────────────────────────────────┐  │
@@ -44,10 +42,8 @@ This directory contains backup configurations for CloudNativePG PostgreSQL datab
 │  │                    Size: 15Gi                                        │  │
 │  │                                                                      │  │
 │  │    /backups/                                                         │  │
-│  │    ├── authelia/                                                     │  │
-│  │    │   ├── authelia-20241226-140000.dump                             │  │
-│  │    │   └── ...                                                       │  │
 │  │    ├── kutt/                                                         │  │
+│  │    │   ├── kutt-20241226-140000.dump                                 │  │
 │  │    │   └── ...                                                       │  │
 │  │    └── plausible/                                                    │  │
 │  │        └── ...                                                       │  │
@@ -79,7 +75,7 @@ Now                    12h ago              48h ago                    7d ago
  └────────────────────────┴────────────────────┴──────────────────────────┘
 
 Maximum backups per database: 15
-Total across all databases: 45 dump files
+Total across all databases: 30 dump files
 ```
 
 ## Storage
@@ -122,7 +118,6 @@ The backup job is isolated via NetworkPolicy:
 │  EGRESS:                                                                    │
 │    ✅ DNS (UDP/TCP 53)                                                      │
 │    ✅ PostgreSQL clusters on port 5432:                                     │
-│       - authelia-postgresql-cnpg-cluster                                    │
 │       - kutt-postgresql-cnpg-cluster                                        │
 │       - plausible-postgresql-cnpg-cluster                                   │
 │    ❌ All other traffic denied                                              │
@@ -179,21 +174,21 @@ find /backups -name "*.dump" -exec ls -lh {} \;
 
 ```bash
 # 1. Get the backup file name
-kubectl exec -it <inspector-pod> -- ls -la /backups/authelia/
+kubectl exec -it <inspector-pod> -- ls -la /backups/kutt/
 
 # 2. Restore to the CNPG cluster
-kubectl exec -it authelia-postgresql-cnpg-1 -n default -- \
-  pg_restore -U authelia -d authelia -c /path/to/backup.dump
+kubectl exec -it kutt-postgresql-cnpg-1 -n default -- \
+  pg_restore -U kutt -d kutt -c /path/to/backup.dump
 ```
 
 Or create a new cluster from backup:
 
 ```bash
 # 1. Copy dump out of cluster
-kubectl cp <pod>:/backups/authelia/authelia-20241226-140000.dump ./authelia.dump
+kubectl cp <pod>:/backups/kutt/kutt-20241226-140000.dump ./kutt.dump
 
 # 2. Create new CNPG cluster, then restore
-kubectl exec -i new-cluster-1 -- pg_restore -U authelia -d authelia -c < ./authelia.dump
+kubectl exec -i new-cluster-1 -- pg_restore -U kutt -d kutt -c < ./kutt.dump
 ```
 
 ---

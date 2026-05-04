@@ -130,17 +130,7 @@ spec:
                   }
 
                   # Create backup directories if they don't exist
-                  mkdir -p /backups/authelia /backups/kutt /backups/plausible
-
-                  # Backup authelia
-                  echo "Backing up authelia..."
-                  PGPASSWORD=$$(cat /secrets/authelia/password) pg_dump \
-                    -h authelia-postgresql-cnpg-cluster-rw \
-                    -U authelia \
-                    -d authelia \
-                    -Fc \
-                    -f /backups/authelia/authelia-$${DATE}.dump
-                  echo "Authelia backup complete: authelia-$${DATE}.dump"
+                  mkdir -p /backups/kutt /backups/plausible
 
                   # Backup kutt
                   echo "Backing up kutt..."
@@ -164,7 +154,6 @@ spec:
 
                   # Apply retention policy
                   echo "Applying retention policy..."
-                  cleanup_backups /backups/authelia authelia
                   cleanup_backups /backups/kutt kutt
                   cleanup_backups /backups/plausible plausible
 
@@ -178,9 +167,6 @@ spec:
               volumeMounts:
                 - name: backups
                   mountPath: /backups
-                - name: authelia-secrets
-                  mountPath: /secrets/authelia
-                  readOnly: true
                 - name: kutt-secrets
                   mountPath: /secrets/kutt
                   readOnly: true
@@ -193,12 +179,6 @@ spec:
               persistentVolumeClaim:
                 claimName: cnpg-backups-pvc
             # Application secrets contain the database passwords
-            - name: authelia-secrets
-              secret:
-                secretName: authelia-secrets
-                items:
-                  - key: password
-                    path: password
             - name: kutt-secrets
               secret:
                 secretName: kutt-secrets

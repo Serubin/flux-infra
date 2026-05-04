@@ -3,4 +3,3 @@ kind: Kustomization
 resources:
   - mutate-host-users.policy.yaml
   - validate-pod-security.policy.yaml
-  - velero-exclude-authelia-cnpg-pgdata.policy.yaml
