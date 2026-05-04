@@ -57,7 +57,7 @@ data:
           name: Longhorn
           slug: longhorn
           meta_launch_url: https://ops.${SECRET_DOMAIN}/longhorn
-          icon: https://raw.githubusercontent.com/longhorn/longhorn-ui/master/src/assets/images/longhorn-logo.svg
+          icon: https://longhorn.io/img/logos/longhorn-icon-color.png
           meta_description: Longhorn Storage Management UI
           open_in_new_tab: true
           group: Ops
