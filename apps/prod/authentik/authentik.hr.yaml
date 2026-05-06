@@ -38,6 +38,8 @@ spec:
       envFrom:
         - secretRef:
             name: grafana-auth-secrets
+        - secretRef:
+            name: synology-auth-secrets
     authentik:
       email:
         host: smtp.gmail.com
@@ -49,8 +51,10 @@ spec:
         - ops-blueprint
         - prometheus-blueprint
         - alertmanager-blueprint
+        - synology-blueprint
         - embedded-outpost-blueprint
         - ops-group-blueprint
+        - apps-group-blueprint
     server:
       ingress:
         hosts:
