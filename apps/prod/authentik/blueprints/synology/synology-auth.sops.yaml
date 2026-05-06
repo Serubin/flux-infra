@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: synology-auth-secrets
+    namespace: default
+type: Opaque
+stringData:
+    SYNOLOGY_CLIENT_SECRET: ENC[AES256_GCM,data:NJp15jXSM6pVjCDvCU5qczaHCLiSGbrLaUwDKZY8SBpmfIxWRLT3ifRNqCy7BHXHqA6N5xGHW13MZqd2sLoVwA==,iv:WV0Vlm/tXOu4QvYa5dckUtHZtzFkEpI+uYNCNe3cS0A=,tag:YwaNcA2103r9R1r+/fsSjg==,type:str]
+sops:
+    lastmodified: "2026-05-06T02:44:40Z"
+    mac: ENC[AES256_GCM,data:uG43BJM/YuTSt+aflLNfILd4pKtDBpIBvjXS0b0oUfY9eLc1sfZfGQbU8mWfjl9HNvkxPENz1x0tW6cNqwFxQWB6KYloYxl7tlflbl1i0g3A+Kw7Pf3EatFr2xclaw1drYZcX+4SXa2/Ukm7pRiFPYc7tOf7A5LGCB7izVmlDTs=,iv:gmuB3yEXQBj5ypj6IUR8LIlkne9PEW+IOsfFKNtA11w=,tag:zk4NBFzzUy2CmAkItZZs8A==,type:str]
+    pgp:
+        - created_at: "2026-05-06T02:44:26Z"
+          enc: |-
+            -----BEGIN PGP MESSAGE-----
+
+            hQIMA0i7SvTnDueaAQ/+MxyAZE7KHGuT9z0cAdUB7TE5iJKCSgxrojSgvgKQxK4V
+            RXvBUte2uVen+VTlhOS8tvm2K+sina22l+j6itfzAgKCyf1r0AonP1qoVDxoTgjd
+            KjI4QDyzd4MXAtfFkw8kvIdnk8JJIE5Jd95QHQTIAzeo+KBaWwglJslGmK5F4DKY
+            Vl/SA1tL6qicMNbK0cAq5HJ5gkS6uvt+2ufR78FEC5h3Ykuu/oQ8vVCWcU8rpkGT
+            fJnhaZ0pgwTSVaJWkVI2HCqjFXUsNKpCLB4UQCyCWm7F/9xPXQWrRHI22v5aep2x
+            FipQE08x/LXd8ng7H97cSkxlwlA7/Y9F6vjfqBcc9T0wgCX6pAfl90b+c+WDilNt
+            3xwro5We+cff6wG3GFDUwy2GnkVYs3oNaZTLNmgf1Xty11qsSzUritAYiWnK1uwK
+            Lm7BT+Vd7myeEfvyA8mwyAjV/WwoebPvLuDYbaMlf9t4zgsEpoH1FUGP0J3ZNbEu
+            gdQmDPamnWESLphZrCSgqpu744CcmapMOLwrY7qzyrR4VQiV2aj+5hvosiR88UVJ
+            VK7vqJum8SMyXZJKXebpX0EFfbtcF856KhDe34Sw4/7gkJNAquiLsrvufUM4OHTa
+            NBbFsWUekagI8EhYtD4KsTNE/yv/sMf/XLzM32Cu9HQSoHtEi1JJPrd/yKQLffPS
+            XgEL/rQ13z0z00iyBLPjqVjHrihhuMUxHGSVvMXcK1CM877ZPjD3ZJtJAtR4Z1It
+            Kd2WyozodDCWstVBEwhtjGCs7S4Cr3NWmxxpt+F3CNHt6O/Qy+E5o6DlVC0MVYw=
+            =9MO/
+            -----END PGP MESSAGE-----
+          fp: 7EB1A78D86B11352982D3A1F7037153C2DB9CDBD
+    encrypted_regex: ^(data|stringData)$
+    version: 3.12.2
