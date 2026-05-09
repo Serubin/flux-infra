@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: media-users-group-blueprint
+  namespace: default
+data:
+  media-users-group.yaml: |
+    version: 1
+    metadata:
+      name: media-users-access-group
+    entries:
+      # state: present (default; Apps/Ops use state: created) so MEDIA_SHARED_PASSWORD
+      # rotations propagate. arr_user/arr_password are read by media-forward-auth's
+      # basic_auth injection.
+      - model: authentik_core.group
+        id: media-users-group
+        identifiers:
+          name: Media Users
+        attrs:
+          is_superuser: false
+          attributes:
+            arr_user: media
+            arr_password: !Env MEDIA_SHARED_PASSWORD
+      - model: authentik_policies.policybinding
+        identifiers:
+          target: !Find [authentik_core.application, [slug, media-stack]]
+          group: !KeyOf media-users-group
+          order: 0
+        attrs:
+          enabled: true

@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - ops-group.blueprint.yaml
   - apps-group.blueprint.yaml
+  - media-users-group.blueprint.yaml

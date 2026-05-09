@@ -1,0 +1,50 @@
+# Single binder for the home-outpost's `providers` list. Same DRF M2M-
+# replacement caveat as embedded-outpost: the outpost's `providers` field is
+# replaced wholesale on each blueprint apply, so only ONE blueprint can manage
+# it without flapping. To bind a new home-located service: define its proxy
+# provider in its own blueprint, then add a `!Find` entry to the list below.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: home-outpost-blueprint
+  namespace: default
+data:
+  home-outpost.yaml: |
+    version: 1
+    metadata:
+      name: home-outpost-bindings
+    entries:
+      - model: authentik_outposts.outpost
+        id: home-outpost
+        identifiers:
+          name: home-outpost
+        attrs:
+          type: proxy
+          # service_connection: null = externally deployed; Authentik will not spawn it.
+          service_connection: null
+          # config is a single JSONField — DRF replaces it wholesale rather than
+          # deep-merging, so we declare every default key alongside the override.
+          # authentik_host must track ${OAUTH_URL}.
+          config:
+            authentik_host: https://${OAUTH_URL}
+            authentik_host_browser: https://${OAUTH_URL}
+            authentik_host_insecure: false
+            log_level: info
+            error_reporting_enabled: false
+            object_naming_template: "ak-outpost-%(name)s"
+            container_image: null
+            docker_network: null
+            docker_map_ports: true
+            docker_labels: null
+            kubernetes_replicas: 1
+            kubernetes_namespace: default
+            kubernetes_service_type: ClusterIP
+            kubernetes_disabled_components: []
+            kubernetes_image_pull_secrets: []
+            kubernetes_json_patches: null
+            kubernetes_ingress_class_name: null
+            kubernetes_ingress_secret_name: null
+            kubernetes_ingress_annotations: {}
+            refresh_interval: minutes=5
+          providers:
+            - !Find [authentik_providers_proxy.proxyprovider, [name, media-forward-auth]]
