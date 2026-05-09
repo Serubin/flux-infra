@@ -6,5 +6,8 @@ resources:
   - prometheus
   - alertmanager
   - synology
+  - media
+  - jellyfin
   - embedded-outpost
+  - home-outpost
   - groups

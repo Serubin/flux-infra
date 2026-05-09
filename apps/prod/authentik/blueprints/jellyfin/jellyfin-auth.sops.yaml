@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: jellyfin-auth-secrets
+    namespace: default
+type: Opaque
+stringData:
+    JELLYFIN_CLIENT_SECRET: ENC[AES256_GCM,data:AfQfmJfHlhqFxY+uQD3v7GBqtqRZhhFD8fsjemfpaqRm5MeVrKcyo231ygd0t6sbse6RP6f2qQriYvgSRicIBw==,iv:ZegB7+oNfXL/ixjrjrLHvbfAUuTUNRg1SiDDdRgXbIU=,tag:elAUgQsAuKkbdKKAHrJxqQ==,type:str]
+sops:
+    lastmodified: "2026-05-09T15:00:48Z"
+    mac: ENC[AES256_GCM,data:hfqjn7UQ5OYZviO5SDretDgazEy25PbA8CR1oyMMRQsThmuqrHvso94hYeck6C1QMh0fdxjRE7SQmidSHkq8BHpG1NtYWJgIhYtbLudmDur20zG3y/MnCSy2PAhwdwtG+BOfkSrstzh8MmXq+3H3PNfgkMG2YUP3cQACFV1cc80=,iv:dLRi6CyBMNtRYqz7pcjbXFLXmh1iDdLwiVGxliktNoA=,tag:daiiq7bCm/5RZ5ULfgxpNQ==,type:str]
+    pgp:
+        - created_at: "2026-05-09T15:00:48Z"
+          enc: |-
+            -----BEGIN PGP MESSAGE-----
+
+            hQIMA0i7SvTnDueaAQ//d8mWF0K3KVAgfoyOxwV2pnw4MJTCvwIx+nBt7R7o+6av
+            /IfUHMmTMRmf7bzhfQP5ck1mCo0eeAIGXfMn4CJTotJrVkeMzanYop2ideUDZaB0
+            OIEasMbxlSYukJlOVl106JLZUKe/99kEihvw9K616umqCQindarqJvFA+nTba5yz
+            b0PFgVunuks2UxNSNuwviGiwIBqeKEywPyUU5HkZSa7tJrT8OvtKzqz+wR0T0Mmt
+            /kbnJ+J7yGGrJZ9D2Mo5zDVH5pIAcuy6JvFJ6EHt5dowylVlKCQhOR5y+WAHCt92
+            9rzRxloBXNOfjvhBCkqKwmDMV14YDm3CRhNyIXKe/2yJJyEz+kwV1u/+S+fSPScW
+            xsf7E3bZ7ySU7ZTeEGzxfox99+xteUSMMB9YO6DoC96A/0HsMaz9zkIYGagQYsvR
+            5ZFfXYUUgneEyY81tDdjs3Oml7UUmK0DX2e0Nvjb1fr8n9O7MOprKiY15/S+3Pzz
+            gl9YIfhOn6iyn3GR21g+w8jnzBFTTeLUDGIdeZIGkEGf2SRCkYQxLSjuLqXouw9q
+            9vFQ25pKsrejLpufRWCuGlwaSdORKj6YhgiVgIb8Q5/W/8n9km9th8Cx7egVszNZ
+            hEbudZK6/Cb99x4hj2+WLZpYWONGLi9m75nfIq5/2YYdbiIA+Klks0LGTtxc6onS
+            XgGrLjovtlVnNvIkWFEfePZYBI8oTDcGwn8L7bFyJjtjNzRMi2tHim2/1esbgHdA
+            ievMoUiIocv2riu8X6EAkEVUBQ8eXYFxPHgdP6Ggs3BezAsouQtE5JiwTieJLTY=
+            =ETvt
+            -----END PGP MESSAGE-----
+          fp: 7EB1A78D86B11352982D3A1F7037153C2DB9CDBD
+    encrypted_regex: ^(data|stringData)$
+    version: 3.12.2
