@@ -32,18 +32,21 @@ data:
             log_level: info
             error_reporting_enabled: false
             object_naming_template: "ak-outpost-%(name)s"
-            container_image: null
-            docker_network: null
+            # Authentik 2026 outpost serializer rejects null on string fields;
+            # use empty strings instead (the embedded-outpost row predates that
+            # validation and is grandfathered in).
+            container_image: ""
+            docker_network: ""
             docker_map_ports: true
-            docker_labels: null
+            docker_labels: {}
             kubernetes_replicas: 1
             kubernetes_namespace: default
             kubernetes_service_type: ClusterIP
             kubernetes_disabled_components: []
             kubernetes_image_pull_secrets: []
-            kubernetes_json_patches: null
-            kubernetes_ingress_class_name: null
-            kubernetes_ingress_secret_name: null
+            kubernetes_json_patches: {}
+            kubernetes_ingress_class_name: ""
+            kubernetes_ingress_secret_name: ""
             kubernetes_ingress_annotations: {}
             refresh_interval: minutes=5
           providers:
