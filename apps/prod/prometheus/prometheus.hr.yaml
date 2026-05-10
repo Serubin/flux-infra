@@ -25,6 +25,26 @@ spec:
       valuesKey: GRAFANA_CLIENT_SECRET
       targetPath: grafana.env.GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET
       optional: false
+    - kind: Secret
+      name: cluster-secrets
+      valuesKey: NOREPLY_SEND_EMAIL
+      targetPath: alertmanager.config.global.smtp_from
+      optional: false
+    - kind: Secret
+      name: cluster-secrets
+      valuesKey: NOREPLY_AUTH_EMAIL
+      targetPath: alertmanager.config.global.smtp_auth_username
+      optional: false
+    - kind: Secret
+      name: cluster-secrets
+      valuesKey: NOREPLY_PASSWORD
+      targetPath: alertmanager.config.global.smtp_auth_password
+      optional: false
+    - kind: Secret
+      name: alertmanager-secrets
+      valuesKey: TO_EMAIL
+      targetPath: alertmanager.config.receivers[0].email_configs[0].to
+      optional: false
   values:
     alertmanager:
       image:
@@ -32,6 +52,32 @@ spec:
       ingress:
         hosts:
           - "alert-manager.${SECRET_DOMAIN}"
+      config:
+        global:
+          resolve_timeout: 5m
+          smtp_smarthost: "smtp.gmail.com:587"
+          smtp_require_tls: true
+        route:
+          group_by: ["alertname", "namespace"]
+          group_wait: 30s
+          group_interval: 5m
+          repeat_interval: 4h
+          receiver: email-default
+        receivers:
+          - name: email-default
+            email_configs:
+              - send_resolved: true
+        inhibit_rules:
+          - source_matchers: [severity = "critical"]
+            target_matchers: [severity =~ "warning|info"]
+            equal: [namespace, alertname]
+          - source_matchers: [severity = "warning"]
+            target_matchers: [severity = "info"]
+            equal: [namespace, alertname]
+          - source_matchers: [alertname = "InfoInhibitor"]
+            target_matchers: [severity = "info"]
+            equal: [namespace]
+          - target_matchers: [alertname = "InfoInhibitor"]
     grafana:
       image:
         tag: 12.3.1

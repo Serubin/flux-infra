@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: alertmanager-secrets
+    namespace: default
+stringData:
+    TO_EMAIL: ENC[AES256_GCM,data:VbFOq8r9sSkLdIZWRgJUprBQ,iv:XZZsAUVGhiRdKSUyK3b6jpQqNMFdr2PQXMrZNb3AqVU=,tag:h+/ru+1V9EDIJ0jktQ+rqQ==,type:str]
+sops:
+    lastmodified: "2026-05-10T01:48:45Z"
+    mac: ENC[AES256_GCM,data:47bqn0/+R1paRhW/ZJA/Yk3+ixO3mX9YV8JHhr990zaWfrBzUPjmvdti9rFSRPJOD1+nOdqoeYBxtD5tAcpODh8hgZAXdtmYryYK4GTh+wX4RneDrBlHvVexnpshFQlCLZKzIBObEaLEnDIGhHFme6/6MiOaLS4vTHmUOAAPT/g=,iv:aDkpbPsJxibIS4ZbVpjqmGWYGaMJIlb6YIV3wSozQ1M=,tag:hzMyPSWpotiT+bGy1rvf3Q==,type:str]
+    pgp:
+        - created_at: "2026-05-10T01:48:45Z"
+          enc: |-
+            -----BEGIN PGP MESSAGE-----
+
+            hQIMA0i7SvTnDueaAQ//d4efcQuphDcmCzroSOUvO5mPirulZQ5uADAaiLoeR7J4
+            yefrYfADjQl8dMSnGQ2WrbOatRKWeoFiVrtuCKxKgN/M0l6bj9+jTPNXI07J7to7
+            OlHPmj/Si9SddBNs8vz3Q1wugLwkKJedu61zjP65+CrL5U9hzGkWw4vJ0W5opjG+
+            LiH0TsnPz/8975ILVzgA8LUtT6n+uqga+VFPhhdtqqLjXZVIPEKuJtWTf8f5OKx9
+            YyrICxIuV9i0XIJwOsxoRw69D8R5z9ATiTUww9GQwd3X1s2kd4wtsVYfKGTNBNfU
+            0bML1e03I++xOFvpZUAIeCgldmkgb2faBj2fDP/IfHSVpU6vRP/N/qnk79LJ3vke
+            OOVZ7eF4neUOSxdcxtPA1FV9kmD//CiO2/q4PohLO3XR6/Bj09CbxIgxu7SOVOSq
+            Ieklp2SmhSU6WV45R6LJ++pqqaXUzzsnHeEE7PRnfisdNy4csq9DvpYJy+vkpfpL
+            EzN/b8OLRf6t1slw1TwaTuqc7W94/KDCNXBT/cDh/p2CLv/mZyXb7BXmew+399/e
+            gz+hcfMh5Ql4/amtFvLUemOyt/Ql+JL5XzBshSWf+vg2vmkYVwrD1+DsPOzHLs0E
+            fZaaIeDYNcYAGkezuoYVDk2zvWohGy40MMnlFGVYo8us9k/+8tPWEdblB4wC3SjS
+            XgHcdsJY3XIipH7+wxb1I3ExXX6L9EcbXTaPEPYyoeoGwAm53lUcO7AaV3G6BzIB
+            UswdHq1DgVoP+/NHjaKscI+BY143tlyfR+ZTfxEBMyfCQsdEzSkz6eKxdRDME1Y=
+            =A7GN
+            -----END PGP MESSAGE-----
+          fp: 7EB1A78D86B11352982D3A1F7037153C2DB9CDBD
+    encrypted_regex: ^(data|stringData)$
+    version: 3.12.2
