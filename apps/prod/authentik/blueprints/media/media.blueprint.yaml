@@ -22,9 +22,6 @@ data:
           mode: forward_single
           authorization_flow: !Find [authentik_flows.flow, [slug, default-provider-authorization-implicit-consent]]
           invalidation_flow: !Find [authentik_flows.flow, [slug, default-provider-invalidation-flow]]
-          basic_auth_enabled: true
-          basic_auth_user_attribute: arr_user
-          basic_auth_password_attribute: arr_password
 
       - model: authentik_core.application
         id: media-stack-app

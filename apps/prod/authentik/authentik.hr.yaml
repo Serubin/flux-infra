@@ -41,8 +41,6 @@ spec:
         - secretRef:
             name: synology-auth-secrets
         - secretRef:
-            name: media-auth-secrets
-        - secretRef:
             name: jellyfin-auth-secrets
     authentik:
       email:
