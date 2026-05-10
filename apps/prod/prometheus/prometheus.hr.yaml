@@ -56,6 +56,8 @@ spec:
           - name: email-default
             email_configs:
               - send_resolved: true
+                headers:
+                  Subject: '[{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}][{{ .CommonLabels.severity | toUpper }}] {{ .GroupLabels.alertname }}'
         inhibit_rules:
           - source_matchers: [severity = "critical"]
             target_matchers: [severity =~ "warning|info"]
