@@ -1,0 +1,99 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: loki
+  namespace: default
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: loki
+      version: 6.55.0
+      sourceRef:
+        kind: HelmRepository
+        name: grafana-charts
+        namespace: default
+      interval: 5m
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
+  values:
+    deploymentMode: SingleBinary
+    loki:
+      auth_enabled: false
+      commonConfig:
+        replication_factor: 1
+        path_prefix: /var/loki
+      storage:
+        type: filesystem
+      schemaConfig:
+        configs:
+          - from: "2024-04-01"
+            store: tsdb
+            object_store: filesystem
+            schema: v13
+            index:
+              prefix: loki_index_
+              period: 24h
+      limits_config:
+        retention_period: 168h
+        reject_old_samples: true
+        reject_old_samples_max_age: 168h
+        max_cache_freshness_per_query: 10m
+        split_queries_by_interval: 15m
+        query_timeout: 300s
+        volume_enabled: true
+        allow_structured_metadata: true
+      compactor:
+        retention_enabled: true
+        delete_request_store: filesystem
+        compaction_interval: 10m
+        retention_delete_delay: 2h
+        retention_delete_worker_count: 150
+    singleBinary:
+      replicas: 1
+      persistence:
+        enabled: true
+        storageClass: longhorn
+        size: 20Gi
+        accessModes:
+          - ReadWriteOnce
+      resources:
+        requests:
+          cpu: 100m
+          memory: 256Mi
+        limits:
+          memory: 1Gi
+    backend:
+      replicas: 0
+    read:
+      replicas: 0
+    write:
+      replicas: 0
+    chunksCache:
+      enabled: false
+    resultsCache:
+      enabled: false
+    minio:
+      enabled: false
+    gateway:
+      enabled: false
+    test:
+      enabled: false
+    lokiCanary:
+      enabled: false
+    monitoring:
+      selfMonitoring:
+        enabled: false
+        grafanaAgent:
+          installOperator: false
+      serviceMonitor:
+        enabled: true
+        metricsInstance:
+          enabled: false
+      dashboards:
+        enabled: false
+      rules:
+        enabled: false

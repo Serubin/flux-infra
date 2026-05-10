@@ -9,6 +9,7 @@ resources:
   - kutt
   - lacework
   - lemonhope
+  - loki
   - nocodb
   - plausible
   - serubin-net
