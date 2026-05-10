@@ -9,7 +9,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: capacitor-vpn-only
-  namespace: flux-system
+  namespace: capacitor
 spec:
   ipWhiteList:
     sourceRange:
@@ -17,13 +17,13 @@ spec:
 ---
 # Local copy of forwardauth-authentik. Cross-namespace middleware refs are off
 # (no allowCrossNamespace=true on the Traefik DaemonSet), so any IngressRoute
-# in flux-system needs this middleware in the same namespace. Mirrors the
-# longhorn-system copy at infrastructure/longhorn/longhorn.ingress.yaml.
+# in this namespace needs this middleware here too. Mirrors the longhorn-system
+# copy at infrastructure/longhorn/longhorn.ingress.yaml.
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: forwardauth-authentik
-  namespace: flux-system
+  namespace: capacitor
   labels:
     app.kubernetes.io/instance: authentik
     app.kubernetes.io/name: authentik
@@ -49,7 +49,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: capacitor-stripprefix
-  namespace: flux-system
+  namespace: capacitor
 spec:
   stripPrefix:
     prefixes:
@@ -62,7 +62,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: capacitor-redirect-slash
-  namespace: flux-system
+  namespace: capacitor
 spec:
   redirectRegex:
     regex: ^(https?://[^/]+)/capacitor$
@@ -73,7 +73,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: capacitor
-  namespace: flux-system
+  namespace: capacitor
 spec:
   entryPoints:
     - websecure
@@ -98,7 +98,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: capacitor-rootpaths
-  namespace: flux-system
+  namespace: capacitor
 spec:
   entryPoints:
     - websecure
