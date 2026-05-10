@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   - ../../base/kutt
   - kutt.sops.yaml
+  - kutt.ingressroute.yaml
 patches:
   - path: postgres.hr.yaml
     target:
