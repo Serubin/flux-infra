@@ -81,19 +81,21 @@ spec:
     - match: Host(`ops.${SECRET_DOMAIN}`) && PathPrefix(`/capacitor`)
       kind: Rule
       services:
-        - name: capacitor
-          port: 9000
+        - name: capacitor-next
+          port: 80
       middlewares:
         - name: capacitor-vpn-only
         - name: forwardauth-authentik
         - name: capacitor-redirect-slash
         - name: capacitor-stripprefix
 ---
-# Capacitor's Vite build hardcodes base: '/' (web/vite.config.mjs), so the SPA
-# emits absolute URLs to /assets/*, /api/*, and /health from the browser. We
-# reserve those root paths on ops.${SECRET_DOMAIN} for the capacitor backend
-# (no stripPrefix). Forward-auth still applies — the session cookie is
-# host-scoped, so XHRs from the loaded SPA carry it.
+# Capacitor Next's bundled SPA emits absolute URLs to /assets, /k8s, /api,
+# /ws (websocket exec/stream), and /auth from the browser. HashRouter keeps
+# in-app navigation under the hash so server-side routing only needs to handle
+# these root-level paths, but they DO have to land on capacitor without
+# stripPrefix. We reserve them on ops.${SECRET_DOMAIN} for capacitor-next.
+# Forward-auth still applies on every request — the session cookie is
+# host-scoped, so XHRs and WS upgrades from the loaded SPA carry it.
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
@@ -103,11 +105,11 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`ops.${SECRET_DOMAIN}`) && (PathPrefix(`/assets`) || PathPrefix(`/api`) || Path(`/health`))
+    - match: Host(`ops.${SECRET_DOMAIN}`) && (PathPrefix(`/assets`) || PathPrefix(`/k8s`) || PathPrefix(`/api`) || PathPrefix(`/ws`) || PathPrefix(`/auth`))
       kind: Rule
       services:
-        - name: capacitor
-          port: 9000
+        - name: capacitor-next
+          port: 80
       middlewares:
         - name: capacitor-vpn-only
         - name: forwardauth-authentik

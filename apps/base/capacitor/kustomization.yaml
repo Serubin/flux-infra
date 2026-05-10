@@ -4,5 +4,6 @@ namespace: capacitor
 resources:
   - capacitor.namespace.yaml
   - capacitor.rbac.yaml
-  - capacitor.yaml
+  - capacitor.config.yaml
+  - capacitor.deployment.yaml
   - capacitor.ingressroute.yaml
