@@ -1,0 +1,78 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: capacitor-next
+  namespace: capacitor
+  labels:
+    app: capacitor-next
+spec:
+  type: ClusterIP
+  selector:
+    app: capacitor-next
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8080
+      protocol: TCP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: capacitor-next
+  namespace: capacitor
+  labels:
+    app: capacitor-next
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: capacitor-next
+  template:
+    metadata:
+      labels:
+        app: capacitor-next
+    spec:
+      serviceAccountName: capacitor-next
+      containers:
+        - name: capacitor-next
+          image: ghcr.io/gimlet-io/capacitor-next:0.14.0-rc.4
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: capacitor-next
+            - secretRef:
+                name: capacitor-next
+          volumeMounts:
+            - name: registry
+              mountPath: /app/backend/registry.yaml
+              subPath: registry.yaml
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 1
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 1
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+      volumes:
+        - name: registry
+          secret:
+            secretName: capacitor-next
+            items:
+              - key: registry.yaml
+                path: registry.yaml

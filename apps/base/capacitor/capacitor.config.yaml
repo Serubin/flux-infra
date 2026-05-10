@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: capacitor-next
+  namespace: capacitor
+data:
+  # Authentik forward-auth + the WireGuard IPWhiteList already gate every
+  # request that reaches this pod, so capacitor itself runs in noauth mode and
+  # impersonates the cluster-admin preset SA for all incoming traffic.
+  AUTH: noauth
+  # Logs the impersonation headers capacitor sends to the API server. Drop to
+  # info once the install is verified end-to-end.
+  AUTH_DEBUG: "true"
+  IMPERSONATE_SA_RULES: noauth=capacitor:capacitor-next-preset-clusteradmin
+  # Lets capacitor surface the Flux controllers' logs in the UI.
+  FLUXCD_NAMESPACE: flux-system
+  FLUXCD_HELM_CONTROLLER_NAME: helm-controller
+  FLUXCD_HELM_CONTROLLER_LABEL_KEY: app.kubernetes.io/component
+  FLUXCD_HELM_CONTROLLER_LABEL_VALUE: helm-controller
+  FLUXCD_KUSTOMIZE_CONTROLLER_NAME: kustomize-controller
+  FLUXCD_KUSTOMIZE_CONTROLLER_LABEL_KEY: app.kubernetes.io/component
+  FLUXCD_KUSTOMIZE_CONTROLLER_LABEL_VALUE: kustomize-controller
