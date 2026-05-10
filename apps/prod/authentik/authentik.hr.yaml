@@ -42,6 +42,8 @@ spec:
             name: synology-auth-secrets
         - secretRef:
             name: jellyfin-auth-secrets
+        - secretRef:
+            name: kutt-auth-secrets
     authentik:
       email:
         host: smtp.gmail.com
@@ -56,6 +58,7 @@ spec:
         - synology-blueprint
         - media-blueprint
         - jellyfin-blueprint
+        - kutt-blueprint
         - embedded-outpost-blueprint
         - home-outpost-blueprint
         - ops-group-blueprint
