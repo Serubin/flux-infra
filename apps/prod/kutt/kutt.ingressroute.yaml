@@ -1,0 +1,24 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: kutt-stripprefix
+  namespace: default
+spec:
+  stripPrefix:
+    prefixes:
+      - /s
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: kutt-shortlinks
+  namespace: default
+spec:
+  routes:
+    - match: Host(`serub.in`) && PathPrefix(`/s`)
+      kind: Rule
+      services:
+        - name: kutt
+          port: 80
+      middlewares:
+        - name: kutt-stripprefix
