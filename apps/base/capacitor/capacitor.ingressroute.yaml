@@ -1,0 +1,113 @@
+---
+# IPWhiteList: only allow traffic from the WireGuard tunnel client range.
+# The CIDR is held in cluster-secrets (VPN_TUNNEL_CIDR) and substituted by
+# Flux postBuild so the network topology stays out of git. Traefik runs as a
+# hostPort DaemonSet with no proxyProtocol/trustedIPs configured, so the
+# connection source IP is the actual client; default ipStrategy reads that
+# connection IP (not X-Forwarded-For), which is what we want here.
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: capacitor-vpn-only
+  namespace: flux-system
+spec:
+  ipWhiteList:
+    sourceRange:
+      - ${VPN_TUNNEL_CIDR}
+---
+# Local copy of forwardauth-authentik. Cross-namespace middleware refs are off
+# (no allowCrossNamespace=true on the Traefik DaemonSet), so any IngressRoute
+# in flux-system needs this middleware in the same namespace. Mirrors the
+# longhorn-system copy at infrastructure/longhorn/longhorn.ingress.yaml.
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: forwardauth-authentik
+  namespace: flux-system
+  labels:
+    app.kubernetes.io/instance: authentik
+    app.kubernetes.io/name: authentik
+spec:
+  forwardAuth:
+    address: http://authentik-server.default.svc.cluster.local:80/outpost.goauthentik.io/auth/traefik
+    trustForwardHeader: true
+    authResponseHeaders:
+      - X-authentik-username
+      - X-authentik-groups
+      - X-authentik-entitlements
+      - X-authentik-email
+      - X-authentik-name
+      - X-authentik-uid
+      - X-authentik-jwt
+      - X-authentik-meta-jwks
+      - X-authentik-meta-outpost
+      - X-authentik-meta-provider
+      - X-authentik-meta-app
+      - X-authentik-meta-version
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: capacitor-stripprefix
+  namespace: flux-system
+spec:
+  stripPrefix:
+    prefixes:
+      - /capacitor
+---
+# Normalize /capacitor -> /capacitor/ so stripPrefix doesn't strip the request
+# down to an empty path (which capacitor's SPA serves as a 404). Mirrors the
+# longhorn-redirect-slash pattern.
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: capacitor-redirect-slash
+  namespace: flux-system
+spec:
+  redirectRegex:
+    regex: ^(https?://[^/]+)/capacitor$
+    replacement: ${1}/capacitor/
+    permanent: true
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: capacitor
+  namespace: flux-system
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`ops.${SECRET_DOMAIN}`) && PathPrefix(`/capacitor`)
+      kind: Rule
+      services:
+        - name: capacitor
+          port: 9000
+      middlewares:
+        - name: capacitor-vpn-only
+        - name: forwardauth-authentik
+        - name: capacitor-redirect-slash
+        - name: capacitor-stripprefix
+---
+# Capacitor's Vite build hardcodes base: '/' (web/vite.config.mjs), so the SPA
+# emits absolute URLs to /assets/*, /api/*, and /health from the browser. We
+# reserve those root paths on ops.${SECRET_DOMAIN} for the capacitor backend
+# (no stripPrefix). Forward-auth still applies — the session cookie is
+# host-scoped, so XHRs from the loaded SPA carry it.
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: capacitor-rootpaths
+  namespace: flux-system
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`ops.${SECRET_DOMAIN}`) && (PathPrefix(`/assets`) || PathPrefix(`/api`) || Path(`/health`))
+      kind: Rule
+      services:
+        - name: capacitor
+          port: 9000
+      middlewares:
+        - name: capacitor-vpn-only
+        - name: forwardauth-authentik
