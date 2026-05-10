@@ -77,3 +77,16 @@ data:
           open_in_new_tab: true
           group: Ops
           policy_engine_mode: any
+      - model: authentik_core.application
+        id: capacitor-app
+        identifiers:
+          slug: capacitor
+        attrs:
+          name: Capacitor
+          slug: capacitor
+          meta_launch_url: https://ops.${SECRET_DOMAIN}/capacitor
+          icon: https://raw.githubusercontent.com/gimlet-io/capacitor/main/web/public/favicon.ico
+          meta_description: Flux GitOps Dashboard
+          open_in_new_tab: true
+          group: Ops
+          policy_engine_mode: any
