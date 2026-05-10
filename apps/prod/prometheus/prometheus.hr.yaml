@@ -51,6 +51,7 @@ spec:
           group_interval: 5m
           repeat_interval: 4h
           receiver: email-default
+          routes: []
         receivers:
           - name: email-default
             email_configs:
