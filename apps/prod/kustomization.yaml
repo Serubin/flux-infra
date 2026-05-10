@@ -4,7 +4,6 @@ resources:
   - prometheus
   - authentik
   - aj4democracy
-  - capacitor
   - dysautonomia-web
   - jpat-web
   - kutt
