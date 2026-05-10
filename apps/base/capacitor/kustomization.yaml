@@ -1,7 +1,8 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: flux-system
+namespace: capacitor
 resources:
+  - capacitor.namespace.yaml
   - capacitor.rbac.yaml
   - capacitor.yaml
   - capacitor.ingressroute.yaml
