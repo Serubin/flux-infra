@@ -8,5 +8,4 @@ resources:
   - whoami
   - kutt
   - vaultwarden
-  - tandoor
   - weave-gitops
