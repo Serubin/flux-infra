@@ -32,3 +32,10 @@ data:
           order: 0
         attrs:
           enabled: true
+      - model: authentik_policies.policybinding
+        identifiers:
+          target: !Find [authentik_core.application, [slug, kutt]]
+          group: !KeyOf apps-group
+          order: 1
+        attrs:
+          enabled: true

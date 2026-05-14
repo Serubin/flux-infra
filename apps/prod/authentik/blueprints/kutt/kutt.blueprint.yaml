@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kutt-blueprint
+  namespace: default
+data:
+  kutt.yaml: |
+    version: 1
+    metadata:
+      name: kutt-oauth
+    entries:
+      - model: authentik_providers_oauth2.oauth2provider
+        id: kutt-provider
+        identifiers:
+          client_id: kutt
+        attrs:
+          name: Kutt OAuth Provider
+          authorization_flow: !Find [authentik_flows.flow, [slug, default-provider-authorization-implicit-consent]]
+          invalidation_flow: !Find [authentik_flows.flow, [slug, default-provider-invalidation-flow]]
+          client_type: confidential
+          client_id: kutt
+          client_secret: !Env KUTT_CLIENT_SECRET
+          redirect_uris:
+            - matching_mode: strict
+              url: https://s-r.io/login/oidc
+          signing_key: !Find [authentik_crypto.certificatekeypair, [name, "authentik Self-signed Certificate"]]
+          property_mappings:
+            - !Find [authentik_providers_oauth2.scopemapping, [scope_name, "openid"]]
+            - !Find [authentik_providers_oauth2.scopemapping, [scope_name, "email"]]
+            - !Find [authentik_providers_oauth2.scopemapping, [scope_name, "profile"]]
+
+      - model: authentik_core.application
+        id: kutt-app
+        identifiers:
+          slug: kutt
+        attrs:
+          name: Kutt
+          slug: kutt
+          provider: !KeyOf kutt-provider
+          meta_launch_url: https://s-r.io
+          icon: https://raw.githubusercontent.com/thedevs-network/kutt/develop/static/images/logo.svg
+          meta_description: URL shortener
+          open_in_new_tab: true
+          group: Apps
+          policy_engine_mode: any

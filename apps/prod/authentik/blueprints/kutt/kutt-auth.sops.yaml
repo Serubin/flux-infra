@@ -1,0 +1,12 @@
+# PLACEHOLDER — encrypt before committing.
+#   1. Replace REPLACE_ME with the OIDC client secret (`openssl rand -base64 48`).
+#   2. Run: sops --encrypt --in-place apps/prod/authentik/blueprints/kutt/kutt-auth.sops.yaml
+#   3. Verify the resulting file has ENC[...] for the stringData value.
+apiVersion: v1
+kind: Secret
+metadata:
+  name: kutt-auth-secrets
+  namespace: default
+type: Opaque
+stringData:
+  KUTT_CLIENT_SECRET: REPLACE_ME

@@ -8,6 +8,7 @@ resources:
   - synology
   - media
   - jellyfin
+  - kutt
   - embedded-outpost
   - home-outpost
   - groups

@@ -20,7 +20,19 @@ spec:
       valuesKey: NOREPLY_PASSWORD
       targetPath: kutt.mail.password
       optional: false
+    # OIDC client secret is injected into the extraEnv list at the index of the
+    # OIDC_CLIENT_SECRET entry below. Reordering the list breaks this binding.
+    - kind: Secret
+      name: kutt-auth-secrets
+      valuesKey: KUTT_CLIENT_SECRET
+      targetPath: extraEnv[3].value
+      optional: false
   values:
+    # Pinned to the kutt/kutt:main image digest because v3.2.3 has no OIDC
+    # (merged in PR #880, unreleased). Bumping requires re-resolving the digest
+    # of the upstream :main tag.
+    image:
+      tag: "main@sha256:ddd7257bc8c57f4892d2a81ec0d7d25ea0167b60d1dd7112868630644402956f"
     ingress:
       hosts:
         - host: s-r.io
@@ -32,14 +44,28 @@ spec:
             - path: /
               pathType: Prefix
     kutt:
-      google:
-        existingSecret: kutt-secrets
       recaptcha:
         existingSecret: kutt-secrets
       jwt:
         existingSecret: kutt-secrets
       mail:
         reportEmail: "${ADMIN_EMAIL}"
+    # Order matters: extraEnv[3] is bound by `valuesFrom` above.
+    extraEnv:
+      - name: OIDC_ENABLED
+        value: "true"
+      - name: OIDC_ISSUER
+        value: "https://${OAUTH_URL}/application/o/kutt/"
+      - name: OIDC_CLIENT_ID
+        value: "kutt"
+      - name: OIDC_CLIENT_SECRET
+        value: "placeholder-overridden-by-valuesFrom"
+      - name: OIDC_SCOPE
+        value: "openid email profile"
+      - name: OIDC_EMAIL_CLAIM
+        value: "email"
+      - name: DISALLOW_LOGIN_FORM
+        value: "true"
     postgresql:
       enabled: false
     externalPostgresql:
