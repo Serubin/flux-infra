@@ -3,7 +3,6 @@ kind: Kustomization
 namespace: default
 resources:
   - authentik.chart.yaml
-  - bitnami.chart.yaml
   - bjw-s.chart.yaml
   - christianhuth.chart.yaml
   - cloudnativepg.chart.yaml
