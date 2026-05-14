@@ -39,7 +39,6 @@ The following apps are installed on the clusters.
 | [Kutt](https://kutt.it/)                                                          | URL Shortener                                                 |
 | [Vaultwarden](https://github.com/guerzon/vaultwarden/)                            | Password Manager                                              |
 | [Plausible](https://plausible.io/)                                                | Analytics                                                     |
-| [Tandoor-Receipes](https://github.com/TandoorRecipes/recipes)                     | Receipe Manager and Meal Planner                              |
 | [Heimdall](https://heimdall.site/)                                                | Static dashboard for the cluster applications                 |
 | [Lemonhope](https://github.com/anaximand/lemonhope/)                              | A simple discord bot                                          |
 
