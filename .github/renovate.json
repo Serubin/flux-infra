@@ -15,10 +15,7 @@
   ],
   "flux": {
     "managerFilePatterns": [
-      "infrastructure/**/*.yaml",
-      "apps/**/*.yaml",
-      "charts/**/*.yaml",
-      "clusters/**/*.yaml"
+      "/^[^\\.]*\\.ya?ml$/"
     ]
   },
   "helm-values": {
@@ -28,17 +25,14 @@
   },
   "kubernetes": {
     "managerFilePatterns": [
-      "apps/**/*.yaml"
+      "/^apps/[^\\.]*\\.ya?ml$/"
     ]
   },
   "customManagers": [
     {
       "customType": "regex",
       "managerFilePatterns": [
-        "infrastructure/**/*.yaml",
-        "apps/**/*.yaml",
-        "charts/**/*.yaml",
-        "clusters/**/*.yaml"
+        "/^[^\\.]*\\.ya?ml$/"
       ],
       "matchStrings": [
         "datasource=(?<datasource>\\S+) depName=(?<depName>.*?)\n *version: (?<currentValue>.*)\n"
