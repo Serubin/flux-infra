@@ -22,11 +22,14 @@ spec:
     ingress:
       enabled: true
       class: ""
-    data:
-      name: "vaultwarden-data"
-      size: "5Gi"
-      class: "longhorn"
-      keepPvc: true
+    storage:
+      # Chart 0.36.4 moved persistence under `storage.*`. The original chart-
+      # managed PVC has `helm.sh/resource-policy: keep`, so it survived the
+      # upgrade — reuse it via existingVolumeClaim rather than letting the
+      # chart create a fresh empty PVC.
+      existingVolumeClaim:
+        claimName: vaultwarden-data-vaultwarden-0
+        dataPath: /data
     smtp:
       enabled: true
       host: "smtp.gmail.com"
