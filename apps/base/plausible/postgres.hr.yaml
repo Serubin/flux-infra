@@ -33,6 +33,8 @@ spec:
           excludeRules:
             - CNPGClusterLogicalReplicationErrors
             - CNPGClusterLogicalReplicationErrorsCritical
+            - CNPGClusterLogicalReplicationStopped
+            - CNPGClusterLogicalReplicationStoppedCritical
       initdb:
         database: plausible
         owner: plausible
