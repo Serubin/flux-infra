@@ -25,6 +25,14 @@ spec:
         enabled: true
         podMonitor:
           enabled: true
+        prometheusRule:
+          # cluster chart 0.6.0 ships two rules whose PromQL applies a range
+          # selector to an aggregated instant vector (invalid syntax), causing
+          # the prometheus-operator admission webhook to reject the whole rule
+          # group. Remove once upstream fixes the expressions.
+          excludeRules:
+            - CNPGClusterLogicalReplicationErrors
+            - CNPGClusterLogicalReplicationErrorsCritical
       initdb:
         database: plausible
         owner: plausible
