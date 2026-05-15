@@ -1,7 +1,7 @@
-apiVersion: networking.k8s.io/v1
+apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: vaultwarden-hr
+  name: vaultwarden
   namespace: default
 spec:
   valuesFrom:
@@ -31,6 +31,7 @@ spec:
       existingSecretKey: adminToken
     yubico:
       clientId: ${YUBICO_CLIENT_ID}
-      secretKey: ${YUBICO_SECRET_KEY}
+      secretKey:
+        value: ${YUBICO_SECRET_KEY}
     smtp:
       fromName: "Bitwarden @ Serubin.net"
