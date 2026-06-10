@@ -48,6 +48,14 @@ spec:
       config:
         global:
           resolve_timeout: 5m
+      alertmanagerSpec:
+        storage:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: longhorn
+              resources:
+                requests:
+                  storage: 1Gi
     grafana:
       enabled: true
       image:
