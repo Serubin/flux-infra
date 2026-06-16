@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: velero
-      version: 12.0.2
+      version: 12.0.1
       sourceRef:
         kind: HelmRepository
         name: velero-charts
@@ -24,7 +24,12 @@ spec:
   values:
     initContainers:
       - name: velero-plugin-for-aws
-        image: velero/velero-plugin-for-aws:v1.14.1
+        # Pinned to v1.14.0: v1.14.1's aws-sdk-go-v2 emits an x-amz-tagging header
+        # that Backblaze B2 rejects (HTTP 400 InvalidArgument), failing every backup
+        # at the velero-backup.json upload. Renovate is capped at <=1.14.0
+        # (.github/renovate.json) until upstream releases the conditional-Tagging
+        # fix (velero-plugin-for-aws commit 8dbd6b8).
+        image: velero/velero-plugin-for-aws:v1.14.0
         imagePullPolicy: IfNotPresent
         volumeMounts:
           - mountPath: /target
