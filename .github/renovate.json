@@ -49,6 +49,13 @@
   "packageRules": [
     {
       "matchPackageNames": [
+        "velero/velero-plugin-for-aws"
+      ],
+      "allowedVersions": "<=1.14.0",
+      "description": "Pinned: v1.14.1's aws-sdk-go-v2 sends an x-amz-tagging header that Backblaze B2 rejects (HTTP 400), breaking all Velero backups. Raise this cap once upstream releases the conditional-Tagging fix (commit 8dbd6b8)."
+    },
+    {
+      "matchPackageNames": [
         "ghcr.io/serubin/serubin-net",
         "ghcr.io/serubin/dysautonomia-lounge-website",
         "ghcr.io/j-paterson/personalwebsite",
