@@ -5,6 +5,7 @@ metadata:
   namespace: default
   labels:
     app: serubin-net
+    app.kubernetes.io/name: serubin-net
 
 spec:
   replicas: 1
@@ -15,6 +16,7 @@ spec:
     metadata:
       labels:
         app: serubin-net
+        app.kubernetes.io/name: serubin-net
     spec:
       containers:
         - name: serubin-net

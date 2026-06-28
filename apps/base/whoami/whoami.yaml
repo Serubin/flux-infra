@@ -5,6 +5,7 @@ metadata:
   namespace: default
   labels:
     app: whoami
+    app.kubernetes.io/name: whoami
 
 spec:
   replicas: 1
@@ -15,6 +16,7 @@ spec:
     metadata:
       labels:
         app: whoami
+        app.kubernetes.io/name: whoami
       annotations:
         backup.velero.io/backup-volumes-excludes: data
     spec:
