@@ -23,6 +23,6 @@ jobs:
               - "!**.md"
       - name: Lint files
         if: ${{ steps.filter.outputs.yaml == 'true' }}
-        uses: reviewdog/action-yamllint@v1.21
+        uses: reviewdog/action-yamllint@v1.22
         with:
           yamllint_flags: "-c .github/lint/.yamllint.yaml ${{ steps.filter.outputs.yaml_files }}"
