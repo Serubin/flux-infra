@@ -26,8 +26,6 @@ spec:
     ingress:
       enabled: true
       hostname: vault.${SECRET_DOMAIN}
-      additionalHostnames:
-        - bitwarden.${SECRET_DOMAIN}
     adminToken:
       existingSecret: vaultwarden-secrets
       existingSecretKey: adminToken
