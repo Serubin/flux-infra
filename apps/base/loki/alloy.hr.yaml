@@ -104,6 +104,24 @@ spec:
               }
             }
 
+            // ajd-site emits structured JSON logs; promote `level` to a label
+            // so it can be filtered without a query-time `| json`. Scoped by
+            // selector so the JSON parser only runs on this app's lines.
+            stage.match {
+              selector = "{app=\"ajd-site\"}"
+
+              stage.json {
+                expressions = {
+                  level = "level",
+                }
+              }
+              stage.labels {
+                values = {
+                  level = "level",
+                }
+              }
+            }
+
             stage.label_drop {
               values = ["tmp_container_runtime"]
             }
