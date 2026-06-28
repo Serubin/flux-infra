@@ -5,6 +5,7 @@ metadata:
   namespace: default
   labels:
     app: jpat-web
+    app.kubernetes.io/name: jpat-web
 
 spec:
   replicas: 1
@@ -15,6 +16,7 @@ spec:
     metadata:
       labels:
         app: jpat-web
+        app.kubernetes.io/name: jpat-web
     spec:
       containers:
         - name: jpat-web

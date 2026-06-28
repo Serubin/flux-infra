@@ -5,6 +5,7 @@ metadata:
   namespace: default
   labels:
     app: lemonhope
+    app.kubernetes.io/name: lemonhope
 
 spec:
   replicas: 1
@@ -15,6 +16,7 @@ spec:
     metadata:
       labels:
         app: lemonhope
+        app.kubernetes.io/name: lemonhope
     spec:
       containers:
         - name: lemonhope
