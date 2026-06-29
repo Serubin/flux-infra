@@ -13,12 +13,22 @@ stringData:
     nocodb__users__view_id: ENC[AES256_GCM,data:pNFNJqoPgVbFg4U03j4MuA==,iv:BUZHysssCrwxaz0XyfCXlt8OZLrg0zuMm0/PIEqayQY=,tag:4kpD885sea4w+YZo8d2rLg==,type:str]
     nocodb__presigned_links__table_id: ENC[AES256_GCM,data:PI353Fft/w5wChUSYAgz,iv:oHCRJcd4c6xOac0yX3JlAxsWKn0oxUjKi6D0Qi1VuUI=,tag:6iW4k/1YNFPrhP3Jxgd2TA==,type:str]
     nocodb__presigned_links__view_id: ENC[AES256_GCM,data:0wyCe6G1Mid+cOKtB4u8zQ==,iv:hTSbWo7vq6scj7LVN+foW/AXDP1KipdM6q2Yr9libF0=,tag:yMk5map2OPwK+X7Ni0WT6g==,type:str]
+    nocodb__candidates__table_id: ENC[AES256_GCM,data:k61MyTYJL8MID7mm9yGm,iv:x+kBNiihMPXcJGkoEk0365hUsfZ8SEdS2TqZwq0GzFw=,tag:7PBOKRmiMTZbBhJOEx5+1Q==,type:str]
+    nocodb__candidates__view_id: ENC[AES256_GCM,data:cepMvAWtfFCvIyY2ApTziA==,iv:gKycHJCmo7RuF/qS2yUz5n/XBN8vMjxH/RZJ4jWxnv4=,tag:cPP9FEjZd+xHDTh5XL4NNg==,type:str]
     #ENC[AES256_GCM,data:g5tGcxiRMcQvumY/Sw==,iv:mtRMV6wjac9glUezcEea4kyIchA37RTc68jxKeJvbhU=,tag:6Jw534S2dsHD8RABRD3neg==,type:comment]
     features__geocodio_api_key: ENC[AES256_GCM,data:bkrbxj2ArfA0Y9P4bOqtCz7yJBTueF/WetL3+UL93324hSUQe1Q3,iv:CjeRwicqPYhcbuSYK2blOIZ6Ek+U5tzTfmjP6splZlo=,tag:DE7NUiUZc+NfvTJha48GIw==,type:str]
     features__whatsapp_link: ENC[AES256_GCM,data:jKWoTmwUH/S/8DQwlizdwtEbLv1nMxwBNvwlN/Tlh5qI95S1iUW9wtwTdyUkZh5Mlg==,iv:GmCuR61Ner0xC7kgBNml5Gzy6j/dSqbMoOSurmt+/ww=,tag:L3ufo6GZxA1rTDSaqtoNqw==,type:str]
+    features__email_enabled: ENC[AES256_GCM,data:WM2zOA==,iv:UCJfwTbbXt+Pvw3AoBRy6PNiIQuHtQ4KFrFz1BEe2uI=,tag:nUgxJGCxVLNiucq0qonuwA==,type:str]
+    features__sms_enabled: ENC[AES256_GCM,data:A/6kTiA=,iv:uPod+jF1JrrqZ9lFrNYzeBYrW+F7+wpVu9IsqcNS5N0=,tag:gq25B1W0OHtMiXIsY3ga0A==,type:str]
+    twilio__account_sid: ENC[AES256_GCM,data:8QQvuLf/x1pz1cR/gshSsv48kcgQziOlxfr19WgpBXq8cA==,iv:FKkdN9sgwUaPF8TxAncNAQn7ZmP8lfni1u4lPW6WdHU=,tag:fmUZt3D5HLNSmvTXX4tzpQ==,type:str]
+    twilio__auth_token: ENC[AES256_GCM,data:trl9sVN+zEovyp7a0CLNV1pzWjrd+8t01nTTqoo8mwA=,iv:jgLdMIwfyvpqyFb8Mhx1NCEvovOXoiSIruGdB5tPtHE=,tag:+9Dr6FTehauQPFA/DGMyqA==,type:str]
+    twilio__from_email: ENC[AES256_GCM,data:wAEQNCc912SotjDsuUWNcV/s8TF7lw==,iv:HdxlkG7JF9YwXYrtzbRrk7ioWiN4ZYTeKefuYLbvZvE=,tag:QDW2/50n5IbrLDsSe8MDhg==,type:str]
+    twilio__from_name: ENC[AES256_GCM,data:JrORLdTM8rs4w3SnsDATQr9FioN7BbJGf5zv,iv:KZkYFA20jTnJyPxnaQz2US/stRX4cn/kRMcEfwjIUeg=,tag:9FhwCwcUJ3nvJQi1Mp7LqQ==,type:str]
+    twilio__messaging_phone_number: ENC[AES256_GCM,data:OBOEyeuh7HzUNaa8,iv:2rEFMOuuRZmcQmv+aEBp08+eln3PiUlCE9662FXBRMM=,tag:xkP09MLMOjsOrY6pMf35DA==,type:str]
 sops:
-    lastmodified: "2026-02-18T21:05:36Z"
-    mac: ENC[AES256_GCM,data:zrxy6Kiubg/+iCYDfbo+7OWtH3pLB4MnPcWr5eo57jRu3PuHILzVR2vR6BnULY7v5GzODVnJj/03TUQvO0WkJgktx94sSS5XPLtSbCcy7E1Q6UA1l/lEPwix8rYBg0txgsntjTZQd6Sa0ANV9ekRpK2L/vOcuPpCtczBjpTtD64=,iv:rgELeklDexjg9sfS0b700HGYhgpeJHd2K0I7CxXlanI=,tag:g4s8g7DM92NaRO1s1Yv9LA==,type:str]
+    encrypted_regex: ^(data|stringData)$
+    lastmodified: "2026-06-29T18:20:46Z"
+    mac: ENC[AES256_GCM,data:4QrmT2Z134UEMJgv6LOghOKs1EyZorMNq0JeM4ChFK0/At9SQIDdqyU1MdhUJyHDwA0eoILZlla1+DTIIJyjH3YC9ncXMknEh4VqGOfjCx4kOY887+Hssv0w3Nk4jqm/HcwIFOJEwiwVdkiSWZDWUfvgXcjFEJdGwvxLnLPdACA=,iv:CMOxqm17sAOGr2RhwEV7mtOZnc3dnZNLq1BPcZkC32E=,tag:9P5k5RhMUyHBmCQAjLbEEA==,type:str]
     pgp:
         - created_at: "2026-01-24T03:55:12Z"
           enc: |-
@@ -40,5 +50,4 @@ sops:
             =udQB
             -----END PGP MESSAGE-----
           fp: 7EB1A78D86B11352982D3A1F7037153C2DB9CDBD
-    encrypted_regex: ^(data|stringData)$
-    version: 3.11.0
+    version: 3.13.1
