@@ -49,6 +49,16 @@ spec:
                 secretKeyRef:
                   name: aj4democracy-secrets
                   key: nocodb__presigned_links__view_id
+            - name: nocodb__candidates__table_id
+              valueFrom:
+                secretKeyRef:
+                  name: aj4democracy-secrets
+                  key: nocodb__candidates__table_id
+            - name: nocodb__candidates__view_id
+              valueFrom:
+                secretKeyRef:
+                  name: aj4democracy-secrets
+                  key: nocodb__candidates__view_id
             - name: features__geocodio_api_key
               valueFrom:
                 secretKeyRef:
@@ -59,3 +69,38 @@ spec:
                 secretKeyRef:
                   name: aj4democracy-secrets
                   key: features__whatsapp_link
+            - name: features__email_enabled
+              valueFrom:
+                secretKeyRef:
+                  name: aj4democracy-secrets
+                  key: features__email_enabled
+            - name: features__sms_enabled
+              valueFrom:
+                secretKeyRef:
+                  name: aj4democracy-secrets
+                  key: features__sms_enabled
+            - name: twilio__account_sid
+              valueFrom:
+                secretKeyRef:
+                  name: aj4democracy-secrets
+                  key: twilio__account_sid
+            - name: twilio__auth_token
+              valueFrom:
+                secretKeyRef:
+                  name: aj4democracy-secrets
+                  key: twilio__auth_token
+            - name: twilio__from_email
+              valueFrom:
+                secretKeyRef:
+                  name: aj4democracy-secrets
+                  key: twilio__from_email
+            - name: twilio__from_name
+              valueFrom:
+                secretKeyRef:
+                  name: aj4democracy-secrets
+                  key: twilio__from_name
+            - name: twilio__messaging_phone_number
+              valueFrom:
+                secretKeyRef:
+                  name: aj4democracy-secrets
+                  key: twilio__messaging_phone_number
