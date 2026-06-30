@@ -9,6 +9,14 @@ spec:
       containers:
         - name: aj4democracy
           env:
+            # Public site origin for absolute URLs (og/twitter metadata, email
+            # + unsubscribe links). Kept in the sealed secret so the domain
+            # isn't committed in plaintext.
+            - name: app__base_url
+              valueFrom:
+                secretKeyRef:
+                  name: aj4democracy-secrets
+                  key: app__base_url
             - name: nocodb__base_url
               valueFrom:
                 secretKeyRef:
