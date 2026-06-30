@@ -9,6 +9,10 @@ spec:
       containers:
         - name: aj4democracy
           env:
+            # Public site origin used for absolute URLs (og/twitter metadata,
+            # email + unsubscribe links). Not a secret.
+            - name: app__base_url
+              value: https://aj4democracy.org
             - name: nocodb__base_url
               valueFrom:
                 secretKeyRef:
