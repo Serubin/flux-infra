@@ -79,6 +79,11 @@ spec:
                 secretKeyRef:
                   name: aj4democracy-secrets
                   key: features__sms_enabled
+            - name: features__bypass_verification
+              valueFrom:
+                secretKeyRef:
+                  name: aj4democracy-secrets
+                  key: features__bypass_verification
             - name: twilio__account_sid
               valueFrom:
                 secretKeyRef:
