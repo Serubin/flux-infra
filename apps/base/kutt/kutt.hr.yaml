@@ -16,7 +16,7 @@ spec:
   values:
     image:
       repository: kutt/kutt
-      tag: "v3.2.5"
+      tag: "v3.2.6"
     labels:
       app: kutt
     ingress:
