@@ -18,7 +18,10 @@ metadata:
 spec:
   redirectRegex:
     regex: ^(https?://[^/]+)/longhorn$
-    replacement: ${1}/longhorn/
+    # $$ escapes the Flux postBuild envsubst so Traefik receives a literal
+    # ${1} capture group. Unescaped, envsubst resolves it as an (unset)
+    # variable -- silently emptied under Flux 2.8, a hard error under 2.9.
+    replacement: $${1}/longhorn/
     permanent: true
 ---
 # Local copy of forwardauth-authentik. Traefik isn't started with
