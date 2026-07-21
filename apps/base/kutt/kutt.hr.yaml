@@ -13,6 +13,34 @@ spec:
         kind: HelmRepository
         name: christianhuth-helm-chart
         namespace: default
+  # The chart hardcodes liveness/readiness probes with no values hook and ships
+  # no startupProbe, so the liveness probe starts polling at t=0. Kutt runs
+  # `knex migrate:latest` before it listens, so a slow start -- e.g. while the
+  # CloudNativePG cluster is restarting -- gets the container killed mid-boot,
+  # which compounds into a CrashLoopBackOff. A startupProbe suspends liveness
+  # until the app is actually serving.
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              kind: Deployment
+              name: kutt
+            patch: |
+              apiVersion: apps/v1
+              kind: Deployment
+              metadata:
+                name: kutt
+              spec:
+                template:
+                  spec:
+                    containers:
+                      - name: kutt
+                        startupProbe:
+                          httpGet:
+                            path: /api/v2/health
+                            port: http
+                          periodSeconds: 10
+                          failureThreshold: 30
   values:
     image:
       repository: kutt/kutt
