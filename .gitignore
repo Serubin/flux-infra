@@ -1,0 +1,7 @@
+# `.claude/` is ignored by the user's global git excludes
+# (~/.config/git/ignore). Re-include repo-local skills so they are
+# versioned with this repo, while keeping the rest of .claude/ ignored
+# (settings.local.json, plans, session state, etc.).
+!.claude/
+.claude/*
+!.claude/skills/
