@@ -15,7 +15,10 @@ metadata:
   namespace: default
 spec:
   routes:
-    - match: Host(`serub.in`) && PathPrefix(`/s`)
+    # PathPrefix is a raw string prefix in Traefik v2, not a path-segment match, so
+    # `/s` would also swallow /styles/*, /some-page, and every other path beginning
+    # with an "s". Match the /s segment explicitly instead.
+    - match: Host(`serub.in`) && (Path(`/s`) || PathPrefix(`/s/`))
       kind: Rule
       services:
         - name: kutt
