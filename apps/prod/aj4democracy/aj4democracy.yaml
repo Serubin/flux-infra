@@ -67,6 +67,26 @@ spec:
                 secretKeyRef:
                   name: aj4democracy-secrets
                   key: nocodb__candidates__view_id
+            - name: nocodb__campaigns__table_id
+              valueFrom:
+                secretKeyRef:
+                  name: aj4democracy-secrets
+                  key: nocodb__campaigns__table_id
+            - name: nocodb__campaigns__view_id
+              valueFrom:
+                secretKeyRef:
+                  name: aj4democracy-secrets
+                  key: nocodb__campaigns__view_id
+            - name: nocodb__campaign_sends__table_id
+              valueFrom:
+                secretKeyRef:
+                  name: aj4democracy-secrets
+                  key: nocodb__campaign_sends__table_id
+            - name: nocodb__campaign_sends__view_id
+              valueFrom:
+                secretKeyRef:
+                  name: aj4democracy-secrets
+                  key: nocodb__campaign_sends__view_id
             - name: features__geocodio_api_key
               valueFrom:
                 secretKeyRef:
@@ -117,3 +137,15 @@ spec:
                 secretKeyRef:
                   name: aj4democracy-secrets
                   key: twilio__messaging_phone_number
+            # Authenticates the NocoDB webhook that triggers a campaign send.
+            - name: campaigns__webhook_secret
+              valueFrom:
+                secretKeyRef:
+                  name: aj4democracy-secrets
+                  key: campaigns__webhook_secret
+            # Signs the stateless HMAC email unsubscribe tokens.
+            - name: unsubscribe__secret
+              valueFrom:
+                secretKeyRef:
+                  name: aj4democracy-secrets
+                  key: unsubscribe__secret
