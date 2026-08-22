@@ -1,0 +1,134 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: changedetection
+  namespace: default
+spec:
+  # changedetection.io has no environment variable for the default notification
+  # target -- `settings.application.notification_urls` lives only inside the
+  # datastore JSON, which the app normally writes from its own Settings UI. This
+  # init container renders the apprise URL from the shared noreply SMTP creds on
+  # every start so the credentials stay GitOps-managed instead of being pasted in
+  # by hand. Notification URLs pointing anywhere else are preserved, so extra
+  # targets added through the UI survive a restart.
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              kind: Deployment
+              name: changedetection
+            # JSON 6902 rather than a strategic merge: this has to run *after* the
+            # chart's own `initialize-datastore` init container, which is what
+            # creates /datastore/changedetection.json, and a strategic merge
+            # prepends the new entry instead of appending it.
+            #
+            # `initialize-datastore` only exists while
+            # changedetection.defaultWatches.enabled is false (the chart default).
+            # If that is ever flipped, this container fails loudly on the missing
+            # file rather than silently skipping the seed.
+            patch: |
+              - op: add
+                path: /spec/template/spec/initContainers/-
+                value:
+                  name: seed-notification-url
+                  # Should track image.tag in the base HelmRelease, but Renovate
+                  # cannot see inside this patch string. A drifted tag is harmless:
+                  # the script below is Python stdlib only.
+                  image: ghcr.io/dgtlmoon/changedetection.io:0.55.8
+                  imagePullPolicy: IfNotPresent
+                  env:
+                    - name: SMTP_HOST
+                      value: "${NOREPLY_HOST}"
+                    - name: SMTP_PORT
+                      value: "465"
+                    - name: SMTP_USER
+                      valueFrom:
+                        secretKeyRef:
+                          name: noreply-email-secrets
+                          key: NOREPLY_AUTH_EMAIL
+                    - name: SMTP_PASS
+                      valueFrom:
+                        secretKeyRef:
+                          name: noreply-email-secrets
+                          key: NOREPLY_PASSWORD
+                    - name: SMTP_FROM
+                      valueFrom:
+                        secretKeyRef:
+                          name: noreply-email-secrets
+                          key: NOREPLY_SEND_EMAIL
+                    - name: NOTIFY_TO
+                      value: "${EMAIL}"
+                  # Repeated verbatim from the chart's securityContext: a container
+                  # injected by a post-renderer does not inherit it, and would
+                  # otherwise run as root and leave root-owned files in the datastore.
+                  securityContext:
+                    runAsUser: 1000
+                    runAsGroup: 1000
+                    runAsNonRoot: true
+                    allowPrivilegeEscalation: false
+                    capabilities:
+                      drop:
+                        - ALL
+                  volumeMounts:
+                    - name: data
+                      mountPath: /datastore
+                  command:
+                    - python
+                    - -c
+                    - |
+                      import json
+                      import os
+                      from urllib.parse import quote
+
+                      DATASTORE = "/datastore/changedetection.json"
+
+                      def q(value):
+                          # Credentials go in the query string, not the userinfo
+                          # section: apprise honours ?user=/?pass= overrides, which
+                          # avoids having to encode the "@" in an email-shaped
+                          # username. Everything is still percent-encoded so an "&"
+                          # or "#" in the app password cannot break the URL.
+                          return quote(value, safe="")
+
+                      if not os.path.exists(DATASTORE):
+                          raise SystemExit(
+                              DATASTORE + " is missing -- the chart's"
+                              " initialize-datastore init container must run first"
+                              " (changedetection.defaultWatches.enabled must stay false)"
+                          )
+
+                      host = os.environ["SMTP_HOST"]
+                      url = (
+                          "mailtos://{host}:{port}/"
+                          "?user={user}&pass={password}&from={sender}&to={rcpt}&mode=ssl"
+                      ).format(
+                          host=q(host),
+                          port=q(os.environ["SMTP_PORT"]),
+                          user=q(os.environ["SMTP_USER"]),
+                          password=q(os.environ["SMTP_PASS"]),
+                          sender=q(os.environ["SMTP_FROM"]),
+                          rcpt=q(os.environ["NOTIFY_TO"]),
+                      )
+
+                      with open(DATASTORE) as handle:
+                          data = json.load(handle)
+
+                      application = data.setdefault("settings", {}).setdefault("application", {})
+                      current = application.get("notification_urls", [])
+                      others = [u for u in current if not u.startswith("mailtos://" + q(host))]
+                      desired = [url] + others
+
+                      if current == desired:
+                          print("default notification URL already current")
+                      else:
+                          application["notification_urls"] = desired
+                          with open(DATASTORE + ".tmp", "w") as handle:
+                              json.dump(data, handle, indent=4)
+                          os.replace(DATASTORE + ".tmp", DATASTORE)
+                          print("seeded default notification URL")
+  values:
+    changedetection:
+      # Only used to build absolute links inside notification bodies; the request
+      # path itself comes from the X-Forwarded-Prefix the stripPrefix middleware
+      # sets. See changedetection.ingressroute.yaml.
+      baseUrl: https://${SECRET_DOMAIN}/watcher

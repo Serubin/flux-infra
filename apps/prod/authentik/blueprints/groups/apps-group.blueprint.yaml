@@ -39,3 +39,10 @@ data:
           order: 1
         attrs:
           enabled: true
+      - model: authentik_policies.policybinding
+        identifiers:
+          target: !Find [authentik_core.application, [slug, watcher]]
+          group: !KeyOf apps-group
+          order: 2
+        attrs:
+          enabled: true

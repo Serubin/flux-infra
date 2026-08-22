@@ -1,0 +1,65 @@
+# Normalize /watcher -> /watcher/ before stripPrefix runs, so the backend never
+# sees an empty path.
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: changedetection-redirect-slash
+  namespace: default
+spec:
+  redirectRegex:
+    regex: ^(https?://[^/]+)/watcher$
+    # $$ escapes the Flux postBuild envsubst so Traefik receives a literal
+    # ${1} capture group. Unescaped, envsubst resolves it as an (unset)
+    # variable -- silently emptied under Flux 2.8, a hard error under 2.9.
+    replacement: $${1}/watcher/
+    permanent: true
+---
+# Traefik's stripPrefix *adds* X-Forwarded-Prefix rather than setting it, and
+# changedetection reads the first value of that header. Without this, a client
+# could supply its own prefix and dictate the app's session cookie path and
+# socket.io endpoint. An empty customRequestHeaders value deletes the header.
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: changedetection-clear-fwd-prefix
+  namespace: default
+spec:
+  headers:
+    customRequestHeaders:
+      X-Forwarded-Prefix: ""
+---
+# Strips /watcher and sets the trusted X-Forwarded-Prefix that USE_X_SETTINGS
+# turns into Flask's SCRIPT_NAME.
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: changedetection-stripprefix
+  namespace: default
+spec:
+  stripPrefix:
+    prefixes:
+      - /watcher
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: changedetection
+  namespace: default
+spec:
+  routes:
+    # PathPrefix is a raw string prefix in Traefik v2, not a path-segment match, so
+    # `/watcher` alone would also swallow /watchers and /watcher-anything. Match the
+    # /watcher segment explicitly instead.
+    - match: Host(`${SECRET_DOMAIN}`) && (Path(`/watcher`) || PathPrefix(`/watcher/`))
+      kind: Rule
+      services:
+        - name: changedetection
+          port: 80
+      # Order matters: forward-auth has to see the original /watcher/... URI so
+      # authentik redirects back to the right place after login, which means it
+      # must run before the prefix is stripped.
+      middlewares:
+        - name: changedetection-redirect-slash
+        - name: forwardauth-authentik
+        - name: changedetection-clear-fwd-prefix
+        - name: changedetection-stripprefix
