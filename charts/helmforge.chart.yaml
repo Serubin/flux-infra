@@ -1,0 +1,9 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: helmforge-charts
+  namespace: default
+spec:
+  interval: 30m
+  url: https://repo.helmforge.dev
+  timeout: 2m

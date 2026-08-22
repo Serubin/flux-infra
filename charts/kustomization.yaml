@@ -8,6 +8,7 @@ resources:
   - cloudnativepg.chart.yaml
   - cloudpirates.chart.yaml
   - grafana.chart.yaml
+  - helmforge.chart.yaml
   - kyverno.chart.yaml
   - lacework.chart.yaml
   - longhorn.chart.yaml

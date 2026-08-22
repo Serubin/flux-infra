@@ -1,0 +1,15 @@
+# Declared here rather than letting the chart template it: a chart-managed PVC is a
+# release resource, so `helm uninstall` -- or the HelmRelease being pruned -- would
+# take the SQLite datastore and every change snapshot with it.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: changedetection-data-pvc
+  namespace: default
+spec:
+  storageClassName: longhorn
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi

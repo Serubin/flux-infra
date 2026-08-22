@@ -8,7 +8,10 @@ metadata:
     app.kubernetes.io/name: authentik
 spec:
   routes:
-    - match: (Host(`ops.${SECRET_DOMAIN}`) || Host(`prometheus.${SECRET_DOMAIN}`) || Host(`alert-manager.${SECRET_DOMAIN}`)) && PathPrefix(`/outpost.goauthentik.io`)
+    # ${SECRET_DOMAIN} is the apex host: only its /watcher route is forward-auth
+    # gated, but the outpost callback has to resolve on the same host as the
+    # protected path or the post-login redirect breaks.
+    - match: (Host(`ops.${SECRET_DOMAIN}`) || Host(`prometheus.${SECRET_DOMAIN}`) || Host(`alert-manager.${SECRET_DOMAIN}`) || Host(`${SECRET_DOMAIN}`)) && PathPrefix(`/outpost.goauthentik.io`)
       kind: Rule
       services:
         - name: authentik-server

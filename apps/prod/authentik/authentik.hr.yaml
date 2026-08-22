@@ -59,6 +59,7 @@ spec:
         - media-blueprint
         - jellyfin-blueprint
         - kutt-blueprint
+        - watcher-blueprint
         - embedded-outpost-blueprint
         - home-outpost-blueprint
         - ops-group-blueprint

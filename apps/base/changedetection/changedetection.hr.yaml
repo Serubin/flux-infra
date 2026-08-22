@@ -1,0 +1,62 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: changedetection
+  namespace: default
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: changedetection
+      version: 1.1.14
+      sourceRef:
+        kind: HelmRepository
+        name: helmforge-charts
+        namespace: default
+  values:
+    # Without this the chart names everything "<release>-<chart>", i.e.
+    # changedetection-changedetection.
+    fullnameOverride: changedetection
+    image:
+      repository: ghcr.io/dgtlmoon/changedetection.io
+      tag: "0.55.8"
+    changedetection:
+      port: 5000
+      timezone: America/New_York
+      # Kustomize replaces YAML lists wholesale rather than merging them, so this
+      # list is the complete set -- an overlay that re-declares extraEnv silently
+      # drops everything below.
+      extraEnv:
+        # Wraps the Flask app in werkzeug ProxyFix(x_prefix=1), which sets
+        # SCRIPT_NAME from X-Forwarded-Prefix so url_for() emits sub-path-prefixed
+        # links. Inert unless a proxy actually sends the header, so it is safe to
+        # default on even for a root-path deployment.
+        - name: USE_X_SETTINGS
+          value: "1"
+        # Reject bare hostnames (http://nas, http://authentik-server) as watch
+        # targets. RFC1918 and other IANA-reserved addresses are already refused by
+        # default via ALLOW_IANA_RESTRICTED_ADDRESSES=false.
+        - name: BLOCK_SIMPLEHOSTS
+          value: "true"
+    browser:
+      enabled: true
+      image:
+        repository: ghcr.io/browserless/chromium
+        tag: "v2.46.0"
+      # The chart leaves the sidecar unbounded; Chromium will happily eat the node.
+      resources:
+        requests:
+          cpu: 100m
+          memory: 512Mi
+        limits:
+          cpu: 1000m
+          memory: 2Gi
+    persistence:
+      enabled: true
+      existingClaim: changedetection-data-pvc
+    service:
+      port: 80
+    # Routing is an overlay concern: the chart's Ingress cannot attach the Traefik
+    # middlewares that sub-path hosting and forward-auth need.
+    ingress:
+      enabled: false
