@@ -46,7 +46,12 @@ data:
             kubernetes_image_pull_secrets: []
             kubernetes_json_patches: null
             kubernetes_ingress_class_name: null
-            kubernetes_ingress_secret_name: null
+            # Must be a string: the outpost config serializer rejects null here
+            # ('should be "str" instead of value "None"'), which silently failed
+            # the whole blueprint and froze the providers list below. The other
+            # null keys in this block are still accepted. This is authentik's own
+            # default value; the outpost creates no Ingress, so it goes unused.
+            kubernetes_ingress_secret_name: authentik-outpost-tls
             kubernetes_ingress_annotations: {}
             refresh_interval: minutes=5
           providers:
