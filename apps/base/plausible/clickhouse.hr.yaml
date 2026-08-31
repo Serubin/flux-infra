@@ -18,7 +18,7 @@ spec:
       main:
         pod:
           annotations:
-            backup.velero.io/backup-volumes-excludes: data,logs
+            backup.velero.io/backup-volumes-excludes: logs
         containers:
           main:
             image:
@@ -62,7 +62,7 @@ spec:
           - path: /etc/clickhouse-server/config.d/system-log-ttl.xml
             subPath: system-log-ttl.xml
       data:
-        existingClaim: plausible-clickhouse-pvc
+        existingClaim: plausible-clickhouse-data-pvc
         globalMounts:
           - path: /var/lib/clickhouse
       logs:
