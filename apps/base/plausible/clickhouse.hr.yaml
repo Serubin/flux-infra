@@ -55,6 +55,12 @@ spec:
           native:
             port: 9000
     persistence:
+      config:
+        type: configMap
+        name: plausible-clickhouse-config
+        globalMounts:
+          - path: /etc/clickhouse-server/config.d/system-log-ttl.xml
+            subPath: system-log-ttl.xml
       data:
         existingClaim: plausible-clickhouse-pvc
         globalMounts:

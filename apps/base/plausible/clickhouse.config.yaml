@@ -1,0 +1,25 @@
+# ClickHouse ships every system log table with no TTL, so they grow without bound --
+# they reached 164GB here against a nominally 8Gi PVC, since local-path enforces no quota.
+# Retention is tiered by write volume: trace/text are the firehoses, error_log is small
+# and worth keeping. TTL applies at table creation, so a table already on disk keeps its
+# old (absent) TTL until dropped and recreated.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: plausible-clickhouse-config
+  namespace: default
+data:
+  system-log-ttl.xml: |
+    <clickhouse>
+      <trace_log><ttl>event_date + INTERVAL 3 DAY DELETE</ttl></trace_log>
+      <text_log><ttl>event_date + INTERVAL 3 DAY DELETE</ttl></text_log>
+      <background_schedule_pool_log><ttl>event_date + INTERVAL 3 DAY DELETE</ttl></background_schedule_pool_log>
+      <metric_log><ttl>event_date + INTERVAL 7 DAY DELETE</ttl></metric_log>
+      <asynchronous_metric_log><ttl>event_date + INTERVAL 7 DAY DELETE</ttl></asynchronous_metric_log>
+      <processors_profile_log><ttl>event_date + INTERVAL 7 DAY DELETE</ttl></processors_profile_log>
+      <query_metric_log><ttl>event_date + INTERVAL 7 DAY DELETE</ttl></query_metric_log>
+      <histogram_metric_log><ttl>event_date + INTERVAL 7 DAY DELETE</ttl></histogram_metric_log>
+      <query_log><ttl>event_date + INTERVAL 14 DAY DELETE</ttl></query_log>
+      <part_log><ttl>event_date + INTERVAL 14 DAY DELETE</ttl></part_log>
+      <error_log><ttl>event_date + INTERVAL 30 DAY DELETE</ttl></error_log>
+    </clickhouse>
