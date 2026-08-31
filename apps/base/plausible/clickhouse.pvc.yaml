@@ -1,3 +1,22 @@
+# The `longhorn` class, not `longhorn-static`: its Retain reclaim policy keeps the
+# volume if the claim is ever deleted. ClickHouse holds plausible's entire analytics
+# history and nothing else backs it up.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: plausible-clickhouse-data-pvc
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 20Gi
+---
+# Superseded by the Longhorn claim above and kept only until that volume is proven
+# good -- `local-path` reclaims with Delete, so removing this manifest destroys the
+# pre-migration copy.
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -10,4 +29,3 @@ spec:
   resources:
     requests:
       storage: 8Gi
-
