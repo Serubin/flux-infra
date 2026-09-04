@@ -34,7 +34,7 @@ spec:
                   # Should track image.tag in the base HelmRelease, but Renovate
                   # cannot see inside this patch string. A drifted tag is harmless:
                   # the script below is Python stdlib only.
-                  image: ghcr.io/dgtlmoon/changedetection.io:0.55.8
+                  image: ghcr.io/dgtlmoon/changedetection.io:0.60.3
                   imagePullPolicy: IfNotPresent
                   env:
                     - name: SMTP_HOST
