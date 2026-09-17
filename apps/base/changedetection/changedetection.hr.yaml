@@ -19,7 +19,7 @@ spec:
     fullnameOverride: changedetection
     image:
       repository: ghcr.io/dgtlmoon/changedetection.io
-      tag: "0.60.6"
+      tag: "0.60.7"
     changedetection:
       port: 5000
       timezone: America/New_York
