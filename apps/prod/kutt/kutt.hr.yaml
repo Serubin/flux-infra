@@ -66,17 +66,10 @@ spec:
         value: "email"
       - name: DISALLOW_LOGIN_FORM
         value: "true"
-    postgresql:
-      enabled: false
-    externalPostgresql:
+    externalDatabase:
       # Using password from kutt-secrets (set via CNPG cluster bootstrap)
-      auth:
-        existingSecret: kutt-secrets
-        userPasswordKey: password
-    redis:
-      enabled: false
+      existingSecret: kutt-secrets
+      existingSecretPasswordKey: password
     externalRedis:
-      auth:
-        enabled: true
-        existingSecret: kutt-secrets
-        userPasswordKey: redis-password
+      existingSecret: kutt-secrets
+      existingSecretPasswordKey: redis-password
