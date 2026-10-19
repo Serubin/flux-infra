@@ -65,6 +65,7 @@ spec:
         - ops-group-blueprint
         - apps-group-blueprint
         - media-users-group-blueprint
+        - login-session-blueprint
     server:
       ingress:
         hosts:
