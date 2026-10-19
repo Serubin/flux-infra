@@ -62,21 +62,15 @@ spec:
         secure: true
     postgresql:
       enabled: false
-    externalPostgresql:
+    externalDatabase:
       # Using CloudNativePG cluster
       hostname: kutt-postgresql-cnpg-cluster-rw
       port: 5432
-      auth:
-        database: kutt
-        username: kutt
-    redis:
+      database: kutt
+      username: kutt
+    valkey:
       enabled: false
     externalRedis:
-      # Cluster must provide
-      # auth:
-      #   existingSecret (secret key is password)
-      #
+      # Cluster must provide existingSecret (auth is enabled when it is set)
       hostname: kutt-redis
       port: 6379
-      auth:
-        enabled: true
