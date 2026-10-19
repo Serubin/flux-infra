@@ -44,6 +44,8 @@ Defined under `values.schedules` in the HelmRelease. The chart names resources `
 
 All use `defaultVolumesToFsBackup: true`. Local-path and explicitly excluded volumes are opted out via `backup.velero.io/backup-volumes-excludes` on pods.
 
+All three also reference the `velero-resource-policies` ConfigMap (chart `values.configMaps.resource-policies`), whose volume policy skips every `emptyDir`. Those volumes are scratch space wiped on each pod restart; backing them up added ~2 minutes per volume and caused `PartiallyFailed` runs when short-lived pods (e.g. kopia maintenance jobs) exited mid-backup.
+
 ## Verification
 
 ```bash

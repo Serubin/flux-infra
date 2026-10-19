@@ -58,6 +58,18 @@ spec:
             region: us-east-1
             s3ForcePathStyle: "true"
             s3Url: ${VELERO_B2_ENDPOINT}
+    configMaps:
+      # Velero rejects a resource-policies ConfigMap with more than one data key.
+      resource-policies:
+        data:
+          policies.yaml: |
+            version: v1
+            volumePolicies:
+              - conditions:
+                  volumeTypes:
+                    - emptyDir
+                action:
+                  type: skip
     schedules:
       hourly-backup:
         schedule: "0 * * * *"
@@ -65,15 +77,24 @@ spec:
           ttl: 12h0m0s
           storageLocation: default
           defaultVolumesToFsBackup: true
+          resourcePolicy:
+            kind: configmap
+            name: velero-resource-policies
       daily-backup:
         schedule: "0 2 * * *"
         template:
           ttl: 168h0m0s
           storageLocation: default
           defaultVolumesToFsBackup: true
+          resourcePolicy:
+            kind: configmap
+            name: velero-resource-policies
       weekly-backup:
         schedule: "0 3 * * 0"
         template:
           ttl: 1680h0m0s
           storageLocation: default
           defaultVolumesToFsBackup: true
+          resourcePolicy:
+            kind: configmap
+            name: velero-resource-policies
