@@ -69,6 +69,7 @@ spec:
         - apps-group-blueprint
         - media-users-group-blueprint
         - login-session-blueprint
+        - brand-blueprint
     server:
       ingress:
         hosts:

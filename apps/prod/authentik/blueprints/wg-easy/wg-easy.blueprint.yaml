@@ -31,8 +31,8 @@ data:
           client_id: wg-easy
         attrs:
           name: wg-easy OAuth Provider
-          authorization_flow: !Find [authentik_flows.flow, [slug, default-provider-authorization-implicit-consent]]
-          invalidation_flow: !Find [authentik_flows.flow, [slug, default-provider-invalidation-flow]]
+          authorization_flow: !Find [authentik_flows.flow, [slug, provider-authorization]]
+          invalidation_flow: !Find [authentik_flows.flow, [slug, provider-invalidation]]
           client_type: confidential
           # Defaults to empty on create, which rejects every grant.
           grant_types:

@@ -20,8 +20,8 @@ data:
           internal_host: http://localhost
           internal_host_ssl_validation: false
           mode: forward_single
-          authorization_flow: !Find [authentik_flows.flow, [slug, default-provider-authorization-implicit-consent]]
-          invalidation_flow: !Find [authentik_flows.flow, [slug, default-provider-invalidation-flow]]
+          authorization_flow: !Find [authentik_flows.flow, [slug, provider-authorization]]
+          invalidation_flow: !Find [authentik_flows.flow, [slug, provider-invalidation]]
       - model: authentik_core.application
         id: ops-app
         identifiers:

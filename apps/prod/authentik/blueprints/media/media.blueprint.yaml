@@ -22,8 +22,8 @@ data:
           mode: forward_single
           # Caps how long an outpost session outlives a logout it never heard about.
           access_token_validity: minutes=15
-          authorization_flow: !Find [authentik_flows.flow, [slug, default-provider-authorization-implicit-consent]]
-          invalidation_flow: !Find [authentik_flows.flow, [slug, default-provider-invalidation-flow]]
+          authorization_flow: !Find [authentik_flows.flow, [slug, provider-authorization]]
+          invalidation_flow: !Find [authentik_flows.flow, [slug, provider-invalidation]]
 
       - model: authentik_core.application
         id: media-stack-app
