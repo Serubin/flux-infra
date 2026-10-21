@@ -9,6 +9,7 @@ resources:
   - media
   - jellyfin
   - kutt
+  - wg-easy
   - watcher
   - embedded-outpost
   - home-outpost
