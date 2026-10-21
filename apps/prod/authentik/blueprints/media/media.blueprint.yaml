@@ -34,7 +34,7 @@ data:
           # blank://blank hides the tile from the user library while keeping
           # the forward-auth proxy provider for serubin.me active.
           meta_launch_url: blank://blank
-          meta_description: Auth gate for serubin.me (Sonarr, Radarr, Prowlarr, Bazarr)
+          meta_description: Auth gate for serubin.me (Sonarr, Radarr, Prowlarr, Bazarr, Transmission)
           open_in_new_tab: true
           group: Apps
           policy_engine_mode: any
@@ -92,6 +92,20 @@ data:
           meta_launch_url: https://serubin.me/bazarr
           icon: https://cdn.jsdelivr.net/gh/selfhst/icons/svg/bazarr.svg
           meta_description: Subtitle management
+          open_in_new_tab: true
+          group: Apps
+          policy_engine_mode: any
+
+      - model: authentik_core.application
+        id: transmission-app
+        identifiers:
+          slug: transmission
+        attrs:
+          name: Transmission
+          slug: transmission
+          meta_launch_url: https://serubin.me/transmission/web/
+          icon: https://cdn.jsdelivr.net/gh/selfhst/icons/svg/transmission.svg
+          meta_description: Torrent client
           open_in_new_tab: true
           group: Apps
           policy_engine_mode: any
