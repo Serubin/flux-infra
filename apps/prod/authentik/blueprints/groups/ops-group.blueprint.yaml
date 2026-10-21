@@ -65,3 +65,10 @@ data:
           order: 0
         attrs:
           enabled: true
+      - model: authentik_policies.policybinding
+        identifiers:
+          target: !Find [authentik_core.application, [slug, wg-easy]]
+          group: !KeyOf ops-group
+          order: 0
+        attrs:
+          enabled: true
