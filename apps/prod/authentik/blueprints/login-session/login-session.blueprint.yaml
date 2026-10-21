@@ -16,3 +16,9 @@ data:
         attrs:
           session_duration: seconds=0
           remember_me_offset: days=90
+      # Inline password field; upstream's password-stage policy then skips the separate password page.
+      - model: authentik_stages_identification.identificationstage
+        identifiers:
+          name: default-authentication-identification
+        attrs:
+          password_stage: !Find [authentik_stages_password.passwordstage, [name, default-authentication-password]]
