@@ -9,8 +9,22 @@ data:
     metadata:
       name: wg-easy-oauth
     entries:
+      # wg-easy rejects email_verified=false, which authentik's default mapping always sends; emails here are admin-set.
+      - model: authentik_providers_oauth2.scopemapping
+        id: wg-easy-email-scope
+        identifiers:
+          name: "wg-easy OAuth Mapping: OpenID 'email' (verified)"
+        attrs:
+          scope_name: email
+          description: Email address
+          expression: |
+            return {
+                "email": request.user.email,
+                "email_verified": True,
+            }
+
       # OIDC provider for the wg-easy v15 admin UI on the NAS.
-      # wg-easy matches users by email without checking email_verified, so access is gated by the Ops binding.
+      # wg-easy links users by email, so access is gated by the Ops binding.
       - model: authentik_providers_oauth2.oauth2provider
         id: wg-easy-provider
         identifiers:
@@ -34,7 +48,7 @@ data:
           signing_key: !Find [authentik_crypto.certificatekeypair, [name, "authentik Self-signed Certificate"]]
           property_mappings:
             - !Find [authentik_providers_oauth2.scopemapping, [scope_name, "openid"]]
-            - !Find [authentik_providers_oauth2.scopemapping, [scope_name, "email"]]
+            - !KeyOf wg-easy-email-scope
             - !Find [authentik_providers_oauth2.scopemapping, [scope_name, "profile"]]
 
       - model: authentik_core.application
