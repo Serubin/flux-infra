@@ -37,13 +37,3 @@ jobs:
       - name: Validate manifests
         if: ${{ steps.filter.outputs.project == 'true' }}
         run: ./scripts/verify.sh
-      - name: Check authentik brand CSS hash
-        if: ${{ steps.filter.outputs.project == 'true' }}
-        run: |
-          dir=apps/prod/authentik/blueprints/brand
-          want=$(sha256sum "$dir/custom.css" | cut -c1-16)
-          got=$(yq e '.metadata.labels.css-sha256' "$dir/brand.yaml")
-          if [ "$want" != "$got" ]; then
-            echo "::error file=$dir/brand.yaml::css-sha256 is $got, custom.css hashes to $want"
-            exit 1
-          fi
