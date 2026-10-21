@@ -15,8 +15,8 @@ data:
           client_id: kutt
         attrs:
           name: Kutt OAuth Provider
-          authorization_flow: !Find [authentik_flows.flow, [slug, default-provider-authorization-implicit-consent]]
-          invalidation_flow: !Find [authentik_flows.flow, [slug, default-provider-invalidation-flow]]
+          authorization_flow: !Find [authentik_flows.flow, [slug, provider-authorization]]
+          invalidation_flow: !Find [authentik_flows.flow, [slug, provider-invalidation]]
           client_type: confidential
           client_id: kutt
           client_secret: !Env KUTT_CLIENT_SECRET

@@ -25,8 +25,8 @@ data:
           internal_host: http://localhost
           internal_host_ssl_validation: false
           mode: forward_single
-          authorization_flow: !Find [authentik_flows.flow, [slug, default-provider-authorization-implicit-consent]]
-          invalidation_flow: !Find [authentik_flows.flow, [slug, default-provider-invalidation-flow]]
+          authorization_flow: !Find [authentik_flows.flow, [slug, provider-authorization]]
+          invalidation_flow: !Find [authentik_flows.flow, [slug, provider-invalidation]]
       # Application bound to the provider. Application.provider is OneToOne,
       # so exactly one Application can link to alertmanager-provider.
       - model: authentik_core.application

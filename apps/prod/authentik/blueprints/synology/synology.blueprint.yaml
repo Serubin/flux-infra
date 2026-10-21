@@ -18,8 +18,8 @@ data:
           client_id: synology
         attrs:
           name: Synology OAuth Provider
-          authorization_flow: !Find [authentik_flows.flow, [slug, default-provider-authorization-implicit-consent]]
-          invalidation_flow: !Find [authentik_flows.flow, [slug, default-provider-invalidation-flow]]
+          authorization_flow: !Find [authentik_flows.flow, [slug, provider-authorization]]
+          invalidation_flow: !Find [authentik_flows.flow, [slug, provider-invalidation]]
           client_type: confidential
           client_id: synology
           client_secret: !Env SYNOLOGY_CLIENT_SECRET

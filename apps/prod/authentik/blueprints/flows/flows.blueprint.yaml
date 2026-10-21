@@ -1,0 +1,112 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: flows-blueprint
+  namespace: default
+data:
+  flows.yaml: |
+    version: 1
+    metadata:
+      name: clean-slug-flows
+    entries:
+      # Clean-slug flows reusing upstream's stages; upstream recreates default-* by slug, so those can't be renamed.
+      - model: authentik_flows.flow
+        id: authentication-flow
+        identifiers:
+          slug: authentication-flow
+        attrs:
+          name: Login
+          title: Welcome to authentik!
+          designation: authentication
+          authentication: none
+      - model: authentik_flows.flowstagebinding
+        identifiers:
+          target: !KeyOf authentication-flow
+          stage: !Find [authentik_stages_identification.identificationstage, [name, default-authentication-identification]]
+          order: 10
+        attrs:
+          re_evaluate_policies: true
+          evaluate_on_plan: false
+      - model: authentik_flows.flowstagebinding
+        id: authentication-flow-password-binding
+        identifiers:
+          target: !KeyOf authentication-flow
+          stage: !Find [authentik_stages_password.passwordstage, [name, default-authentication-password]]
+          order: 20
+        attrs:
+          re_evaluate_policies: true
+          evaluate_on_plan: false
+      - model: authentik_flows.flowstagebinding
+        id: authentication-flow-mfa-binding
+        identifiers:
+          target: !KeyOf authentication-flow
+          stage: !Find [authentik_stages_authenticator_validate.authenticatorvalidatestage, [name, default-authentication-mfa-validation]]
+          order: 30
+        attrs:
+          re_evaluate_policies: true
+          evaluate_on_plan: false
+      - model: authentik_flows.flowstagebinding
+        identifiers:
+          target: !KeyOf authentication-flow
+          stage: !Find [authentik_stages_user_login.userloginstage, [name, default-authentication-login]]
+          order: 100
+        attrs:
+          re_evaluate_policies: true
+          evaluate_on_plan: false
+      - model: authentik_policies.policybinding
+        identifiers:
+          target: !KeyOf authentication-flow-password-binding
+          policy: !Find [authentik_policies_expression.expressionpolicy, [name, default-authentication-flow-password-stage]]
+          order: 10
+        attrs:
+          failure_result: true
+      - model: authentik_policies.policybinding
+        identifiers:
+          target: !KeyOf authentication-flow-mfa-binding
+          policy: !Find [authentik_policies_expression.expressionpolicy, [name, default-authentication-flow-authenticator-validate-stage]]
+          order: 10
+        attrs:
+          failure_result: true
+
+      - model: authentik_flows.flow
+        id: invalidation-flow
+        identifiers:
+          slug: invalidation-flow
+        attrs:
+          name: Logout
+          title: Default Invalidation Flow
+          designation: invalidation
+          authentication: none
+      - model: authentik_flows.flowstagebinding
+        identifiers:
+          target: !KeyOf invalidation-flow
+          stage: !Find [authentik_stages_user_logout.userlogoutstage, [name, default-invalidation-logout]]
+          order: 0
+        attrs:
+          re_evaluate_policies: true
+          evaluate_on_plan: false
+
+      - model: authentik_flows.flow
+        identifiers:
+          slug: provider-authorization
+        attrs:
+          name: Authorize Application
+          title: Redirecting to %(app)s
+          designation: authorization
+          authentication: require_authenticated
+      - model: authentik_flows.flow
+        identifiers:
+          slug: provider-invalidation
+        attrs:
+          name: Logged out of application
+          title: You've logged out of %(app)s.
+          designation: invalidation
+          authentication: none
+
+      # Sets only the flow pointers; title, logo and CSS stay managed in the admin UI.
+      - model: authentik_brands.brand
+        identifiers:
+          domain: authentik-default
+        attrs:
+          flow_authentication: !KeyOf authentication-flow
+          flow_invalidation: !KeyOf invalidation-flow
