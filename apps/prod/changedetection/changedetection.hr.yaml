@@ -30,7 +30,7 @@ spec:
               - op: add
                 path: /spec/template/spec/initContainers/-
                 value:
-                  name: seed-notification-url
+                  name: seed-datastore
                   # Should track image.tag in the base HelmRelease, but Renovate
                   # cannot see inside this patch string. A drifted tag is harmless:
                   # the script below is Python stdlib only.
@@ -81,6 +81,13 @@ spec:
                       from urllib.parse import quote
 
                       DATASTORE = "/datastore/changedetection.json"
+                      PROXIES = "/datastore/proxies.json"
+                      RESIDENTIAL_PROXY = "http://watcher-vpn.default.svc.cluster.local:8888"
+
+                      def write_json(path, value):
+                          with open(path + ".tmp", "w") as handle:
+                              json.dump(value, handle, indent=4)
+                          os.replace(path + ".tmp", path)
 
                       def q(value):
                           # Credentials go in the query string, not the userinfo
@@ -118,14 +125,31 @@ spec:
                       others = [u for u in current if not u.startswith("mailtos://" + q(host))]
                       desired = [url] + others
 
-                      if current == desired:
-                          print("default notification URL already current")
-                      else:
+                      changed = False
+                      if current != desired:
                           application["notification_urls"] = desired
-                          with open(DATASTORE + ".tmp", "w") as handle:
-                              json.dump(data, handle, indent=4)
-                          os.replace(DATASTORE + ".tmp", DATASTORE)
+                          changed = True
                           print("seeded default notification URL")
+
+                      # With no default set, changedetection sends every watch through the first
+                      # proxy (watcher-vpn.yaml); pin "no-proxy" so the residential exit is opt-in.
+                      requests = data["settings"].setdefault("requests", {})
+                      if requests.get("proxy") is None:
+                          requests["proxy"] = "no-proxy"
+                          changed = True
+                          print("pinned default proxy to no-proxy")
+
+                      if changed:
+                          write_json(DATASTORE, data)
+                      else:
+                          print("datastore settings already current")
+
+                      write_json(PROXIES, {
+                          "residential": {
+                              "label": "Residential (home)",
+                              "url": RESIDENTIAL_PROXY,
+                          },
+                      })
   values:
     changedetection:
       # Only used to build absolute links inside notification bodies; the request
