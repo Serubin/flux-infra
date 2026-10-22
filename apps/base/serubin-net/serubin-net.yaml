@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: serubin-net
-          image: ghcr.io/serubin/serubin-net:2026.10.16
+          image: ghcr.io/serubin/serubin-net:2026.10.17
           ports:
             - name: web
               containerPort: 80
