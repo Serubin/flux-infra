@@ -17,9 +17,12 @@ data:
           client_id: home-assistant
         attrs:
           name: Home Assistant OAuth Provider
-          authorization_flow: !Find [authentik_flows.flow, [slug, default-provider-authorization-implicit-consent]]
-          invalidation_flow: !Find [authentik_flows.flow, [slug, default-provider-invalidation-flow]]
+          authorization_flow: !Find [authentik_flows.flow, [slug, provider-authorization]]
+          invalidation_flow: !Find [authentik_flows.flow, [slug, provider-invalidation]]
           client_type: confidential
+          # Defaults to empty on create, which rejects every grant.
+          grant_types:
+            - authorization_code
           client_id: home-assistant
           client_secret: !Env HOME_ASSISTANT_CLIENT_SECRET
           include_claims_in_id_token: true
