@@ -7,11 +7,11 @@ type: Opaque
 stringData:
     PORTFOLIO_COOKIE_SECRET: ENC[AES256_GCM,data:g13vRs8ffw4K3mBlrTPVBtYMtQJNSx7erSE14gM+ooo=,iv:C7xCmbkwFmTTwidYMnpOqj9NHYNSQ9LfnMd3l6r/3dA=,tag:9Um+7S7FfjvQmaTyqljA9Q==,type:str]
     PORTFOLIO_SOURCE_ZIP_URL: ENC[AES256_GCM,data:5PkcQAP4YG+61Qq53FpvDZ9yLmJQ6v+38JY35dV4hYoW2UyRkv20AIyvC5K7eEPxnpKysiKhnv9oUUc=,iv:qli+PkxjSlU6UxR75NR8EgL/98apQbvR4UW/DjaoTQc=,tag:sFYwSd7HwX1jHoGejwPicA==,type:str]
-    PORTFOLIO_SOURCE_AUTH_TOKEN: ENC[AES256_GCM,data:z8yuBPJC8UP/l/xnOBZcsAU+TbemoSgMbZLIEVyHpysLiA/FDyGF7vEXMwH8D8gyYS1bI/w42xUEJAExr9fXvRlPP4oVTJzQJxfqbq92NEzKmZa5FMvPPRNt+oWO,iv:aYHC6EB5cBaDGvw2BHA8155iKXVcJ0n6vo6NAZwRKH4=,tag:Y1s/CEOwBW/rcHG14K4Q1Q==,type:str]
+    PORTFOLIO_SOURCE_AUTH_TOKEN: ENC[AES256_GCM,data:CPIxi/hd3uRjDPTtQNu72WzENmB96h2FUFTDUXCBZ0AhwAMxhoIXktc7ZZx1rYt+g9yQpjhM8OeXmgAsQ6XQHEPyp1UJUP2j514RL1FGculo2smvWJO7Giv8dvkz,iv:hOhDkhfDLIT7wlssbXEMloMLYmtzCAtyD0oZn2Jcaqk=,tag:VJEpFxYNmJw3G2K4S8wvfg==,type:str]
 sops:
     encrypted_regex: ^(data|stringData)$
-    lastmodified: "2026-10-22T18:20:05Z"
-    mac: ENC[AES256_GCM,data:ENbs43rJz8xTaWJR/eSvR1rXcP4qe7unWsvYWO8LH0GAI6fpIEmM2LyHqV+Wp0RcYXDe6Tgs/TQ7sZHsG1asFf39N9uVPe4/b7FVFfLsK2NUvQYS8TOacUVpYWb6/RUk8aWlS5/7hKz4js5slbJKI6JFO8MpmT4arw+/cetMVTo=,iv:/yyK0MQgUkgmmu3wBSBxQyJbb/Ru0CLRhYVxjufegoY=,tag:fGAqiUrjd4+VpWlO46iBMw==,type:str]
+    lastmodified: "2026-10-22T20:51:24Z"
+    mac: ENC[AES256_GCM,data:Hi4NJBpUtB4NS/4mtDUDfkrNRIEeCPfbVJRS2NGzooRWtXNrN7Bh2F71xJiyeSCl9QBAKjijD1k+GDmJJr/BxEPtvEgTKmNvAS4MMjg2clUf7lqWYpalAdkiOuxI2CZqgZrE1YrpeTHDLbxQwp91EEihcwSchDOriTzHrMG+4Rc=,iv:NjZttKdL2fDIkyQujqGG2Yy5F0tidsUTf+4xLuu/WCc=,tag:4CiVdpp/A8c1K4ngCMVNXw==,type:str]
     pgp:
         - created_at: "2026-10-22T18:20:05Z"
           enc: |-
