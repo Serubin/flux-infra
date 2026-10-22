@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: serubin-net-secrets
+    namespace: default
+type: Opaque
+stringData:
+    PORTFOLIO_COOKIE_SECRET: ENC[AES256_GCM,data:g13vRs8ffw4K3mBlrTPVBtYMtQJNSx7erSE14gM+ooo=,iv:C7xCmbkwFmTTwidYMnpOqj9NHYNSQ9LfnMd3l6r/3dA=,tag:9Um+7S7FfjvQmaTyqljA9Q==,type:str]
+    PORTFOLIO_SOURCE_ZIP_URL: ENC[AES256_GCM,data:5PkcQAP4YG+61Qq53FpvDZ9yLmJQ6v+38JY35dV4hYoW2UyRkv20AIyvC5K7eEPxnpKysiKhnv9oUUc=,iv:qli+PkxjSlU6UxR75NR8EgL/98apQbvR4UW/DjaoTQc=,tag:sFYwSd7HwX1jHoGejwPicA==,type:str]
+    PORTFOLIO_SOURCE_AUTH_TOKEN: ENC[AES256_GCM,data:z8yuBPJC8UP/l/xnOBZcsAU+TbemoSgMbZLIEVyHpysLiA/FDyGF7vEXMwH8D8gyYS1bI/w42xUEJAExr9fXvRlPP4oVTJzQJxfqbq92NEzKmZa5FMvPPRNt+oWO,iv:aYHC6EB5cBaDGvw2BHA8155iKXVcJ0n6vo6NAZwRKH4=,tag:Y1s/CEOwBW/rcHG14K4Q1Q==,type:str]
+sops:
+    encrypted_regex: ^(data|stringData)$
+    lastmodified: "2026-10-22T18:20:05Z"
+    mac: ENC[AES256_GCM,data:ENbs43rJz8xTaWJR/eSvR1rXcP4qe7unWsvYWO8LH0GAI6fpIEmM2LyHqV+Wp0RcYXDe6Tgs/TQ7sZHsG1asFf39N9uVPe4/b7FVFfLsK2NUvQYS8TOacUVpYWb6/RUk8aWlS5/7hKz4js5slbJKI6JFO8MpmT4arw+/cetMVTo=,iv:/yyK0MQgUkgmmu3wBSBxQyJbb/Ru0CLRhYVxjufegoY=,tag:fGAqiUrjd4+VpWlO46iBMw==,type:str]
+    pgp:
+        - created_at: "2026-10-22T18:20:05Z"
+          enc: |-
+            -----BEGIN PGP MESSAGE-----
+
+            hQIMA0i7SvTnDueaARAAiovDApbf1KZok5mxCD1pzt+l9Yx6dN96RNAj4bkiqcQa
+            cBI/kzQxFv+5rszFyhlenhzn8J/nHLbA32pPdmi3fs/5Ex6gou72sl1MZ/MuwENq
+            C5BfBVKjAPgv1M9tYb62N7ez9qkM4BhS0UmrTaH7NpWhamO0nitvSoiFVrTw7l8A
+            5hoqprZ2flxSO78me5uCwmw/OaY7i8b9uvjISF8WjFAlU3ckCXw5MBFS4pEUdOZc
+            K5P2R5NphkGdEHkub8eUU1GZZVjUhH/CaOMOAN2rcqb3yj0bDqJkchjh3QryXMv6
+            7UArHt80vhRV1Z3ViLeQsUMqvssTUychI6gO982g5l/F2XR4PGoBXB3H3OIz7pTE
+            4VEQ7b0xEgXbcXRVbK8J2O9+6kz9cVcFGDs1T1bsF9jOszeM1FjyPosUF42+v38g
+            1tX3hEDkIKkJ2IVig4XCsqyy1m4myKky6PZQ2vZ7OQV1dOUBlHVe97cBDOtFCxFi
+            goMCngloUZSznSJJ7I3YQkJSoXmhDuzDxVrYtg3rdnJkDd+z1pjDjJ8o3pdNrKG5
+            1pGR+9qFYUD1/vTHecog8txcgjiGlkON1emssNsqfiXJq32PB2Ym8637q0MDeZKL
+            2EvKBlGcPORqoCl3Q6P7Ung5ZlPPaL2xPrddk4ORy64ys/jDpALlBtVmIFDbfWDS
+            XgE87P6czlsUxzTjqK57UW+2NBFGKvFZi31vEOd9TwuJ8TqTMZy/r1Wq+3RtgDRh
+            9wW+2732HKqAtQ+L5zEmawrRkzWcCrOxUto2JuAeGVnArkh48FnKyMAUhAlgujQ=
+            =Cwqv
+            -----END PGP MESSAGE-----
+          fp: 7EB1A78D86B11352982D3A1F7037153C2DB9CDBD
+    version: 3.13.3

@@ -1,0 +1,13 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: serubin-net
+  namespace: default
+spec:
+  template:
+    spec:
+      containers:
+        - name: serubin-net
+          envFrom:
+            - secretRef:
+                name: serubin-net-secrets

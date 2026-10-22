@@ -2,7 +2,11 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ../../base/serubin-net
+  - serubin-net.sops.yaml
 patches:
   - path: serubin-net.ingress.yaml
     target:
       kind: Ingress
+  - path: serubin-net.yaml
+    target:
+      kind: Deployment
