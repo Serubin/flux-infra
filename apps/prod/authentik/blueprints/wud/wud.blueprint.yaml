@@ -10,7 +10,7 @@ data:
       name: wud-oauth
     entries:
       # OIDC provider for What's Up Docker on the NAS (auth name AUTHENTIK).
-      # WUD admits any authenticated user as read-only unless DEFAULTROLE=none, so the Ops binding is the gate.
+      # WUD 8.x does no authorization of its own, so the Ops binding is the only gate.
       - model: authentik_providers_oauth2.oauth2provider
         id: wud-provider
         identifiers:
