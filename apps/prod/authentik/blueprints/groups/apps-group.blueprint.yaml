@@ -46,3 +46,10 @@ data:
           order: 2
         attrs:
           enabled: true
+      - model: authentik_policies.policybinding
+        identifiers:
+          target: !Find [authentik_core.application, [slug, home-assistant]]
+          group: !KeyOf apps-group
+          order: 3
+        attrs:
+          enabled: true

@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: wud-auth-secrets
+    namespace: default
+type: Opaque
+stringData:
+    WUD_CLIENT_SECRET: ENC[AES256_GCM,data:qzJZhkjDm0+MEGmuCZm23hGTb5t1A/ynbKQvup69aenpOVkvoQplDfNA1rTD26xIuGsX0NymtfQomnck+GfUQw==,iv:IVCBeiaZK1m3D8D7hOlC7s9NS1iAD9nytTTrHkbmPJs=,tag:FIqCvYNAvqaU/KbgPQ06fA==,type:str]
+sops:
+    encrypted_regex: ^(data|stringData)$
+    lastmodified: "2026-10-21T23:25:02Z"
+    mac: ENC[AES256_GCM,data:XWhLKDhhbh9bzCkJrVtvcLhR3Ail+UPerpRZYVeQbMleJFe0cRP//fejrhmBRFlHhfPCv58UEx8Wix4pX9Wyb0+p/6BoM0asPY7UMZBA/3KI7Qxjhac3lmg/EMJZaI4KWvMmlrrSyI25IfJXDl+mqIH+eo7kU51D89+qUDhCpfI=,iv:nTUlmY7dIUecx2WHQZzOOvqZSc2osFRcoKe0HtVjaT0=,tag:zIlMayx2NZ06josysQw5gQ==,type:str]
+    pgp:
+        - created_at: "2026-10-21T23:25:02Z"
+          enc: |-
+            -----BEGIN PGP MESSAGE-----
+
+            hQIMA0i7SvTnDueaAQ//Z6D7/bQkPxOGxDfOYJjPR/GcXmCGq1jfvLjDaBsya7gB
+            gzx/5rKckrICfwhV4xS2REtGEHy8TpX/Bvj1K378g1auo1adxK0pMleuIF/BBpym
+            ptw6iMoOTTnW6pTHtMMbG8PklcKbPM3uTCH+WueZXEbWEG/5VC1OTnPV+ZOnnJ0d
+            /DMTcEC8JIx2xtrcLkMzxgmkIYkWKhyO0rblmiilhnQsflDJYPExZlVsjqJApo+3
+            g3ayNAO/snLY32mTWa1F2jlTXjWl6w4x/22+bgAD61QqvWskig4qECyPG6ElVMhl
+            blT6MZGgjCvuNEPl46b0DzNZdvuJxgRBiC5AwUobBNMi1WTyi7pyPbCrMc1+YDVX
+            aMmcsLurnqvARNiFkNvuDHvPHf9dlYaEO6hx5PbVi0GbhemB1vM4zdLNaVCrzYDz
+            /UF3fGBRrBH6iIK7YTwWVaEJAeBUsJOP3URPg9FYoX/ra1Nf70B8U2ljWLCByxaq
+            ncP6nmBqojdHv2Zj5VRU7R8x2GvBYbNhlCYAdLjYLNX+YyCNS/QaVVD14mUS++ZZ
+            n6ZDkY9BIvddVRKSedydD6deZB3UqaJrE1ahhjTdwiF35OWk3WbhF5fx2B3RBpNU
+            SMqmUi8FlmWEbn/t8uYHNVY/qNq2TcoXNeCBXMZo5urCLmRY+PqpmXqqhTr4tozS
+            XgF2H1Jh6xP/bEBXOpIuIXyeB+lxH2nMS2N0OVKUGZVbIDcslU2CBIaV8or+s36z
+            K9Sp5ZMjrHzfMEXXyv65LwdJx1yky+1LGVgIg2SJX6DMX0lzHf81lWj0tGKpU8c=
+            =SAop
+            -----END PGP MESSAGE-----
+          fp: 7EB1A78D86B11352982D3A1F7037153C2DB9CDBD
+    version: 3.13.3

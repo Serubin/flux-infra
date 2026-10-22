@@ -10,6 +10,8 @@ resources:
   - jellyfin
   - kutt
   - wg-easy
+  - home-assistant
+  - wud
   - watcher
   - embedded-outpost
   - home-outpost

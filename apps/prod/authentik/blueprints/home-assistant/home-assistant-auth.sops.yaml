@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: home-assistant-auth-secrets
+    namespace: default
+type: Opaque
+stringData:
+    HOME_ASSISTANT_CLIENT_SECRET: ENC[AES256_GCM,data:+D1Y8t+DzccXLKJwI+/1nn+EqRiyX4gPm7nVmtmwBAWixRvJIo4klNPXu3VuhKcaer/a2YrwTts0DfP6a/aV5A==,iv:jHI6C0Bv/jUgcevScciXLVVCZwGdvyptXTHaO/jTEFM=,tag:+tws19uIJWv7J0TbPZ7EfQ==,type:str]
+sops:
+    encrypted_regex: ^(data|stringData)$
+    lastmodified: "2026-10-21T23:25:02Z"
+    mac: ENC[AES256_GCM,data:I2nYWCnKIIdOlgAXigr9H1S3zwmj9U6pdBqN/ijafSBhSvvjUzOAEYKc3fhGHzzC3BMCcGVXUB4oWDXvkpI5VeGQwfUi4LK20vh61e0gM2rqx4msGQL4VrhneK875PriNnJRsoHuK5GRqYgp7gFucauy9TI+Wo+SXYGkOMwMPc4=,iv:i0qQZFaILlPE/25GBVMLfjXv8Bz3VzTG0twzDyID2WI=,tag:HLIjYHIISNAjw3essRhvZA==,type:str]
+    pgp:
+        - created_at: "2026-10-21T23:25:02Z"
+          enc: |-
+            -----BEGIN PGP MESSAGE-----
+
+            hQIMA0i7SvTnDueaARAAiOyO1eI8VogDhtII9PBpiZNJB+DkkmCOHGzwhS+hvf8/
+            lx8lH4MyYPzvLbX8h9WYP084Tbv3YsFkdU5hN6upduKio6txVt9t317DJBpsSHU6
+            r7nfUc9scn77C8GhJkEC/+aQ7I1/pqtXfbwOGLSS4hRJqyn2UvPgwLrj/RWzhh7x
+            Qj3jr9tjylo1+PNYtPLMp8LkTZkOMg4Qzn4lAMyyVPAxdt5U8gTwPB6QXGsiQTD2
+            000b6S/pH+fnz2lCzdAHkFPUjq5jXdbgz/3zUNmyxJcsa2IGpRvAAE7dXkJDto69
+            EbVDpMZQYf5y8hNfYnD6TCZ+3gQ2DbZMbRwdTUeOV3xRX0rbwN+NC5pT4Hhegy0Y
+            JxyXkkf07LzCnDgOO6JUzDqLoDmQA2Be5ihh0YAGR4adyML5YInmHLgtz14LlWzj
+            aubNJHpPH6tYSQaO5XGaVKNOIze1EvlkMOHsZFvJvuNzQ5pGDj/dEm9SdG/y628z
+            fNX42K+xEhtHwHqYdDsUjkjOWrY6tzQJihOFuooIiPaiR3+1kNYoDZf8uTZRBg6L
+            biAaBc5Zm7Y0AUkPVzM09j0o9/N6lcwzUE2772aiKsd4eFlDI7/sHJVX7UlzdYGm
+            rhXUKhijKgpGpuI9uvZtVQiklQGGCyAxH/ZGkwySyAU3FDESebsHpH1l6DjG/5nS
+            XgHBEyoWp3qVA347O1GfEr+d6qic8DZETkdsKtRiVK2QsBi2zIOq3IY79nJbMRlr
+            mDCIhBN/IjCZk6QZuYIT0ipLF3GCDgvhPyiYu7hEhAh8lH8/LTYWJf1MzgEsvkQ=
+            =4+h5
+            -----END PGP MESSAGE-----
+          fp: 7EB1A78D86B11352982D3A1F7037153C2DB9CDBD
+    version: 3.13.3
