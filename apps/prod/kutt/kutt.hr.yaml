@@ -35,6 +35,10 @@ spec:
       tag: "main@sha256:ddd7257bc8c57f4892d2a81ec0d7d25ea0167b60d1dd7112868630644402956f"
     ingress:
       hosts:
+        - host: s.serub.in
+          paths:
+            - path: /
+              pathType: Prefix
         - host: s-r.io
           paths:
             - path: /
