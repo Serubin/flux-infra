@@ -3,6 +3,9 @@ kind: Kustomization
 resources:
   - ../../base/changedetection
   - changedetection.ingressroute.yaml
+  - watcher-vpn.sops.yaml
+  - watcher-vpn.yaml
+  - watcher-vpn.networkpolicy.yaml
 patches:
   - path: changedetection.hr.yaml
     target:

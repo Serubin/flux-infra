@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: watcher-vpn-wireguard
+    namespace: default
+type: Opaque
+stringData:
+    wg0.conf: ENC[AES256_GCM,data:l/0tw38gAKD8+qPOQOWxYv4pnud1V88PfklwjQ2jI+JKyVtF+QVEhVY1r/r8fHhL3UXgmM4h/FRO7M8LbFXvKwu/520fmA4MxoCL75hhaxqQo+R86FXvqim0dX2h6d3cq6mjmEBU1iLs4diNEm06rzVHZ/5Uy+mozdea1HMVEibbSkE5IcrONZ6oYp5UuF03uww1q75h9CWBjuRqKJEZPgYyOs1I71jL92JD1rkED9K+olH0NLfnHwhEYN/nf3ttWhOVNMPdHi/MOEqkMmt+z4oEbovIBStokM5/6hmapgK5otx5SvIkDecmcc6O4i6ZR+wlr4BMk4qS2gm5AbxStfviMFxYne+iOjUVBOloULGxwEVIFCmG2DKYo4OOrJlYsSGIOr2Mwi0jPVY0MFJoFXSJXW0pO1+uiCj4TEAHmNmRCtzezJb8WrwQTBEBiZ2jyD+n/+ySHkezoQUF7T03Waxp7NszE4zGF4QiIjsfQ62DdtqAxMKZsV4wCrlaDVVmTze7ipXQxFFcg5xJ4gS/w2dAAdYhLqN1lQ==,iv:TsjqcO0w8Wf1afXVFWbfmba4tv1TInJaxOOgpVKQLe0=,tag:02fLCYCceU1J8MZ4GldPDA==,type:str]
+sops:
+    encrypted_regex: ^(data|stringData)$
+    lastmodified: "2026-10-22T17:23:51Z"
+    mac: ENC[AES256_GCM,data:jsxvDoOECFfA1dr4FIw85LP3q8wt+49x3sCO1D+Iwlq+HB979yB/DGLgjqGARzCf8SdZA/OOGkGWYU+h5OK/FceHAd2BNLsz+gNXAqWaA+myWNBbW/WwbFxssZKYFnZpPAhxHyMgh8ESOKwH21X3R1EKwPtxNom0UA/Ine1bMMk=,iv:y9sec/t19i0CHwfAVDwhOaIZmkphYrD0ViI/QJ0FD+0=,tag:WPxUrnFMSNVhD5zOwEhPtA==,type:str]
+    pgp:
+        - created_at: "2026-10-22T00:52:40Z"
+          enc: |-
+            -----BEGIN PGP MESSAGE-----
+
+            hQIMA0i7SvTnDueaAQ//QEkqizoRwZ0NlAUbAyjV41jD2sEB/2hYJJ5SLJVnRynE
+            Og3pEeXlI0AN+oxhN1N1iVlnXYmUgzhnAA0s6Vi89frGvhg8sT2TIx0UmFj+S5ny
+            SMGiSp0G35M8yXEJUP1QBkHzPTw4G1L/mnkUJqtwCTlPkNvA0GtjS4bgrHShbe8+
+            VEQ5H9maTRj/i/tVLTBtavkbwgfvVQ2j3RDJPgzxYj34UdJDsacCjv6gkZ7v19+d
+            vXlrcr4hoM+3bAtWSP5H5VCOhAhBTaKDOJqlsjpFJJ/p4fN3IkBkhD3s33OD/DDT
+            MSQ/jR5gvVkX4Rd3MEDjVt2A76pD7q+u1UGZ6rZkeJB5GHe1X87UZjeAP1fsbQO5
+            CCtySGflCrhPcOVrOg5wiJsGV3t2Nnv3yciUVblj6vyxey5W7AoVqJxhwy/R+sUJ
+            5bbvn6m8XJ8JZSBU/fbEv2kIzhJkx8MSkg40rUuVM7sTY97u0ckGkVWp/6/daC40
+            6bwxLmfkuWKwMyeIIFYDbnN4wOhn7qiTbcrurWZg9ZnjANFS8y1+39GQG6WsbhUw
+            8Ay4vTngIns01iIOLIZhUIC6x5I5YxQSiuyfJ5RufBGna3T7UCPHYP7MZ1sS/9VJ
+            nmXj6NOp0Iqb9IjOsnYm0QvivwdHyLH8PKaOMi3Q71I0bghIk5PS0kXARvaxVJrS
+            XAHmbRSexioYXDJnDJYzdM0+athXhWisemvP/KWzMJ5Dg2y9LkFgqkCi5pcpSWuM
+            c9ReSPGfaN0VgWIJwsXDfm1FJVb8+koS/Wg2Vk+L6nU+e5wjRxSThCPkXtgg
+            =yolu
+            -----END PGP MESSAGE-----
+          fp: 7EB1A78D86B11352982D3A1F7037153C2DB9CDBD
+    version: 3.13.3

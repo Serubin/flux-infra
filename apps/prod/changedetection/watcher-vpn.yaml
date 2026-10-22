@@ -1,0 +1,195 @@
+# gluetun HTTP proxy that egresses through the home wg-easy server, so opted-in
+# watches fetch from a residential IP instead of the datacenter one.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: watcher-vpn
+  namespace: default
+  annotations:
+    # The script is shell; Flux postBuild envsubst would eat every $var.
+    kustomize.toolkit.fluxcd.io/substitute: disabled
+data:
+  entrypoint.sh: |
+    set -eu
+
+    # The pod netns outlives a container restart and gluetun never tears its
+    # kill-switch down, so a restarted container would otherwise be unable to resolve.
+    for t in iptables-nft iptables-legacy ip6tables-nft ip6tables-legacy; do
+      {
+        "$t" -P INPUT ACCEPT && "$t" -P OUTPUT ACCEPT && "$t" -P FORWARD ACCEPT &&
+          "$t" -F && "$t" -X
+      } 2>/dev/null || true
+    done
+
+    endpoint=$(awk -F '=' 'tolower($1) ~ /^[ \t]*endpoint[ \t]*$/ { gsub(/[ \t]/, "", $2); print $2; exit }' /secrets/wg0.conf)
+    host=${endpoint%:*}
+    port=${endpoint##*:}
+    [ -n "$host" ] && [ -n "$port" ] || { echo "no Endpoint in wg0.conf" >&2; exit 1; }
+
+    # gluetun only accepts an IP endpoint. Query kube-dns directly: gluetun has
+    # already rewritten the pod's shared resolv.conf to its own (now dead) resolver.
+    if ! ip=$(echo "$host" | grep -Ex '[0-9]+(\.[0-9]+){3}'); then
+      ip=$(nslookup -type=A "$host" "$KUBE_DNS" | awk '/^Address: / { print $2; exit }')
+    fi
+    [ -n "$ip" ] || { echo "could not resolve $host" >&2; exit 1; }
+    echo "wireguard endpoint $host -> $ip:$port"
+
+    sed -E "s|^[[:space:]]*[Ee]ndpoint[[:space:]]*=.*|Endpoint = $ip:$port|" \
+      /secrets/wg0.conf > /gluetun/wireguard/wg0.conf
+    chmod 600 /gluetun/wireguard/wg0.conf
+
+    exec /gluetun-entrypoint
+  # gluetun only runs lines prefixed with iptables/ip6tables. -I puts them ahead of
+  # its own wg0 ACCEPT: no home LAN, no non-web ports, no IPv6 through the tunnel.
+  post-rules.txt: |
+    iptables -I OUTPUT -o wg0 -d 10.0.0.0/8 -j DROP
+    iptables -I OUTPUT -o wg0 -d 172.16.0.0/12 -j DROP
+    iptables -I OUTPUT -o wg0 -d 192.168.0.0/16 -j DROP
+    iptables -I OUTPUT -o wg0 -d 100.64.0.0/10 -j DROP
+    iptables -I OUTPUT -o wg0 -d 169.254.0.0/16 -j DROP
+    iptables -I OUTPUT -o wg0 -d 127.0.0.0/8 -j DROP
+    iptables -I OUTPUT -o wg0 -p tcp -m multiport ! --dports 80,443,853 -j DROP
+    iptables -I OUTPUT -o wg0 -p udp ! --dport 53 -j DROP
+    ip6tables -I OUTPUT -o wg0 -j DROP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: watcher-vpn
+  namespace: default
+  labels:
+    app.kubernetes.io/name: watcher-vpn
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: watcher-vpn
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: watcher-vpn
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - name: gluetun
+          image: qmcgaw/gluetun:v3.41.3@sha256:fa19cc76b2af13d57a8d3dc3066f2ada061b1c761b8aecf989b3877c0486e027
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/sh", "/config/entrypoint.sh"]
+          env:
+            - name: KUBE_DNS
+              value: "10.43.0.10"
+            - name: VPN_SERVICE_PROVIDER
+              value: custom
+            - name: VPN_TYPE
+              value: wireguard
+            # The image defaults to tun0; post-rules.txt matches on wg0.
+            - name: VPN_INTERFACE
+              value: wg0
+            # Fail loudly: the userspace fallback needs a mknod that a userns pod can't do.
+            - name: WIREGUARD_IMPLEMENTATION
+              value: kernelspace
+            - name: WIREGUARD_PERSISTENT_KEEPALIVE_INTERVAL
+              value: 25s
+            - name: HTTPPROXY
+              value: "on"
+            - name: HTTPPROXY_LISTENING_ADDRESS
+              value: ":8888"
+            - name: HTTPPROXY_STEALTH
+              value: "on"
+            - name: HTTP_CONTROL_SERVER_ADDRESS
+              value: "127.0.0.1:8000"
+            - name: VERSION_INFORMATION
+              value: "off"
+            # gluetun chowns its state files to PUID/PGID, and CAP_CHOWN is dropped.
+            - name: PUID
+              value: "0"
+            - name: PGID
+              value: "0"
+            - name: TZ
+              value: America/New_York
+          ports:
+            - name: http-proxy
+              containerPort: 8888
+              protocol: TCP
+          securityContext:
+            runAsUser: 0
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+              add:
+                - NET_ADMIN
+          # The health handler reports failure until its first check completes.
+          startupProbe:
+            exec:
+              command: ["/gluetun-entrypoint", "healthcheck"]
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 12
+          readinessProbe:
+            exec:
+              command: ["/gluetun-entrypoint", "healthcheck"]
+            periodSeconds: 15
+            timeoutSeconds: 5
+          # gluetun restarts the tunnel itself; this only catches a changed DDNS IP,
+          # which needs a container restart to re-resolve.
+          livenessProbe:
+            exec:
+              command: ["/gluetun-entrypoint", "healthcheck"]
+            periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 10
+          resources:
+            requests:
+              cpu: 10m
+              memory: 64Mi
+            limits:
+              cpu: 200m
+              memory: 256Mi
+          volumeMounts:
+            - name: config
+              mountPath: /config
+              readOnly: true
+            - name: config
+              mountPath: /iptables/post-rules.txt
+              subPath: post-rules.txt
+              readOnly: true
+            - name: wireguard-secret
+              mountPath: /secrets
+              readOnly: true
+            - name: wireguard-runtime
+              mountPath: /gluetun/wireguard
+      volumes:
+        - name: config
+          configMap:
+            name: watcher-vpn
+            items:
+              - key: entrypoint.sh
+                path: entrypoint.sh
+              - key: post-rules.txt
+                path: post-rules.txt
+        - name: wireguard-secret
+          secret:
+            secretName: watcher-vpn-wireguard
+            defaultMode: 0400
+        # Holds the endpoint-resolved copy of the private key; keep it off disk.
+        - name: wireguard-runtime
+          emptyDir:
+            medium: Memory
+            sizeLimit: 1Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: watcher-vpn
+  namespace: default
+spec:
+  selector:
+    app.kubernetes.io/name: watcher-vpn
+  ports:
+    - name: http-proxy
+      port: 8888
+      targetPort: http-proxy
+      protocol: TCP
