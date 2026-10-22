@@ -42,7 +42,7 @@ spec:
       enabled: true
       image:
         repository: ghcr.io/browserless/chromium
-        tag: "v2.57.2"
+        tag: "v2.57.3"
         # The chart's default digest overrides tag and doesn't exist on ghcr.io.
         digest: ""
       # The chart leaves the sidecar unbounded; Chromium will happily eat the node.
