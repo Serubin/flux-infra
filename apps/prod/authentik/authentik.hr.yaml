@@ -46,6 +46,10 @@ spec:
             name: kutt-auth-secrets
         - secretRef:
             name: wg-easy-auth-secrets
+        - secretRef:
+            name: home-assistant-auth-secrets
+        - secretRef:
+            name: wud-auth-secrets
     authentik:
       email:
         host: smtp.gmail.com
@@ -62,6 +66,8 @@ spec:
         - jellyfin-blueprint
         - kutt-blueprint
         - wg-easy-blueprint
+        - home-assistant-blueprint
+        - wud-blueprint
         - watcher-blueprint
         - embedded-outpost-blueprint
         - home-outpost-blueprint

@@ -47,7 +47,7 @@ data:
           slug: synology
           provider: !KeyOf synology-provider
           meta_launch_url: https://nas.serubin.me/
-          icon: https://cdn.jsdelivr.net/gh/selfhst/icons/svg/synology.svg
+          icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/synology-dsm.png
           meta_description: Synology NAS (DSM)
           group: Apps
           open_in_new_tab: true
