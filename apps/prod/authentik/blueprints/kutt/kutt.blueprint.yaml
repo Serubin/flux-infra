@@ -22,7 +22,7 @@ data:
           client_secret: !Env KUTT_CLIENT_SECRET
           redirect_uris:
             - matching_mode: strict
-              url: https://s-r.io/login/oidc
+              url: https://s.serub.in/login/oidc
           signing_key: !Find [authentik_crypto.certificatekeypair, [name, "authentik Self-signed Certificate"]]
           property_mappings:
             - !Find [authentik_providers_oauth2.scopemapping, [scope_name, "openid"]]
@@ -37,7 +37,7 @@ data:
           name: Kutt
           slug: kutt
           provider: !KeyOf kutt-provider
-          meta_launch_url: https://s-r.io
+          meta_launch_url: https://s.serub.in
           icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/kutt.png
           meta_description: URL shortener
           open_in_new_tab: true
