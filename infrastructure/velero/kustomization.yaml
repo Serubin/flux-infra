@@ -4,3 +4,4 @@ namespace: velero
 resources:
   - namespace.yaml
   - velero.hr.yaml
+  - maintenance.rules.yaml
