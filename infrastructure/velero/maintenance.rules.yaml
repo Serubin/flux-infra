@@ -1,0 +1,24 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: velero-maintenance
+spec:
+  groups:
+    - name: velero-maintenance
+      rules:
+        - alert: VeleroRepoMaintenanceStale
+          # last_over_time keeps the last success visible after Velero deletes its Job.
+          expr: |
+            time() - max by (repo) (
+              label_replace(
+                last_over_time(kube_job_status_completion_time{namespace="velero", job_name=~".+-kopia-maintain-job-.+"}[14d]),
+                "repo", "$1", "job_name", "(.+)-kopia-maintain-job-.+"
+              )
+            ) > 3 * 3600
+          for: 15m
+          labels:
+            severity: warning
+          annotations:
+            summary: Velero repo maintenance has not succeeded in 3 hours.
+            description: Repo {{ $labels.repo }} last finished maintenance {{ $value | humanizeDuration }} ago; check the failed kopia-maintain jobs in velero.
