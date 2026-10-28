@@ -23,3 +23,46 @@ data:
           order: 0
         attrs:
           enabled: true
+      # An app with no binding is visible to, and usable by, every user.
+      - model: authentik_policies.policybinding
+        identifiers:
+          target: !Find [authentik_core.application, [slug, jellyfin]]
+          group: !KeyOf media-users-group
+          order: 0
+        attrs:
+          enabled: true
+      - model: authentik_policies.policybinding
+        identifiers:
+          target: !Find [authentik_core.application, [slug, sonarr]]
+          group: !KeyOf media-users-group
+          order: 0
+        attrs:
+          enabled: true
+      - model: authentik_policies.policybinding
+        identifiers:
+          target: !Find [authentik_core.application, [slug, radarr]]
+          group: !KeyOf media-users-group
+          order: 0
+        attrs:
+          enabled: true
+      - model: authentik_policies.policybinding
+        identifiers:
+          target: !Find [authentik_core.application, [slug, prowlarr]]
+          group: !KeyOf media-users-group
+          order: 0
+        attrs:
+          enabled: true
+      - model: authentik_policies.policybinding
+        identifiers:
+          target: !Find [authentik_core.application, [slug, bazarr]]
+          group: !KeyOf media-users-group
+          order: 0
+        attrs:
+          enabled: true
+      - model: authentik_policies.policybinding
+        identifiers:
+          target: !Find [authentik_core.application, [slug, transmission]]
+          group: !KeyOf media-users-group
+          order: 0
+        attrs:
+          enabled: true
