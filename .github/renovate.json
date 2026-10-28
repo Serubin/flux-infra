@@ -46,6 +46,13 @@
       "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}helm{{/if}}"
     }
   ],
+  "hostRules": [
+    {
+      "matchHost": "ghcr.io",
+      "username": "serubin",
+      "password": "{{ secrets.GHCR_READ_TOKEN }}"
+    }
+  ],
   "packageRules": [
     {
       "matchPackageNames": [
@@ -58,6 +65,7 @@
       "matchPackageNames": [
         "ghcr.io/serubin/serubin-net",
         "ghcr.io/serubin/dysautonomia-lounge-website",
+        "ghcr.io/serubin/family-tree",
         "ghcr.io/j-paterson/personalwebsite",
         "ghcr.io/anaximand/lemonhope"
       ],

@@ -69,6 +69,7 @@ spec:
         - home-assistant-blueprint
         - wud-blueprint
         - watcher-blueprint
+        - family-tree-blueprint
         - embedded-outpost-blueprint
         - home-outpost-blueprint
         - ops-group-blueprint

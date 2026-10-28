@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: family-tree
+  namespace: default
+  labels:
+    app: family-tree
+    app.kubernetes.io/name: family-tree
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: family-tree
+  template:
+    metadata:
+      labels:
+        app: family-tree
+        app.kubernetes.io/name: family-tree
+    spec:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      # Private package: the image bakes in family.ged, which holds living people's addresses.
+      imagePullSecrets:
+        - name: ghcr-pull-family-tree
+      containers:
+        - name: family-tree
+          image: ghcr.io/serubin/family-tree:2026.10.1@sha256:b7cd6aab6b42fe4d49dbbddcff53e84cacbea9bc5e084e9b055d5e13f775f5cb
+          ports:
+            - name: web
+              containerPort: 8787
+          env:
+            # The server refuses 0.0.0.0, so it listens on the pod IP only.
+            - name: BIND
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: PORT
+              value: "8787"
+            # The server checks the TCP peer; Traefik and kubelet probes both come from the pod network.
+            - name: ALLOW_CIDRS
+              value: 10.42.0.0/16
+            - name: ALLOWED_HOSTS
+              value: family.serub.in
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+            seccompProfile:
+              type: RuntimeDefault
+          # The server answers 421 to any Host but family.serub.in.
+          readinessProbe:
+            httpGet:
+              path: /
+              port: web
+              httpHeaders:
+                - name: Host
+                  value: family.serub.in
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: web
+              httpHeaders:
+                - name: Host
+                  value: family.serub.in
+            periodSeconds: 30
+          resources:
+            requests:
+              cpu: 10m
+              memory: 32Mi
+            limits:
+              cpu: 200m
+              memory: 128Mi

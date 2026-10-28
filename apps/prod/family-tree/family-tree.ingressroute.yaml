@@ -1,0 +1,19 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: family-tree
+  namespace: default
+spec:
+  # websecure only, so the route never also binds to a plaintext entrypoint.
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`family.serub.in`)
+      kind: Rule
+      services:
+        - name: family-tree
+          port: 80
+      middlewares:
+        - name: forwardauth-authentik
+  tls:
+    certResolver: default

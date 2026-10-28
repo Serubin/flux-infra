@@ -1,0 +1,26 @@
+# Only Traefik may reach the site, so every request passes Authentik forward auth;
+# the server makes no outbound connections at all.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: family-tree
+  namespace: default
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: family-tree
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+          podSelector:
+            matchLabels:
+              k8s-app: traefik-ingress-lb
+      ports:
+        - protocol: TCP
+          port: 8787
+  egress: []

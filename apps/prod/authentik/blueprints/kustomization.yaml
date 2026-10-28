@@ -13,6 +13,7 @@ resources:
   - home-assistant
   - wud
   - watcher
+  - family-tree
   - embedded-outpost
   - home-outpost
   - groups

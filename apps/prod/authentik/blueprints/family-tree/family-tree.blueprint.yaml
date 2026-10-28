@@ -1,0 +1,108 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: family-tree-blueprint
+  namespace: default
+data:
+  family-tree.yaml: |
+    version: 1
+    metadata:
+      name: family-tree-forward-auth
+    entries:
+      # external_host MUST be domain-only (no trailing path), as with prometheus.
+      - model: authentik_providers_proxy.proxyprovider
+        id: family-tree-provider
+        identifiers:
+          name: family-tree-forward-auth
+        attrs:
+          name: Family Tree Forward Auth Provider
+          external_host: https://family.serub.in
+          # Unused in forward_single mode, but the serializer requires a value.
+          internal_host: http://localhost
+          internal_host_ssl_validation: false
+          mode: forward_single
+          authorization_flow: !Find [authentik_flows.flow, [slug, provider-authorization]]
+          invalidation_flow: !Find [authentik_flows.flow, [slug, provider-invalidation]]
+      - model: authentik_core.application
+        id: family-tree-app
+        identifiers:
+          slug: family-tree
+        attrs:
+          name: Family Tree
+          slug: family-tree
+          provider: !KeyOf family-tree-provider
+          meta_launch_url: https://family.serub.in/
+          meta_description: Feierstein – Rubin family tree
+          open_in_new_tab: true
+          group: Family
+          policy_engine_mode: any
+      # created, not present, so membership edited in the UI survives re-apply.
+      - model: authentik_core.group
+        id: family-tree-group
+        state: created
+        identifiers:
+          name: family-tree
+        attrs:
+          is_superuser: false
+      - model: authentik_policies.policybinding
+        identifiers:
+          target: !KeyOf family-tree-app
+          group: !KeyOf family-tree-group
+          order: 0
+        attrs:
+          enabled: true
+      # Shared family login. No password here: it is set in the UI, and
+      # state: created keeps a re-apply from resetting it.
+      - model: authentik_core.user
+        id: family-tree-user
+        state: created
+        identifiers:
+          username: family-tree
+        attrs:
+          name: Family Tree
+          type: internal
+          is_active: true
+          groups:
+            - !KeyOf family-tree-group
+      # Anyone holding the shared password could otherwise change it or enroll
+      # MFA and lock everyone else out. Negated, each binding passes every other user.
+      - model: authentik_policies.policybinding
+        identifiers:
+          target: !Find [authentik_flows.flow, [slug, default-user-settings-flow]]
+          user: !KeyOf family-tree-user
+          order: 0
+        attrs:
+          negate: true
+          enabled: true
+      - model: authentik_policies.policybinding
+        identifiers:
+          target: !Find [authentik_flows.flow, [slug, default-password-change]]
+          user: !KeyOf family-tree-user
+          order: 0
+        attrs:
+          negate: true
+          enabled: true
+      - model: authentik_policies.policybinding
+        identifiers:
+          target: !Find [authentik_flows.flow, [slug, default-authenticator-totp-setup]]
+          user: !KeyOf family-tree-user
+          order: 0
+        attrs:
+          negate: true
+          enabled: true
+      - model: authentik_policies.policybinding
+        identifiers:
+          target: !Find [authentik_flows.flow, [slug, default-authenticator-webauthn-setup]]
+          user: !KeyOf family-tree-user
+          order: 0
+        attrs:
+          negate: true
+          enabled: true
+      - model: authentik_policies.policybinding
+        identifiers:
+          target: !Find [authentik_flows.flow, [slug, default-authenticator-static-setup]]
+          user: !KeyOf family-tree-user
+          order: 0
+        attrs:
+          negate: true
+          enabled: true

@@ -1,0 +1,34 @@
+apiVersion: v1
+data:
+    .dockerconfigjson: ENC[AES256_GCM,data:H7v1tLgVUGZ29IGDvBxiW1vzIIvh1zP6IWmcuFfp3I5GpNaD3D0iRsHnQ3+srM17X/19GRTdS1BX/pmAD8fbxIdAo3Uj/lDBg57HEe9/877jQ4HUumlNgkk06XKJs5uI4rJ0kGPFaz472/W2J8wHD0vgm3n5iuKF699JNn48IRUvdEp+b72fs6Bhuj+1kdjOucx5X2NhM0bCM9G2eYKi8Wsu2OxixkADO0wbxQiwp70SsPXJ3DBBZvi/nzbq2Kd0VddAO9HuaGxwVX3SGAZXF0maqe3wGqNXVSUaP1l1Jkqh1n8GXEyhTQ==,iv:kXv2eMiud7E1tUAUaVEgfBNEkv58IP7VjJt1bQ58MV0=,tag:sfOAvZflC+lkUNT+9F2n5g==,type:str]
+kind: Secret
+metadata:
+    name: ghcr-pull-family-tree
+    namespace: default
+type: kubernetes.io/dockerconfigjson
+sops:
+    encrypted_regex: ^(data|stringData)$
+    lastmodified: "2026-10-27T23:07:30Z"
+    mac: ENC[AES256_GCM,data:MLkz2f0Tb5X/IEr8S5gvV7IvoCKYckB/35fhQcWi2ureUXEI39Mh0W7G2NThsknCjPAfucV+G9a9VpAD4uvc6S2sob2j/0YDQ3+sseDCDJ8BAWVFVZL3W6ct84UCzyHv4xMdFvbdf8KVO59GZ74EwWh0chq/hVG06B3wXocuI9A=,iv:Cxlk6rGjwQ3gEtR03tdOTXW5RzLzvfd4tHMpkO9c6yE=,tag:6idUSkOW3fxeBrBD9c+6Ow==,type:str]
+    pgp:
+        - created_at: "2026-10-27T23:07:30Z"
+          enc: |-
+            -----BEGIN PGP MESSAGE-----
+
+            hQIMA0i7SvTnDueaAQ//ZbdVaxeYF3tVxInemS/j2et4R8NtR7RYcU0a7tMF6keC
+            Vc0clyGBARvPIx2n0bYg/BLRzXRaeKinUkpm1Z2ASyKLsqMGzzY/OrV3we1BG7/B
+            INfUZcbgJHkE+p057oMJRKMLA2lgmSHmMtl6bUyIEvX7jH4STHsLCrTt2zHMeer3
+            JZOIswOxHZSm9doStzNWUc8JqqyxPWWLg1fFFs1bFqg90Cq2WsjRzGFcY5xsE1YW
+            9vhgx9WZcvDmvQyUM+LN9bTrZ6HQ6zvTCL3O818Vowx/+bVg/9sibA58KGpy0TQD
+            8Z8QPtfUyi2oWU0QclBByLffvvDYZcAoYi6lQupS901pyFCco6e9kXsy5PhYR+vP
+            3H/U5dTm/+fLKFx24RKm2u+Xj2uZ0GLG7dd2piHhxT1+z9tiqaF3Yf+JEWwPWi+y
+            TunfSnsDSN0Kmhk7eRTQeOTYywNBezxTkPo0Ox/Dyw1qvabyak5FyvnTMh6AzGNJ
+            40cNDx4g7buB8+VKcuB0QQNvzI4/X6wF4ifTJU95uvnDCkkqtYDQC8WWWRqUyc9M
+            d/0Y4eKxf3valoafp3rVQxFhzxNfFF8hUhrr3g6FBTbvAjd/3u+IegTLzAxR4San
+            Zf8aP1amlhG48Xp69nv6N952rJilbFt6nKB4s5TBCuWYAOxEdTkCsB+aP/EIOTLS
+            XAH9e96EzM6TQhaqNv6JuW0GqSwoEQiUSeCtOmqr4ryrLCmAUg16EixVwTvWFpRc
+            R9bFqUABbbZEVFwLX+Fvi67oIxXbeJkYIojWqjOUIA++LEdtxO0NrFvk8eEp
+            =yxxz
+            -----END PGP MESSAGE-----
+          fp: 7EB1A78D86B11352982D3A1F7037153C2DB9CDBD
+    version: 3.13.3
