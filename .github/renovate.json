@@ -62,6 +62,19 @@
       "description": "Pinned: v1.14.1's aws-sdk-go-v2 sends an x-amz-tagging header that Backblaze B2 rejects (HTTP 400), breaking all Velero backups. Raise this cap once upstream releases the conditional-Tagging fix (commit 8dbd6b8)."
     },
     {
+      "description": "Auto-merge patch updates once CI passes and the release is 3 days old. Releases without a timestamp open but never auto-merge.",
+      "matchUpdateTypes": [
+        "patch"
+      ],
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeStrategy": "squash",
+      "platformAutomerge": false,
+      "minimumReleaseAge": "3 days",
+      "minimumReleaseAgeBehaviour": "timestamp-required",
+      "internalChecksFilter": "none"
+    },
+    {
       "matchPackageNames": [
         "ghcr.io/serubin/serubin-net",
         "ghcr.io/serubin/dysautonomia-lounge-website",
@@ -76,7 +89,41 @@
         "major"
       ],
       "automergeStrategy": "squash",
-      "platformAutomerge": true
+      "platformAutomerge": true,
+      "minimumReleaseAge": null
+    },
+    {
+      "description": "Critical services: always merged by hand.",
+      "matchDepNames": [
+        "fluxcd/flux2",
+        "kyverno",
+        "/^(ghcr\\.io\\/)?kyverno\\//",
+        "longhorn",
+        "/^(docker\\.io\\/)?longhornio\\//",
+        "velero",
+        "/^(docker\\.io\\/)?velero\\//",
+        "cloudnative-pg",
+        "/^ghcr\\.io\\/cloudnative-pg\\//"
+      ],
+      "automerge": false,
+      "minimumReleaseAge": null,
+      "addLabels": [
+        "renovate/critical"
+      ]
+    },
+    {
+      "description": "Critical services: CloudNativePG database clusters, always merged by hand.",
+      "matchDepNames": [
+        "cluster"
+      ],
+      "matchRegistryUrls": [
+        "/^https:\\/\\/cloudnative-pg\\.io\\/charts\\/?$/"
+      ],
+      "automerge": false,
+      "minimumReleaseAge": null,
+      "addLabels": [
+        "renovate/critical"
+      ]
     }
   ]
 }
