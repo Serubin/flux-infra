@@ -1,5 +1,5 @@
 # Only Traefik may reach the site, so every request passes Authentik forward auth;
-# the server makes no outbound connections at all.
+# the server's only outbound calls are DNS and its OIDC back channel to the Authentik server.
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -23,4 +23,25 @@ spec:
       ports:
         - protocol: TCP
           port: 8787
-  egress: []
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+      ports:
+        - protocol: UDP
+          port: 53
+        - protocol: TCP
+          port: 53
+    # Policy ports match after the Service's DNAT, so this is the container port.
+    - to:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: authentik
+              app.kubernetes.io/component: server
+      ports:
+        - protocol: TCP
+          port: 9000

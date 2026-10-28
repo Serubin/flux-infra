@@ -50,6 +50,8 @@ spec:
             name: home-assistant-auth-secrets
         - secretRef:
             name: wud-auth-secrets
+        - secretRef:
+            name: family-tree-auth-secrets
     authentik:
       email:
         host: smtp.gmail.com

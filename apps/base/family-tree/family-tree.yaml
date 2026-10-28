@@ -8,6 +8,9 @@ metadata:
     app.kubernetes.io/name: family-tree
 spec:
   replicas: 1
+  # The data volume is ReadWriteOncePod, so the old pod must stop before the new one starts.
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app: family-tree
@@ -19,6 +22,13 @@ spec:
     spec:
       automountServiceAccountToken: false
       enableServiceLinks: false
+      securityContext:
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: family-tree-data
       # Private package: the image bakes in family.ged, which holds living people's addresses.
       imagePullSecrets:
         - name: ghcr-pull-family-tree
@@ -41,6 +51,28 @@ spec:
               value: 10.42.0.0/16
             - name: ALLOWED_HOSTS
               value: family.serub.in
+            # The image seeds an empty volume from /app/seed once; after that the volume is the tree.
+            - name: DATA_DIR
+              value: /data
+            - name: TREE_ID
+              value: family
+            - name: PUBLIC_URL
+              value: https://family.serub.in
+            - name: OIDC_ISSUER
+              value: https://${OAUTH_URL}/application/o/family-tree-oidc/
+            # Discovery, token and key requests stay inside the cluster; the provider still names its public URLs.
+            - name: OIDC_BACKCHANNEL
+              value: http://authentik-server.default.svc.cluster.local
+            - name: OIDC_CLIENT_ID
+              value: family-tree
+            - name: OIDC_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: family-tree-auth-secrets
+                  key: FAMILY_TREE_CLIENT_SECRET
+          volumeMounts:
+            - name: data
+              mountPath: /data
           securityContext:
             runAsNonRoot: true
             runAsUser: 1000
@@ -52,10 +84,11 @@ spec:
                 - ALL
             seccompProfile:
               type: RuntimeDefault
-          # The server answers 421 to any Host but family.serub.in.
+          # The server answers 421 to any Host but family.serub.in. Readiness waits on OIDC discovery;
+          # liveness does not, so an Authentik restart never kills this pod.
           readinessProbe:
             httpGet:
-              path: /
+              path: /readyz
               port: web
               httpHeaders:
                 - name: Host
@@ -63,7 +96,7 @@ spec:
             periodSeconds: 10
           livenessProbe:
             httpGet:
-              path: /
+              path: /livez
               port: web
               httpHeaders:
                 - name: Host
@@ -72,7 +105,7 @@ spec:
           resources:
             requests:
               cpu: 10m
-              memory: 32Mi
+              memory: 96Mi
             limits:
               cpu: 200m
-              memory: 128Mi
+              memory: 256Mi

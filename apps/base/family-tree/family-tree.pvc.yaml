@@ -1,0 +1,14 @@
+# The tree, its sources and the edit journal; Velero's file-system backups pick it up.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: family-tree-data
+  namespace: default
+spec:
+  storageClassName: longhorn
+  # One pod at a time: the server is the journal's only writer.
+  accessModes:
+    - ReadWriteOncePod
+  resources:
+    requests:
+      storage: 1Gi
