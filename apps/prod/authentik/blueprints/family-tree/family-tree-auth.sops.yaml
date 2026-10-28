@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: family-tree-auth-secrets
+    namespace: default
+type: Opaque
+stringData:
+    FAMILY_TREE_CLIENT_SECRET: ENC[AES256_GCM,data:VGUzte0WfZmUk5rEfheSYn2owwr0yKVtB+Ez1bm0aSW7UyMa0C1a/pQ1UBWJR0Q70FiHppU522RIZn2Wlnnz7w==,iv:mPL6GeW3pAmcGQV9+fdEAm0q8rWqzpcZEYh8/PK533E=,tag:uonfPCUCTwV7okaQQT0K0A==,type:str]
+sops:
+    encrypted_regex: ^(data|stringData)$
+    lastmodified: "2026-10-28T17:13:19Z"
+    mac: ENC[AES256_GCM,data:Dea++hHBzNl7pHwI8k8XRvcKJ2Lycav7jCGKO7v7Jx2B612LuYBIOyUXqdZywn0DjZAbfeu72GwRLHaGfTDT9WubF1lVeHxX13bbhWFg8iaPpsw8Y/2Bf0kmf+PTS1U+21vLZTldR5PCSCY7y8jzo+rWE+F4UZolq6kLFWwMObY=,iv:sc5RJfGHbjcMmGX7ZI4aZrdXFMx80BNAUdVHfEatcKo=,tag:XivGa+vjm7z0n9eNQeYW8Q==,type:str]
+    pgp:
+        - created_at: "2026-10-28T17:13:19Z"
+          enc: |-
+            -----BEGIN PGP MESSAGE-----
+
+            hQIMA0i7SvTnDueaAQ//TjdniKLw0wtfHVIOw2f4HEzIXJrQtBk6SFYsT2baSNp+
+            NE20bZOSydpHdSfbdQvLttnAR0qdreMklor1YrAnfD7gpx4DAphKYVpBxs9p18S+
+            i3YHuPH55ZXSVpLiIDxqBUnI+5uztMUnzmfHeO/10JB2VE5O+qXzVZu2G24hG84X
+            GWX5r9h2r5WCoHNMRVJJxmzjWYuQKVkJriH6fNM7slkmLDbDOXqCa+vo/ob2/Lxo
+            CgUdCr9ddc1rKysbq9Clrro0YzEPViX0cMOzb/gj7EreJB0xu8c3AcF9c55enXkB
+            S8HPbeP8cx4O5gMijlNOFRymFQZSH9eapWjIfZuA6F4iM7goJN2Aw3isBFnhuVg1
+            lbh6BRR4aVbFTM34LojRTxKWyFuFLc+XvWLHz7QBmuFxijINQTbhRDS3nYN3YjSZ
+            z+F+5GIjnWWwaGRK2Ia8wjYGbYCp4iOTFagFV5Azyxq6ME1+tpA6Xhmqs7dYIzyF
+            7YuMrcUM8u7kOmaXb61IGkoHI3FGQFO+J5xF+pm/zG/b2yi1Mtep+gqr9GrSLhar
+            IzvyQUhISvLNZxoTsHNhHXmP2zuJr0jhS4wKxr6+JgqvRlD3WOXxMYH62/zhn8zT
+            t0Xu4TxdTziwSYz3L4OQf/7WZQdw5AyRVGRv6sj5sTsMQIJMSpsZczUlVMkCF7XS
+            UQH+CEiHabPCaa+J6v8D5IYrfynQ9elnEnONOsmshX7UpFoHwm4UE4jgwWAWZ0BH
+            2n3W+T8RlQ6k1gbSUdUcf0TC6vgnYvFLdJczFa8u5EmZ5A==
+            =LCHz
+            -----END PGP MESSAGE-----
+          fp: 7EB1A78D86B11352982D3A1F7037153C2DB9CDBD
+    version: 3.13.3
