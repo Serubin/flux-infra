@@ -64,45 +64,34 @@ data:
           is_active: true
           groups:
             - !KeyOf family-tree-group
-      # Anyone holding the shared password could otherwise change it or enroll
-      # MFA and lock everyone else out. Negated, each binding passes every other user.
+      # Self-service denies now come from the restricted-shared-users group.
       - model: authentik_policies.policybinding
+        state: absent
         identifiers:
           target: !Find [authentik_flows.flow, [slug, default-user-settings-flow]]
           user: !KeyOf family-tree-user
           order: 0
-        attrs:
-          negate: true
-          enabled: true
       - model: authentik_policies.policybinding
+        state: absent
         identifiers:
           target: !Find [authentik_flows.flow, [slug, default-password-change]]
           user: !KeyOf family-tree-user
           order: 0
-        attrs:
-          negate: true
-          enabled: true
       - model: authentik_policies.policybinding
+        state: absent
         identifiers:
           target: !Find [authentik_flows.flow, [slug, default-authenticator-totp-setup]]
           user: !KeyOf family-tree-user
           order: 0
-        attrs:
-          negate: true
-          enabled: true
       - model: authentik_policies.policybinding
+        state: absent
         identifiers:
           target: !Find [authentik_flows.flow, [slug, default-authenticator-webauthn-setup]]
           user: !KeyOf family-tree-user
           order: 0
-        attrs:
-          negate: true
-          enabled: true
       - model: authentik_policies.policybinding
+        state: absent
         identifiers:
           target: !Find [authentik_flows.flow, [slug, default-authenticator-static-setup]]
           user: !KeyOf family-tree-user
           order: 0
-        attrs:
-          negate: true
-          enabled: true

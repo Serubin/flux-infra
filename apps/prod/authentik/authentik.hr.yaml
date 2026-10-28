@@ -75,6 +75,7 @@ spec:
         - ops-group-blueprint
         - apps-group-blueprint
         - media-users-group-blueprint
+        - restricted-shared-users-group-blueprint
         - login-session-blueprint
         - flows-blueprint
     server:
