@@ -1,0 +1,63 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: restricted-shared-users-group-blueprint
+  namespace: default
+data:
+  restricted-shared-users-group.yaml: |
+    version: 1
+    metadata:
+      name: restricted-shared-users-group
+    entries:
+      # created, not present, so membership edited in the UI survives re-apply.
+      - model: authentik_core.group
+        id: restricted-shared-users-group
+        state: created
+        identifiers:
+          name: restricted-shared-users
+        attrs:
+          is_superuser: false
+          users:
+            - !Find [authentik_core.user, [username, family-tree]]
+      # Anyone holding a shared password could otherwise change it or enroll
+      # MFA and lock everyone else out. Negated, each binding passes non-members.
+      - model: authentik_policies.policybinding
+        identifiers:
+          target: !Find [authentik_flows.flow, [slug, default-user-settings-flow]]
+          group: !KeyOf restricted-shared-users-group
+          order: 0
+        attrs:
+          negate: true
+          enabled: true
+      - model: authentik_policies.policybinding
+        identifiers:
+          target: !Find [authentik_flows.flow, [slug, default-password-change]]
+          group: !KeyOf restricted-shared-users-group
+          order: 0
+        attrs:
+          negate: true
+          enabled: true
+      - model: authentik_policies.policybinding
+        identifiers:
+          target: !Find [authentik_flows.flow, [slug, default-authenticator-totp-setup]]
+          group: !KeyOf restricted-shared-users-group
+          order: 0
+        attrs:
+          negate: true
+          enabled: true
+      - model: authentik_policies.policybinding
+        identifiers:
+          target: !Find [authentik_flows.flow, [slug, default-authenticator-webauthn-setup]]
+          group: !KeyOf restricted-shared-users-group
+          order: 0
+        attrs:
+          negate: true
+          enabled: true
+      - model: authentik_policies.policybinding
+        identifiers:
+          target: !Find [authentik_flows.flow, [slug, default-authenticator-static-setup]]
+          group: !KeyOf restricted-shared-users-group
+          order: 0
+        attrs:
+          negate: true
+          enabled: true
