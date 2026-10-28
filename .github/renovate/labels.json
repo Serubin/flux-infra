@@ -32,6 +32,7 @@
       "matchPackageNames": [
         "ghcr.io/serubin/serubin-net",
         "ghcr.io/serubin/dysautonomia-lounge-website",
+        "ghcr.io/serubin/family-tree",
         "ghcr.io/j-paterson/personalwebsite",
         "ghcr.io/anaximand/lemonhope",
         "ghcr.io/serubin/ajd-site"
