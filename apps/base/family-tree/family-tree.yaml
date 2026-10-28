@@ -11,6 +11,8 @@ spec:
   # The data volume is ReadWriteOncePod, so the old pod must stop before the new one starts.
   strategy:
     type: Recreate
+    # Server-side apply keeps the old RollingUpdate defaults unless they are cleared.
+    rollingUpdate: null
   selector:
     matchLabels:
       app: family-tree
