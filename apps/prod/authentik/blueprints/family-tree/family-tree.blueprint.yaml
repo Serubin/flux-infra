@@ -49,6 +49,9 @@ data:
           # Defaults to empty on create, which rejects every grant.
           grant_types:
             - authorization_code
+            - refresh_token
+          # The site refreshes before every save to re-read groups; this matches its session limit.
+          refresh_token_validity: hours=8
           client_id: family-tree
           client_secret: !Env FAMILY_TREE_CLIENT_SECRET
           include_claims_in_id_token: true
@@ -60,6 +63,7 @@ data:
           property_mappings:
             - !Find [authentik_providers_oauth2.scopemapping, [scope_name, "openid"]]
             - !Find [authentik_providers_oauth2.scopemapping, [scope_name, "profile"]]
+            - !Find [authentik_providers_oauth2.scopemapping, [managed, "goauthentik.io/providers/oauth2/scope-offline_access"]]
       # An application has one provider, so sign-in gets its own; blank://blank hides its tile.
       - model: authentik_core.application
         id: family-tree-oidc-app
