@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/name: family-tree
 spec:
   replicas: 1
-  # The data volume is ReadWriteOncePod, so the old pod must stop before the new one starts.
+  # The old file store is ReadWriteOncePod, so the old pod must stop before the new one starts.
   strategy:
     type: Recreate
     # Server-side apply keeps the old RollingUpdate defaults unless they are cleared.
@@ -28,6 +28,9 @@ spec:
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
       volumes:
+        - name: db
+          persistentVolumeClaim:
+            claimName: family-tree-db
         - name: data
           persistentVolumeClaim:
             claimName: family-tree-data
@@ -53,9 +56,11 @@ spec:
               value: 10.42.0.0/16
             - name: ALLOWED_HOSTS
               value: family.serub.in
-            # The image seeds an empty volume from /app/seed once; after that the volume is the tree.
+            # The database lives in /data; the old file store sits at /data/trees, where an empty database imports it from.
             - name: DATA_DIR
               value: /data
+            - name: IMPORT_DIR
+              value: /data/trees/family
             - name: TREE_ID
               value: family
             - name: PUBLIC_URL
@@ -72,9 +77,18 @@ spec:
                 secretKeyRef:
                   name: family-tree-auth-secrets
                   key: FAMILY_TREE_CLIENT_SECRET
+            # Seals the login cookie and encrypts stored refresh tokens.
+            - name: SESSION_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: family-tree-session
+                  key: SESSION_SECRET
           volumeMounts:
-            - name: data
+            - name: db
               mountPath: /data
+            - name: data
+              mountPath: /data/trees
+              subPath: trees
           securityContext:
             runAsNonRoot: true
             runAsUser: 1000
@@ -86,6 +100,16 @@ spec:
                 - ALL
             seccompProfile:
               type: RuntimeDefault
+          # Nothing listens until the first import finishes, so this gives it two minutes before liveness applies.
+          startupProbe:
+            httpGet:
+              path: /livez
+              port: web
+              httpHeaders:
+                - name: Host
+                  value: family.serub.in
+            periodSeconds: 2
+            failureThreshold: 60
           # The server answers 421 to any Host but family.serub.in. Readiness waits on OIDC discovery;
           # liveness does not, so an Authentik restart never kills this pod.
           readinessProbe:

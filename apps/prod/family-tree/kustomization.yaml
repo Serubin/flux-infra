@@ -3,4 +3,5 @@ kind: Kustomization
 resources:
   - ../../base/family-tree
   - ghcr-pull.sops.yaml
+  - family-tree-session.sops.yaml
   - family-tree.ingressroute.yaml

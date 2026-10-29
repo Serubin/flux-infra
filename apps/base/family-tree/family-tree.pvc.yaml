@@ -1,9 +1,12 @@
-# The tree, its sources and the edit journal; Velero's file-system backups pick it up.
+# The old file store (tree, sources and edit journal), which an empty tree database imports from.
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: family-tree-data
   namespace: default
+  annotations:
+    # Longhorn deletes the volume with its claim; this is the rollback copy until the database has proven itself.
+    kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   storageClassName: longhorn
   # One pod at a time: the server is the journal's only writer.
