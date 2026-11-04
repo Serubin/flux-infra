@@ -5,4 +5,5 @@ resources:
   - family-tree.service.yaml
   - family-tree.networkpolicy.yaml
   - family-tree.pvc.yaml
+  - family-tree.db.pvc.yaml
   - family-tree.yaml

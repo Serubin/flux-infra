@@ -1,0 +1,16 @@
+# The tree database, sessions and hourly snapshots; restore from backups/tree-*.sqlite, since Velero copies a live WAL file.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: family-tree-db
+  namespace: default
+  annotations:
+    # Longhorn deletes the volume with its claim, so a revert or rename must never prune this.
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  storageClassName: longhorn
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
