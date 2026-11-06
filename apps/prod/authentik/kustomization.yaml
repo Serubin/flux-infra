@@ -4,6 +4,7 @@ resources:
   - ../../base/authentik
   - authentik.sops.yaml
   - blueprints
+  - email-templates
 patches:
   - path: postgres.hr.yaml
     target:

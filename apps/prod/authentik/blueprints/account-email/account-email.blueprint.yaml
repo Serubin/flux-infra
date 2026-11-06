@@ -1,0 +1,154 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: account-email-blueprint
+  namespace: default
+data:
+  account-email.yaml: |
+    version: 1
+    metadata:
+      name: account-password-email
+    entries:
+      # Only an admin-issued link (Users > Recovery > Email recovery link) carries a pending user.
+      - model: authentik_policies_expression.expressionpolicy
+        id: account-password-require-admin-link
+        identifiers:
+          name: account-password-require-admin-link
+        attrs:
+          expression: |
+            if request.context.get("pending_user") is None:
+                ak_message("This link is invalid or has expired. Ask for a new one.")
+                return False
+            return True
+      - model: authentik_flows.flow
+        id: account-password-flow
+        identifiers:
+          slug: account-password
+        attrs:
+          name: Set password
+          title: Set your password
+          designation: recovery
+          authentication: require_unauthenticated
+          # message_continue would follow ?next= on denial.
+          denied_action: message
+          policy_engine_mode: all
+      - model: authentik_policies.policybinding
+        identifiers:
+          target: !KeyOf account-password-flow
+          policy: !KeyOf account-password-require-admin-link
+          order: 0
+        attrs:
+          enabled: true
+
+      # Global SMTP settings; the admin picks one of these stages when sending.
+      - model: authentik_stages_email.emailstage
+        id: account-password-email-reset
+        identifiers:
+          name: account-password-email-reset
+        attrs:
+          use_global_settings: true
+          subject: Set a new password
+          template: account-reset.html
+          token_expiry: minutes=30
+          activate_user_on_success: false
+          recovery_max_attempts: 5
+          recovery_cache_timeout: minutes=5
+      - model: authentik_stages_email.emailstage
+        id: account-password-email-welcome
+        identifiers:
+          name: account-password-email-welcome
+        attrs:
+          use_global_settings: true
+          subject: Set up your account
+          template: account-welcome.html
+          token_expiry: minutes=30
+          activate_user_on_success: false
+          recovery_max_attempts: 5
+          recovery_cache_timeout: minutes=5
+
+      - model: authentik_policies_password.passwordpolicy
+        id: account-password-policy
+        identifiers:
+          name: account-password-policy
+        attrs:
+          password_field: password
+          length_min: 12
+          check_static_rules: true
+          check_zxcvbn: true
+          zxcvbn_score_threshold: 3
+          check_have_i_been_pwned: false
+          error_message: Use at least 12 characters and avoid common words or patterns.
+      - model: authentik_stages_prompt.prompt
+        id: account-password-field-password
+        identifiers:
+          name: account-password-field-password
+        attrs:
+          field_key: password
+          label: Password
+          type: password
+          required: true
+          placeholder: Password
+          placeholder_expression: false
+          order: 0
+      - model: authentik_stages_prompt.prompt
+        id: account-password-field-password-repeat
+        identifiers:
+          name: account-password-field-password-repeat
+        attrs:
+          field_key: password_repeat
+          label: Password (repeat)
+          type: password
+          required: true
+          placeholder: Password (repeat)
+          placeholder_expression: false
+          order: 1
+      - model: authentik_stages_prompt.promptstage
+        id: account-password-prompt
+        identifiers:
+          name: account-password-prompt
+        attrs:
+          fields:
+            - !KeyOf account-password-field-password
+            - !KeyOf account-password-field-password-repeat
+          validation_policies:
+            - !KeyOf account-password-policy
+      - model: authentik_stages_user_write.userwritestage
+        id: account-password-write
+        identifiers:
+          name: account-password-write
+        attrs:
+          user_creation_mode: never_create
+
+      # On a restored link the email stage only checks that the link's user is the pending user.
+      - model: authentik_flows.flowstagebinding
+        identifiers:
+          target: !KeyOf account-password-flow
+          stage: !KeyOf account-password-email-reset
+          order: 10
+        attrs:
+          evaluate_on_plan: true
+          re_evaluate_policies: false
+      - model: authentik_flows.flowstagebinding
+        identifiers:
+          target: !KeyOf account-password-flow
+          stage: !KeyOf account-password-prompt
+          order: 20
+        attrs:
+          evaluate_on_plan: true
+          re_evaluate_policies: false
+      # No login stage: the user signs in afterwards through the normal flow, MFA included.
+      - model: authentik_flows.flowstagebinding
+        identifiers:
+          target: !KeyOf account-password-flow
+          stage: !KeyOf account-password-write
+          order: 30
+        attrs:
+          evaluate_on_plan: true
+          re_evaluate_policies: false
+
+      # Kept here so the KeyOf resolves; flows.blueprint.yaml owns the other brand pointers.
+      - model: authentik_brands.brand
+        identifiers:
+          domain: authentik-default
+        attrs:
+          flow_recovery: !KeyOf account-password-flow

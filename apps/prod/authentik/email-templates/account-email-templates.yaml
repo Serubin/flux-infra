@@ -1,0 +1,103 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: authentik-email-templates
+  namespace: default
+  annotations:
+    # Template text is Django syntax, never Flux variables.
+    kustomize.toolkit.fluxcd.io/substitute: disabled
+data:
+  account-welcome.html: |
+    {% extends "email/base.html" %}
+    {% load humanize %}
+
+    {% block content %}
+    <tr>
+      <td align="center">
+        <h1>Hi {% firstof user.name user.username %},</h1>
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+        <table border="0">
+          <tr>
+            <td align="center" style="max-width: 300px; padding: 20px 0; color: #212124;">
+              An account has been created for you. Choose a password to finish setting it up.
+            </td>
+          </tr>
+          <tr>
+            <td align="center" class="btn btn-primary">
+              <a id="confirm" href="{{ url }}" rel="noopener noreferrer" target="_blank">Set your password</a>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    {% endblock %}
+
+    {% block sub_content %}
+    <tr>
+      <td style="padding: 20px; font-size: 12px; color: #212124;" align="center">
+        This link works once and expires in {{ expires|timeuntil }}.
+        Afterwards, sign in with your email address and the new password.
+        If you weren't expecting this email, you can ignore it.
+      </td>
+    </tr>
+    {% endblock %}
+  account-welcome.txt: |
+    {% autoescape off %}Hi {% firstof user.name user.username %},
+
+    An account has been created for you. Choose a password to finish setting it up:
+
+    {{ url }}
+
+    This link works once and expires in {{ expires|timeuntil }}.
+    Afterwards, sign in with your email address and the new password.
+    If you weren't expecting this email, you can ignore it.
+    {% endautoescape %}
+  account-reset.html: |
+    {% extends "email/base.html" %}
+    {% load humanize %}
+
+    {% block content %}
+    <tr>
+      <td align="center">
+        <h1>Hi {% firstof user.name user.username %},</h1>
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+        <table border="0">
+          <tr>
+            <td align="center" style="max-width: 300px; padding: 20px 0; color: #212124;">
+              Here is a link to set a new password for your account.
+            </td>
+          </tr>
+          <tr>
+            <td align="center" class="btn btn-primary">
+              <a id="confirm" href="{{ url }}" rel="noopener noreferrer" target="_blank">Set a new password</a>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    {% endblock %}
+
+    {% block sub_content %}
+    <tr>
+      <td style="padding: 20px; font-size: 12px; color: #212124;" align="center">
+        This link works once and expires in {{ expires|timeuntil }}.
+        If you didn't ask for this, ignore this email; your current password keeps working.
+      </td>
+    </tr>
+    {% endblock %}
+  account-reset.txt: |
+    {% autoescape off %}Hi {% firstof user.name user.username %},
+
+    Here is a link to set a new password for your account:
+
+    {{ url }}
+
+    This link works once and expires in {{ expires|timeuntil }}.
+    If you didn't ask for this, ignore this email; your current password keeps working.
+    {% endautoescape %}
