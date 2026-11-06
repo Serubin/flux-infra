@@ -1,4 +1,5 @@
-# Only Traefik may reach the site; the server's only outbound calls are DNS and its OIDC back channel to the Authentik server.
+# Only Traefik may reach the site. Egress is DNS, the OIDC back channel to the Authentik server,
+# and HTTPS to public IPv4 for MCP client documents and JWKS.
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -44,3 +45,17 @@ spec:
       ports:
         - protocol: TCP
           port: 9000
+    # The cluster's pod (10.42.0.0/16) and service (10.43.0.0/16) ranges fall inside 10.0.0.0/8.
+    - to:
+        - ipBlock:
+            cidr: 0.0.0.0/0
+            except:
+              - 10.0.0.0/8
+              - 172.16.0.0/12
+              - 192.168.0.0/16
+              - 100.64.0.0/10
+              - 169.254.0.0/16
+              - 127.0.0.0/8
+      ports:
+        - protocol: TCP
+          port: 443
