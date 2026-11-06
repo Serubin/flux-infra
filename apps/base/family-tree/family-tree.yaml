@@ -83,6 +83,31 @@ spec:
                 secretKeyRef:
                   name: family-tree-session
                   key: SESSION_SECRET
+            # Turns on /mcp. A vendor document that stops matching its pin blocks new connections until reviewed.
+            - name: MCP_CLIENTS
+              value: |-
+                [
+                  {
+                    "client_id": "https://claude.ai/oauth/claude-code-client-metadata",
+                    "name": "Claude Code",
+                    "redirect_uris": ["http://localhost/callback", "http://127.0.0.1/callback"],
+                    "stated_auth_method": "none",
+                    "auth_method": "none",
+                    "jwks_uri": null,
+                    "grant_types": ["authorization_code", "refresh_token"],
+                    "application_type": "native"
+                  },
+                  {
+                    "client_id": "https://chatgpt.com/oauth/client.json",
+                    "name": "ChatGPT",
+                    "redirect_uris": ["https://chatgpt.com/connector_platform_oauth_redirect"],
+                    "stated_auth_method": "private_key_jwt",
+                    "auth_method": "private_key_jwt",
+                    "jwks_uri": "https://chatgpt.com/oauth/jwks.json",
+                    "grant_types": ["authorization_code", "refresh_token"],
+                    "application_type": "web"
+                  }
+                ]
           volumeMounts:
             - name: db
               mountPath: /data
