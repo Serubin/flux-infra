@@ -13,7 +13,5 @@ spec:
       services:
         - name: family-tree
           port: 80
-      middlewares:
-        - name: forwardauth-authentik
   tls:
     certResolver: default
