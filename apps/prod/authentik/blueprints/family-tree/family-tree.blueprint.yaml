@@ -23,8 +23,9 @@ data:
           grant_types:
             - authorization_code
             - refresh_token
-          # The site refreshes before every save to re-check the sign-in; this matches its session limit.
-          refresh_token_validity: hours=8
+          # The site refreshes before every save, and each MCP grant before each write, to re-check the sign-in.
+          # The site caps browser sessions at 8 hours itself; this outlives an MCP grant's 14 days unused.
+          refresh_token_validity: days=30
           client_id: family-tree
           client_secret: !Env FAMILY_TREE_CLIENT_SECRET
           include_claims_in_id_token: true
