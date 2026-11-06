@@ -9,34 +9,7 @@ data:
     metadata:
       name: family-tree-forward-auth
     entries:
-      # external_host MUST be domain-only (no trailing path), as with prometheus.
-      - model: authentik_providers_proxy.proxyprovider
-        id: family-tree-provider
-        identifiers:
-          name: family-tree-forward-auth
-        attrs:
-          name: Family Tree Forward Auth Provider
-          external_host: https://family.serub.in
-          # Unused in forward_single mode, but the serializer requires a value.
-          internal_host: http://localhost
-          internal_host_ssl_validation: false
-          mode: forward_single
-          authorization_flow: !Find [authentik_flows.flow, [slug, provider-authorization]]
-          invalidation_flow: !Find [authentik_flows.flow, [slug, provider-invalidation]]
-      - model: authentik_core.application
-        id: family-tree-app
-        identifiers:
-          slug: family-tree
-        attrs:
-          name: Family Tree
-          slug: family-tree
-          provider: !KeyOf family-tree-provider
-          meta_launch_url: https://family.serub.in/
-          meta_description: Feierstein – Rubin family tree
-          open_in_new_tab: true
-          group: Family
-          policy_engine_mode: any
-      # The site's own sign-in, behind forward auth; it reads roles from the groups claim.
+      # Sign-in only: roles and tree access live in the site's own database.
       - model: authentik_providers_oauth2.oauth2provider
         id: family-tree-oidc-provider
         identifiers:
@@ -50,7 +23,7 @@ data:
           grant_types:
             - authorization_code
             - refresh_token
-          # The site refreshes before every save to re-read groups; this matches its session limit.
+          # The site refreshes before every save to re-check the sign-in; this matches its session limit.
           refresh_token_validity: hours=8
           client_id: family-tree
           client_secret: !Env FAMILY_TREE_CLIENT_SECRET
@@ -64,16 +37,16 @@ data:
             - !Find [authentik_providers_oauth2.scopemapping, [scope_name, "openid"]]
             - !Find [authentik_providers_oauth2.scopemapping, [scope_name, "profile"]]
             - !Find [authentik_providers_oauth2.scopemapping, [managed, "goauthentik.io/providers/oauth2/scope-offline_access"]]
-      # An application has one provider, so sign-in gets its own; blank://blank hides its tile.
       - model: authentik_core.application
         id: family-tree-oidc-app
         identifiers:
           slug: family-tree-oidc
         attrs:
-          name: Family Tree sign-in
+          name: Family Tree
           slug: family-tree-oidc
           provider: !KeyOf family-tree-oidc-provider
-          meta_launch_url: blank://blank
+          meta_launch_url: https://family.serub.in
+          open_in_new_tab: true
           group: Family
           policy_engine_mode: any
       # created, not present, so membership edited in the UI survives re-apply.
@@ -84,89 +57,34 @@ data:
           name: family-tree
         attrs:
           is_superuser: false
+      - model: authentik_policies.policybinding
+        identifiers:
+          target: !KeyOf family-tree-oidc-app
+          group: !KeyOf family-tree-group
+          order: 0
+        attrs:
+          enabled: true
+      # Bindings on these apps and groups are deleted with them.
+      - model: authentik_core.application
+        state: absent
+        identifiers:
+          slug: family-tree
+      - model: authentik_providers_proxy.proxyprovider
+        state: absent
+        identifiers:
+          name: family-tree-forward-auth
       - model: authentik_core.group
-        id: family-tree-view-group
-        state: created
+        state: absent
         identifiers:
           name: "family-tree:family:view"
-        attrs:
-          is_superuser: false
-          # Applied on create only; later membership changes are made in the UI.
-          users:
-            - !Find [authentik_core.user, [username, family-tree]]
       - model: authentik_core.group
-        id: family-tree-edit-group
-        state: created
+        state: absent
         identifiers:
           name: "family-tree:family:edit"
-        attrs:
-          is_superuser: false
       - model: authentik_core.group
-        id: family-tree-admin-group
-        state: created
+        state: absent
         identifiers:
           name: "family-tree:family:admin"
-        attrs:
-          is_superuser: false
-          users:
-            - !Find [authentik_core.user, [username, solomon]]
-      # Every role group may open both the forward-auth app and sign-in.
-      - model: authentik_policies.policybinding
-        identifiers:
-          target: !KeyOf family-tree-app
-          group: !KeyOf family-tree-group
-          order: 0
-        attrs:
-          enabled: true
-      - model: authentik_policies.policybinding
-        identifiers:
-          target: !KeyOf family-tree-app
-          group: !KeyOf family-tree-view-group
-          order: 1
-        attrs:
-          enabled: true
-      - model: authentik_policies.policybinding
-        identifiers:
-          target: !KeyOf family-tree-app
-          group: !KeyOf family-tree-edit-group
-          order: 2
-        attrs:
-          enabled: true
-      - model: authentik_policies.policybinding
-        identifiers:
-          target: !KeyOf family-tree-app
-          group: !KeyOf family-tree-admin-group
-          order: 3
-        attrs:
-          enabled: true
-      - model: authentik_policies.policybinding
-        identifiers:
-          target: !KeyOf family-tree-oidc-app
-          group: !KeyOf family-tree-group
-          order: 0
-        attrs:
-          enabled: true
-      - model: authentik_policies.policybinding
-        identifiers:
-          target: !KeyOf family-tree-oidc-app
-          group: !KeyOf family-tree-view-group
-          order: 1
-        attrs:
-          enabled: true
-      - model: authentik_policies.policybinding
-        identifiers:
-          target: !KeyOf family-tree-oidc-app
-          group: !KeyOf family-tree-edit-group
-          order: 2
-        attrs:
-          enabled: true
-      - model: authentik_policies.policybinding
-        identifiers:
-          target: !KeyOf family-tree-oidc-app
-          group: !KeyOf family-tree-admin-group
-          order: 3
-        attrs:
-          enabled: true
       # Shared family login. No password here: it is set in the UI, and
       # state: created keeps a re-apply from resetting it.
       - model: authentik_core.user
