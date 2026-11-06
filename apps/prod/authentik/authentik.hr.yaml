@@ -52,6 +52,15 @@ spec:
             name: wud-auth-secrets
         - secretRef:
             name: family-tree-auth-secrets
+      # Custom email templates; server renders them, worker validates blueprints against them.
+      volumes:
+        - name: email-templates
+          configMap:
+            name: authentik-email-templates
+      volumeMounts:
+        - name: email-templates
+          mountPath: /templates
+          readOnly: true
     authentik:
       email:
         host: smtp.gmail.com
@@ -80,6 +89,7 @@ spec:
         - restricted-shared-users-group-blueprint
         - login-session-blueprint
         - flows-blueprint
+        - account-email-blueprint
     server:
       ingress:
         hosts:

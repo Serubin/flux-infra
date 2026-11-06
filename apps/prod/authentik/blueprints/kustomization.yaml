@@ -19,3 +19,4 @@ resources:
   - groups
   - login-session
   - flows
+  - account-email
