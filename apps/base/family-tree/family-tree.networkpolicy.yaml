@@ -1,5 +1,4 @@
-# Only Traefik may reach the site, so every request passes Authentik forward auth;
-# the server's only outbound calls are DNS and its OIDC back channel to the Authentik server.
+# Only Traefik may reach the site; the server's only outbound calls are DNS and its OIDC back channel to the Authentik server.
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
