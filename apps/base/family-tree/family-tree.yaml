@@ -148,10 +148,11 @@ spec:
                 - name: Host
                   value: family.serub.in
             periodSeconds: 30
+          # Trees open and save on the event loop, and below 1 CPU throttling makes a 1,000-person tree take seconds.
           resources:
             requests:
               cpu: 10m
               memory: 96Mi
             limits:
-              cpu: 200m
-              memory: 256Mi
+              cpu: "1"
+              memory: 768Mi
