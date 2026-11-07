@@ -104,6 +104,33 @@ spec:
               }
             }
 
+            // Secret redaction for every namespace: each capture group becomes [REDACTED].
+            // RE2 with no nested quantifiers, so each stage is one linear scan of the line.
+            stage.replace {
+              expression = `(eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+)`
+              replace    = "[REDACTED]"
+            }
+            stage.replace {
+              expression = `(?i)authorization\\?["']?\s*[:=]\s*\[?\\?["']?(?:bearer|basic)\s+([^\s"',;\\\]]+)`
+              replace    = "[REDACTED]"
+            }
+            stage.replace {
+              expression = `(?i)cookie\\?["']?\s*[:=]\s*\[?\\?["']?([^"'\\\]\r\n]+)`
+              replace    = "[REDACTED]"
+            }
+            stage.replace {
+              expression = `(?i)(?:[?&;]|\\u0026|%3F|%26)(?:t|token|access_token|refresh_token|id_token|code|state|client_secret|password|passwd|secret|key|api_key|apikey|sig|signature|session|ticket)(?:=|%3D)([^&\s"'#\\]+)`
+              replace    = "[REDACTED]"
+            }
+            stage.replace {
+              expression = `/mcp/uploads/([^/?#\s"'\\]+)`
+              replace    = "[REDACTED]"
+            }
+            stage.replace {
+              expression = `/(?:s|invite|share)/([A-Za-z0-9_-]{20,})`
+              replace    = "[REDACTED]"
+            }
+
             // ajd-site emits structured JSON logs; promote `level` to a label
             // so it can be filtered without a query-time `| json`. Scoped by
             // selector so the JSON parser only runs on this app's lines.
