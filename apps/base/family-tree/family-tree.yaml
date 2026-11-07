@@ -37,7 +37,7 @@ spec:
         - name: ghcr-pull-family-tree
       containers:
         - name: family-tree
-          image: ghcr.io/serubin/family-tree:2026.11.4@sha256:9a58dc65e9f577b326fe009130bc962f4d5634ffeedbc5bddc6faf867ea5240e
+          image: ghcr.io/serubin/family-tree:2026.11.5@sha256:5aa00990c60706db9a007966eb142f34462ac3e5a54568e1feb3b3762a217a30
           ports:
             - name: web
               containerPort: 8787
@@ -54,11 +54,11 @@ spec:
               value: 10.42.0.0/16
             - name: ALLOWED_HOSTS
               value: family.serub.in
-            # The database lives in /data. IMPORT_DIR names the unmounted old store, so a fresh empty database fails to start.
+            # The database lives in /data; REQUIRE_DATA stops a lost or replaced volume from coming up as an empty site.
             - name: DATA_DIR
               value: /data
-            - name: IMPORT_DIR
-              value: /data/trees/family
+            - name: REQUIRE_DATA
+              value: "1"
             - name: TREE_ID
               value: family
             - name: PUBLIC_URL
