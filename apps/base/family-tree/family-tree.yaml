@@ -8,11 +8,12 @@ metadata:
     app.kubernetes.io/name: family-tree
 spec:
   replicas: 1
-  # The old file store is ReadWriteOncePod, so the old pod must stop before the new one starts.
+  # Both pods share the RWO database volume on one node during a roll; an image that raises min_reader ships with Recreate.
   strategy:
-    type: Recreate
-    # Server-side apply keeps the old RollingUpdate defaults unless they are cleared.
-    rollingUpdate: null
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
   selector:
     matchLabels:
       app: family-tree
@@ -31,9 +32,6 @@ spec:
         - name: db
           persistentVolumeClaim:
             claimName: family-tree-db
-        - name: data
-          persistentVolumeClaim:
-            claimName: family-tree-data
       # Private package: the image bakes in family.ged, which holds living people's addresses.
       imagePullSecrets:
         - name: ghcr-pull-family-tree
@@ -56,7 +54,7 @@ spec:
               value: 10.42.0.0/16
             - name: ALLOWED_HOSTS
               value: family.serub.in
-            # The database lives in /data; the old file store sits at /data/trees, where an empty database imports it from.
+            # The database lives in /data. IMPORT_DIR names the unmounted old store, so a fresh empty database fails to start.
             - name: DATA_DIR
               value: /data
             - name: IMPORT_DIR
@@ -111,9 +109,6 @@ spec:
           volumeMounts:
             - name: db
               mountPath: /data
-            - name: data
-              mountPath: /data/trees
-              subPath: trees
           securityContext:
             runAsNonRoot: true
             runAsUser: 1000
@@ -125,7 +120,7 @@ spec:
                 - ALL
             seccompProfile:
               type: RuntimeDefault
-          # Nothing listens until the first import finishes, so this gives it two minutes before liveness applies.
+          # Nothing listens until the database is open and migrated, so this gives it two minutes before liveness applies.
           startupProbe:
             httpGet:
               path: /livez
