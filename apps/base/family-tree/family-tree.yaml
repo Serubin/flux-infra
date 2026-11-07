@@ -39,7 +39,7 @@ spec:
         - name: ghcr-pull-family-tree
       containers:
         - name: family-tree
-          image: ghcr.io/serubin/family-tree:2026.11.3@sha256:317a7b4b7a9e2c4daec0aa3f4f6b5890d4b4064d87ec57ba45eae2a24689ff6a
+          image: ghcr.io/serubin/family-tree:2026.11.4@sha256:9a58dc65e9f577b326fe009130bc962f4d5634ffeedbc5bddc6faf867ea5240e
           ports:
             - name: web
               containerPort: 8787
