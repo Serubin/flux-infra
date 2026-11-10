@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: alfred-auth-secrets
+    namespace: default
+type: Opaque
+stringData:
+    ALFRED_CLIENT_SECRET: ENC[AES256_GCM,data:aMHZR2VfJgr6KSpzCDVgmsdL4+P28Tg133vtK4oaInW7Dt8LdqnXVOvWyeMJc10wArwrr3WvjiGlSI88zENsvw==,iv:jXDONSYno6xlnt64RH7YnWLb/K6e7TQfOc1i9Uv1zaM=,tag:Lpw0UCAxvAdNWITG7K71PA==,type:str]
+sops:
+    encrypted_regex: ^(data|stringData)$
+    lastmodified: "2026-11-10T04:30:44Z"
+    mac: ENC[AES256_GCM,data:WtZPzFUcSvNWbSrxsAssa+ffGCtLAUVn4nBRvryrRy3pIRXRhpOh8F2AJklOvOfT7bUmoxHxcLQ/ecbSOCJPAzAyrWP64zzjmR603R44/1/xR2GFT7OqEDZcExF+/S4OBE429Xllbgdm+QTXD6Ew8+f0hDNXwN5mKOa5uM+XEGc=,iv:0qBN1L34k6afeB9Car1Q/l4V3pIlpL13K+U8seGxzaA=,tag:k69D7VGeIq3icMtRL0bQ4w==,type:str]
+    pgp:
+        - created_at: "2026-11-10T04:30:44Z"
+          enc: |-
+            -----BEGIN PGP MESSAGE-----
+
+            hQIMA0i7SvTnDueaAQ//fYxwwYmEVz1Fsgb7y9OB4cZSqTYHLFQU6l7mExL4hLrZ
+            Pf2ra7Rztebu2zotARrc57/6t5OY+ksAhbWxmEQW4pp7uSAN3IjCOYh/c49PIl2s
+            4lhExlkpKUSbWDSSRVU5bqn5YSAsgcePoW+GftDSwPY/hUPlwm1ZkUBGeLVn/GSj
+            eusPpi8Q7aLG24pdomNjmlwBcH8fBnp4Ol4kVgpLebXYM8IDAxQk2O5KcxqjBe0P
+            yCt7UnOiIXNotIvzVvK3RKj/KyiLEAg+l3ShOXallv2UXE+XeuAqp80EflgiYTfQ
+            gdD+dmsdLdqn6GD0u2xrgxVxMwJ3oTdXVMLAC6/Xf/atP9sI+qRCYToQO3zriixO
+            njNTTvXY6prP8OAwJLW28ppIH/PhPiUD+fKx8S9LxYVxq2ODk4a926+bMZpLQNO9
+            cSurgVQplOMZg+6qc6ZIOPVbmxIUX2Qmfkr1lNuPZZElX9J3fDpMyzrNe1B/77IB
+            79Ek9MBuisRJeXWnBHoUbbvG8YjaneWkySY98ji3hZuC+IUzonA39Hd3T3P2Hv4c
+            N2MJf0Mcb/3Q/EK9ChgXj8XLl5oweZ9Uy2yw9+yFf6PdgT3HJjkFJCHAvCDM/i5n
+            lnvSnGX/9oIDFRYI2mWqMTwDFd/iCYilOqEqhfpKRyHw+x306PFm4A8hdlcIa5DS
+            XgFhWvD+zAVLGTcCxXZ71jlpKWyDxn6zAWSWKodNTDdCcdV0NUt/W5YqRy/POXQz
+            vHnuVO6ZwIRmiPtf5nBPKCIjggyj+0bC8DYFQ2lrgOWGhF8LfQjvf1S2Ezq+egc=
+            =b0WN
+            -----END PGP MESSAGE-----
+          fp: 7EB1A78D86B11352982D3A1F7037153C2DB9CDBD
+    version: 3.13.3
