@@ -52,6 +52,8 @@ spec:
             name: wud-auth-secrets
         - secretRef:
             name: family-tree-auth-secrets
+        - secretRef:
+            name: alfred-auth-secrets
       # Custom email templates; server renders them, worker validates blueprints against them.
       volumes:
         - name: email-templates
@@ -81,6 +83,7 @@ spec:
         - wud-blueprint
         - watcher-blueprint
         - family-tree-blueprint
+        - alfred-blueprint
         - embedded-outpost-blueprint
         - home-outpost-blueprint
         - ops-group-blueprint

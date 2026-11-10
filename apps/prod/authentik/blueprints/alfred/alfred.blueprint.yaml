@@ -1,0 +1,63 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: alfred-blueprint
+  namespace: default
+data:
+  alfred.yaml: |
+    version: 1
+    metadata:
+      name: alfred-oidc
+    entries:
+      # Alfred runs on the Synology, LAN-only; it re-checks the alfred-users group claim at every sign-in.
+      - model: authentik_providers_oauth2.oauth2provider
+        id: alfred-oidc-provider
+        identifiers:
+          client_id: alfred
+        attrs:
+          name: Alfred OAuth Provider
+          authorization_flow: !Find [authentik_flows.flow, [slug, provider-authorization]]
+          invalidation_flow: !Find [authentik_flows.flow, [slug, provider-invalidation]]
+          client_type: confidential
+          # Defaults to empty on create, which rejects every grant. Alfred keeps its own sessions, so no refresh.
+          grant_types:
+            - authorization_code
+          client_id: alfred
+          client_secret: !Env ALFRED_CLIENT_SECRET
+          include_claims_in_id_token: true
+          sub_mode: hashed_user_id
+          redirect_uris:
+            - matching_mode: strict
+              url: https://alfred.serubin.me/auth/callback
+          signing_key: !Find [authentik_crypto.certificatekeypair, [name, "authentik Self-signed Certificate"]]
+          property_mappings:
+            - !Find [authentik_providers_oauth2.scopemapping, [scope_name, "openid"]]
+            - !Find [authentik_providers_oauth2.scopemapping, [scope_name, "profile"]]
+            - !Find [authentik_providers_oauth2.scopemapping, [managed, "goauthentik.io/providers/oauth2/scope-email"]]
+      - model: authentik_core.application
+        id: alfred-oidc-app
+        identifiers:
+          slug: alfred
+        attrs:
+          name: Alfred
+          slug: alfred
+          provider: !KeyOf alfred-oidc-provider
+          meta_launch_url: https://alfred.serubin.me
+          open_in_new_tab: true
+          group: Home
+          policy_engine_mode: any
+      # created, not present, so membership edited in the UI survives re-apply.
+      - model: authentik_core.group
+        id: alfred-users-group
+        state: created
+        identifiers:
+          name: alfred-users
+        attrs:
+          is_superuser: false
+      - model: authentik_policies.policybinding
+        identifiers:
+          target: !KeyOf alfred-oidc-app
+          group: !KeyOf alfred-users-group
+          order: 0
+        attrs:
+          enabled: true
