@@ -37,9 +37,6 @@ spec:
     kubeProxy:
       enabled: false
     alertmanager:
-      image:
-        registry: quay.io
-        repository: prometheus/alertmanager
       ingress:
         enabled: true
         annotations:
@@ -109,9 +106,6 @@ spec:
         enabled: true
         pathType: Prefix
     prometheus:
-      image:
-        registry: quay.io
-        repository: prometheus/prometheus
       ingress:
         enabled: true
         annotations:

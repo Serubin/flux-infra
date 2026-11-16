@@ -32,8 +32,6 @@ spec:
       optional: false
   values:
     alertmanager:
-      image:
-        tag: v0.30.0
       ingress:
         hosts:
           - "alert-manager.${SECRET_DOMAIN}"
@@ -96,8 +94,6 @@ spec:
         hosts:
           - "grafana.${SECRET_DOMAIN}"
     prometheus:
-      image:
-        tag: v3.8.1
       ingress:
         hosts:
           - "prometheus.${SECRET_DOMAIN}"
