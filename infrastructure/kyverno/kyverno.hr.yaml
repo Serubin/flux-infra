@@ -23,6 +23,3 @@ spec:
     metrics:
       serviceMonitor:
         enabled: false
-    initContainer:
-      image:
-        tag: v1.16.0
