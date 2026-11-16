@@ -3,5 +3,6 @@ kind: Kustomization
 resources:
   - cnpg-backup.pvc.yaml
   - cnpg-backup.cronjob.yaml
+  - cnpg-backup-holder.deployment.yaml
   - cnpg-backup.networkpolicy.yaml
   - cnpg-backup-pvc.policy.yaml
