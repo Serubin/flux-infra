@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cnpg-backup-holder
+  namespace: default
+  labels:
+    app: cnpg-backup
+    component: pvc-holder
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: cnpg-backup
+      component: pvc-holder
+  template:
+    metadata:
+      labels:
+        # app: cnpg-backup is what restrict-cnpg-backup-pvc-access admits.
+        app: cnpg-backup
+        component: pvc-holder
+    spec:
+      # Keeps cnpg-backups-pvc mounted so Velero's fs-backup, which skips non-running pods, copies it.
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65535
+        runAsGroup: 65535
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: pause
+          image: registry.k8s.io/pause:3.10
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+          resources:
+            requests:
+              cpu: 1m
+              memory: 4Mi
+            limits:
+              memory: 16Mi
+          volumeMounts:
+            - name: backups
+              mountPath: /backups
+              readOnly: true
+      volumes:
+        - name: backups
+          persistentVolumeClaim:
+            claimName: cnpg-backups-pvc
+            readOnly: true

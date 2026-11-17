@@ -210,12 +210,15 @@ kubectl exec -i new-cluster-1 -- pg_restore -U kutt -d kutt -c < ./kutt.dump
 | `cnpg-backup.pvc.yaml` | Storage for dumps |
 | `cnpg-backup.networkpolicy.yaml` | Network isolation for backup pods |
 | `cnpg-backup-pvc.policy.yaml` | Kyverno policy restricting PVC access |
+| `cnpg-backup-holder.deployment.yaml` | Keeps the dump PVC mounted so Velero backs it up |
 
 ---
 
 ## Offsite backup (Velero)
 
 The `cnpg-backups-pvc` Longhorn volume (pg_dump output) is included in **Velero** filesystem backups to B2, along with other in-scope Longhorn-backed workloads. Schedules and credentials are defined under [infrastructure/velero/](../velero/README.md).
+
+Velero's filesystem backup only reads volumes of running pods, so the short-lived dump Job can't carry the PVC itself. `cnpg-backup-holder` is a `pause` pod that mounts the PVC read-only to keep it in every backup, and the Job pod template excludes the volume with `backup.velero.io/backup-volumes-excludes` so a backup that catches a Job mid-run doesn't fail on it. The holder carries `app: cnpg-backup`, so the Kyverno policy admits it and the `cnpg-backup-isolation` NetworkPolicy blocks all ingress to it.
 
 ```bash
 velero schedule get -n velero

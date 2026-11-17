@@ -16,6 +16,9 @@ spec:
         metadata:
           labels:
             app: cnpg-backup
+          annotations:
+            # cnpg-backup-holder carries this volume into Velero; a Job pod races its own exit.
+            backup.velero.io/backup-volumes-excludes: backups
         spec:
           containers:
             - name: pg-dump
