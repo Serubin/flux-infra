@@ -135,17 +135,17 @@ The backup job is isolated via NetworkPolicy:
 
 ### PVC Access Control (Kyverno)
 
-A Kyverno ClusterPolicy prevents unauthorized pods from mounting the backup PVC:
+A Kyverno ValidatingPolicy prevents unauthorized pods from mounting the backup PVC:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│              ClusterPolicy: restrict-cnpg-backup-pvc-access                 │
+│              ValidatingPolicy: restrict-cnpg-backup-pvc-access              │
 ├─────────────────────────────────────────────────────────────────────────────┤
-│  Action: Enforce (block violating pods)                                     │
+│  Action: Deny (block violating pods)                                        │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │  Rule: If a pod tries to mount "cnpg-backups-pvc":                          │
 │                                                                             │
-│    ✅ ALLOW: Pods with label app=cnpg-backup (the backup CronJob)           │
+│    ✅ ALLOW: Pods with label app=cnpg-backup (CronJob and holder)           │
 │    ❌ DENY:  All other pods                                                 │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
@@ -209,7 +209,7 @@ kubectl exec -i new-cluster-1 -- pg_restore -U kutt -d kutt -c < ./kutt.dump
 | `cnpg-backup.cronjob.yaml` | PostgreSQL backup job (every 2 hours) |
 | `cnpg-backup.pvc.yaml` | Storage for dumps |
 | `cnpg-backup.networkpolicy.yaml` | Network isolation for backup pods |
-| `cnpg-backup-pvc.policy.yaml` | Kyverno policy restricting PVC access |
+| `cnpg-backup-pvc.vpol.yaml` | Kyverno policy restricting PVC access |
 | `cnpg-backup-holder.deployment.yaml` | Keeps the dump PVC mounted so Velero backs it up |
 
 ---
