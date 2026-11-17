@@ -3,3 +3,5 @@ kind: Kustomization
 resources:
   - mutate-host-users.policy.yaml
   - validate-pod-security.policy.yaml
+  - mutate-host-users.mpol.yaml
+  - validate-pod-security.vpol.yaml
