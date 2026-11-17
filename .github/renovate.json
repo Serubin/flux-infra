@@ -75,6 +75,25 @@
       "internalChecksFilter": "none"
     },
     {
+      "description": "kutt's Redis is a cache and the cloudpirates chart ships a minor most weeks: auto-merge minors on the same terms as patches.",
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchPackageNames": [
+        "/cloudpirates\\/redis$/"
+      ],
+      "matchUpdateTypes": [
+        "minor"
+      ],
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeStrategy": "squash",
+      "platformAutomerge": false,
+      "minimumReleaseAge": "3 days",
+      "minimumReleaseAgeBehaviour": "timestamp-required",
+      "internalChecksFilter": "none"
+    },
+    {
       "matchPackageNames": [
         "ghcr.io/serubin/serubin-net",
         "ghcr.io/serubin/dysautonomia-lounge-website",
