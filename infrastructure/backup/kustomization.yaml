@@ -5,5 +5,4 @@ resources:
   - cnpg-backup.cronjob.yaml
   - cnpg-backup-holder.deployment.yaml
   - cnpg-backup.networkpolicy.yaml
-  - cnpg-backup-pvc.policy.yaml
   - cnpg-backup-pvc.vpol.yaml
