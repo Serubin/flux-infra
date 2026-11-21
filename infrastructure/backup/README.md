@@ -12,6 +12,7 @@ This directory contains backup configurations for CloudNativePG PostgreSQL datab
 │  • kutt-postgresql-cnpg                                                     │
 │  • plausible-postgresql-cnpg                                                │
 │  • authentik-postgresql-cnpg                                                │
+│  • nocodb-postgresql-cnpg                                                   │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -48,7 +49,9 @@ This directory contains backup configurations for CloudNativePG PostgreSQL datab
 │  │    │   └── ...                                                       │  │
 │  │    ├── plausible/                                                    │  │
 │  │    │   └── ...                                                       │  │
-│  │    └── authentik/                                                    │  │
+│  │    ├── authentik/                                                    │  │
+│  │    │   └── ...                                                       │  │
+│  │    └── nocodb/                                                       │  │
 │  │        └── ...                                                       │  │
 │  └──────────────────────────────────────────────────────────────────────┘  │
 └─────────────────────────────────────────────────────────────────────────────┘
@@ -78,7 +81,7 @@ Now                    12h ago              48h ago                    7d ago
  └────────────────────────┴────────────────────┴──────────────────────────┘
 
 Maximum backups per database: 15
-Total across all databases: 45 dump files
+Total across all databases: 60 dump files
 ```
 
 > **PVC headroom:** the 15Gi PVC was sized for two databases. Authentik dumps
@@ -129,6 +132,7 @@ The backup job is isolated via NetworkPolicy:
 │       - kutt-postgresql-cnpg-cluster                                        │
 │       - plausible-postgresql-cnpg-cluster                                   │
 │       - authentik-postgresql-cnpg-cluster                                   │
+│       - nocodb-postgresql-cnpg-cluster                                      │
 │    ❌ All other traffic denied                                              │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
