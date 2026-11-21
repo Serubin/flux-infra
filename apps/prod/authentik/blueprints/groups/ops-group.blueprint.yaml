@@ -39,13 +39,6 @@ data:
           enabled: true
       - model: authentik_policies.policybinding
         identifiers:
-          target: !Find [authentik_core.application, [slug, weave-gitops]]
-          group: !KeyOf ops-group
-          order: 0
-        attrs:
-          enabled: true
-      - model: authentik_policies.policybinding
-        identifiers:
           target: !Find [authentik_core.application, [slug, traefik-dashboard]]
           group: !KeyOf ops-group
           order: 0

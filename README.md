@@ -29,7 +29,6 @@ The following apps are installed on the clusters.
 | Software                                                                          | Purpose                                                       |
 | --------------------------------------------------------------------------------- | ------------------------------------------------------------- |
 | [Flux2](https://fluxcd.io)                                                        | GitOps Tool managing the cluster                              |
-| [Weave GitOps](https://www.weave.works/product/gitops/)                           | Powerful WebUI extension to Flux for deployment insights      |
 | [Traefik Ingress Controller](https://doc.traefik.io/traefik/         )            | Cluster Ingress controller                                    |
 | [Kube-Prometheus Stack](https://github.com/prometheus-operator/kube-prometheus)   | Prometheus & Exporters to monitor the cluster                 |
 | [Grafana](https://grafana.com)                                                    | Monitoring & Logging Dashboard                                |
