@@ -74,8 +74,6 @@ spec:
             equal: [namespace]
           - target_matchers: [alertname = "InfoInhibitor"]
     grafana:
-      image:
-        tag: 12.3.1
       env:
         GF_SERVER_ROOT_URL: https://grafana.${SECRET_DOMAIN}
         GF_AUTH_GENERIC_OAUTH_ENABLED: "true"
