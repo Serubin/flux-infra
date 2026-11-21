@@ -5,8 +5,6 @@ metadata:
   namespace: default
 spec:
   values:
-    image:
-      tag: v2.1.4
     secret:
       existingSecret: plausible-secrets
     env:

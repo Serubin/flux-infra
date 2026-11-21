@@ -20,7 +20,8 @@ spec:
       namespace: default
   values:
     image:
-      repository: ghcr.io/plausible/community-edition
+      repository: plausible/community-edition
+      tag: v2.1.4
     # Disable internal database deployments
     postgresql:
       enabled: false
