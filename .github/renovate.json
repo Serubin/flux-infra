@@ -45,6 +45,17 @@
         "datasource=(?<datasource>\\S+) depName=(?<depName>.*?)\n *version: (?<currentValue>.*)\n"
       ],
       "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}helm{{/if}}"
+    },
+    {
+      "customType": "regex",
+      "description": "CloudNativePG cluster chart's cluster.imageName: the helm-values manager only reads keys ending in 'image'.",
+      "managerFilePatterns": [
+        "apps/**/*.yaml"
+      ],
+      "matchStrings": [
+        "imageName: (?<depName>[^\\s:@]+):(?<currentValue>[^\\s@]+)(@(?<currentDigest>sha256:[a-f0-9]+))?"
+      ],
+      "datasourceTemplate": "docker"
     }
   ],
   "hostRules": [
