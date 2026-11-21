@@ -16,5 +16,4 @@ resources:
   - plausible
   - serubin-net
   - vaultwarden
-  - weave-gitops
   - whoami

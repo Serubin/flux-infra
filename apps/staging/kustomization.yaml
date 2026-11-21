@@ -8,4 +8,3 @@ resources:
   - whoami
   - kutt
   - vaultwarden
-  - weave-gitops
