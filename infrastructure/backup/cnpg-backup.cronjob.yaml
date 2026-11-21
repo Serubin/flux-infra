@@ -133,7 +133,7 @@ spec:
                   }
 
                   # Create backup directories if they don't exist
-                  mkdir -p /backups/kutt /backups/plausible /backups/authentik
+                  mkdir -p /backups/kutt /backups/plausible /backups/authentik /backups/nocodb
 
                   # Backup kutt
                   echo "Backing up kutt..."
@@ -165,11 +165,22 @@ spec:
                     -f /backups/authentik/authentik-$${DATE}.dump
                   echo "Authentik backup complete: authentik-$${DATE}.dump"
 
+                  # Backup nocodb
+                  echo "Backing up nocodb..."
+                  PGPASSWORD=$$(cat /secrets/nocodb/password) pg_dump \
+                    -h nocodb-postgresql-cnpg-cluster-rw \
+                    -U nocodb \
+                    -d nocodb \
+                    -Fc \
+                    -f /backups/nocodb/nocodb-$${DATE}.dump
+                  echo "NocoDB backup complete: nocodb-$${DATE}.dump"
+
                   # Apply retention policy
                   echo "Applying retention policy..."
                   cleanup_backups /backups/kutt kutt
                   cleanup_backups /backups/plausible plausible
                   cleanup_backups /backups/authentik authentik
+                  cleanup_backups /backups/nocodb nocodb
 
                   # List current backups
                   echo ""
@@ -189,6 +200,9 @@ spec:
                   readOnly: true
                 - name: authentik-secrets
                   mountPath: /secrets/authentik
+                  readOnly: true
+                - name: nocodb-secrets
+                  mountPath: /secrets/nocodb
                   readOnly: true
           restartPolicy: OnFailure
           volumes:
@@ -211,6 +225,12 @@ spec:
             - name: authentik-secrets
               secret:
                 secretName: authentik-secrets
+                items:
+                  - key: password
+                    path: password
+            - name: nocodb-secrets
+              secret:
+                secretName: nocodb-secrets
                 items:
                   - key: password
                     path: password
