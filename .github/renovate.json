@@ -23,12 +23,13 @@
   },
   "helm-values": {
     "managerFilePatterns": [
-      "/^apps/(base|prod|staging)/.*\\.ya?ml$/"
+      "/^(apps/(base|prod|staging)|infrastructure)/.*\\.ya?ml$/"
     ]
   },
   "kubernetes": {
     "managerFilePatterns": [
-      "apps/**/*.yaml"
+      "apps/**/*.yaml",
+      "infrastructure/**/*.yaml"
     ]
   },
   "customManagers": [
