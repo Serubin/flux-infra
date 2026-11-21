@@ -39,7 +39,7 @@ spec:
             - --certificatesresolvers.default.acme.caserver=https://acme-v02.api.letsencrypt.org/directory
             - --certificatesresolvers.default.acme.email=admin@serubin.net
             - --entrypoints.ssh.address=:2222
-          image: traefik:v2.11.63
+          image: traefik:v3.7.19
           name: traefik-ingress-lb
           volumeMounts:
             - name: traefik-data
