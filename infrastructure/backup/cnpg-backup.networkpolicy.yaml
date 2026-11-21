@@ -31,6 +31,9 @@ spec:
         - podSelector:
             matchLabels:
               cnpg.io/cluster: authentik-postgresql-cnpg-cluster
+        - podSelector:
+            matchLabels:
+              cnpg.io/cluster: nocodb-postgresql-cnpg-cluster
       ports:
         - protocol: TCP
           port: 5432
