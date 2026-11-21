@@ -21,6 +21,11 @@ spec:
     crds: CreateReplace
   values:
     deploymentMode: SingleBinary
+    # The chart's default sidecar tag lags upstream; drop this once it catches up.
+    sidecar:
+      image:
+        repository: kiwigrid/k8s-sidecar
+        tag: 2.14.3
     loki:
       auth_enabled: false
       commonConfig:

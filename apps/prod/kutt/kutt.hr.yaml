@@ -28,11 +28,6 @@ spec:
       targetPath: extraEnv[3].value
       optional: false
   values:
-    # Pinned to the kutt/kutt:main image digest because v3.2.3 has no OIDC
-    # (merged in PR #880, unreleased). Bumping requires re-resolving the digest
-    # of the upstream :main tag.
-    image:
-      tag: "main@sha256:ddd7257bc8c57f4892d2a81ec0d7d25ea0167b60d1dd7112868630644402956f"
     ingress:
       hosts:
         - host: s.serub.in
