@@ -1,6 +1,6 @@
 # Normalize /watcher -> /watcher/ before stripPrefix runs, so the backend never
 # sees an empty path.
-apiVersion: traefik.containo.us/v1alpha1
+apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
   name: changedetection-redirect-slash
@@ -18,7 +18,7 @@ spec:
 # changedetection reads the first value of that header. Without this, a client
 # could supply its own prefix and dictate the app's session cookie path and
 # socket.io endpoint. An empty customRequestHeaders value deletes the header.
-apiVersion: traefik.containo.us/v1alpha1
+apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
   name: changedetection-clear-fwd-prefix
@@ -30,7 +30,7 @@ spec:
 ---
 # Strips /watcher and sets the trusted X-Forwarded-Prefix that USE_X_SETTINGS
 # turns into Flask's SCRIPT_NAME.
-apiVersion: traefik.containo.us/v1alpha1
+apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
   name: changedetection-stripprefix
@@ -40,7 +40,7 @@ spec:
     prefixes:
       - /watcher
 ---
-apiVersion: traefik.containo.us/v1alpha1
+apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: changedetection
