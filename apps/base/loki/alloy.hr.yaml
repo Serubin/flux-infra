@@ -119,7 +119,7 @@ spec:
               replace    = "[REDACTED]"
             }
             stage.replace {
-              expression = `(?i)(?:[?&;]|\\u0026|%3F|%26)(?:t|token|access_token|refresh_token|id_token|code|state|client_secret|password|passwd|secret|key|api_key|apikey|sig|signature|session|ticket)(?:=|%3D)([^&\s"'#\\]+)`
+              expression = `(?i)(?:[?&;]|\\u0026|%3F|%26)(?:t|code|state|key|sig|ticket|session|sess|sid|jwt|pass|pwd|otp|[A-Za-z0-9_.-]*(?:token|secret|passw(?:or)?d|api[_-]?key|auth|sessionid|signature|credential))(?:=|%3D)([^&\s"'#\\]+)`
               replace    = "[REDACTED]"
             }
             stage.replace {
