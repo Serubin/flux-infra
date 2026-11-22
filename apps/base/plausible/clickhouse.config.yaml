@@ -23,3 +23,8 @@ data:
       <part_log><ttl>event_date + INTERVAL 14 DAY DELETE</ttl></part_log>
       <error_log><ttl>event_date + INTERVAL 30 DAY DELETE</ttl></error_log>
     </clickhouse>
+  # 26.10 defaults to trap; log first so an unlisted syscall shows up instead of killing the server.
+  seccomp.xml: |
+    <clickhouse>
+      <seccomp>log</seccomp>
+    </clickhouse>

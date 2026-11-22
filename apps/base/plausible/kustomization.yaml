@@ -6,6 +6,7 @@ resources:
   - clickhouse.pvc.yaml
   - clickhouse.config.yaml
   - clickhouse.hr.yaml
+  - clickhouse.networkpolicy.yaml
   - plausible.hr.yaml
   - plausible.ingress.yaml
 
