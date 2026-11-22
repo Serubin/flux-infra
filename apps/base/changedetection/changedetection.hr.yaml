@@ -41,9 +41,9 @@ spec:
     browser:
       enabled: true
       image:
-        repository: ghcr.io/browserless/chromium
-        tag: "v2.63.1"
-        # The chart's default digest overrides tag and doesn't exist on ghcr.io.
+        repository: docker.io/dgtlmoon/sockpuppetbrowser
+        tag: "0.0.5"
+        # The chart's default digest pins 0.0.3 and would override tag.
         digest: ""
       # The chart leaves the sidecar unbounded; Chromium will happily eat the node.
       resources:
