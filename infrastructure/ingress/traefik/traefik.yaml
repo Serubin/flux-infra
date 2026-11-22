@@ -21,8 +21,7 @@ spec:
       containers:
         - args:
             - --api
-            - --log.level=DEBUG
-            - --api.insecure=true
+            - --log.level=INFO
             - --api.dashboard=true
             - --accesslog
             - --global.checknewversion=true
@@ -54,12 +53,8 @@ spec:
             - containerPort: 2222
               hostPort: 2222
               name: ssh
-            - name: admin
-              containerPort: 9000
-              hostPort: 9000
             - name: traefik
               containerPort: 8080
-              hostPort: 8080
           securityContext:
             capabilities:
               add:
