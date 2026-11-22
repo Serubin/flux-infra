@@ -21,8 +21,17 @@ rules:
       - services
       - endpoints
       - secrets
+      - nodes
+      - configmaps
     verbs:
       - get
+      - list
+      - watch
+  - apiGroups:
+      - discovery.k8s.io
+    resources:
+      - endpointslices
+    verbs:
       - list
       - watch
   - apiGroups:
@@ -55,6 +64,7 @@ rules:
       - tlsoptions
       - tlsstores
       - serverstransports
+      - serverstransporttcps
     verbs:
       - get
       - list

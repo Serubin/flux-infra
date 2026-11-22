@@ -1,4 +1,4 @@
-apiVersion: traefik.containo.us/v1alpha1
+apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
   name: longhorn-stripprefix
@@ -10,7 +10,7 @@ spec:
 ---
 # Normalize /longhorn -> /longhorn/ so stripPrefix doesn't strip the request
 # down to an empty path (which renders as a blank page in the Longhorn UI).
-apiVersion: traefik.containo.us/v1alpha1
+apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
   name: longhorn-redirect-slash
@@ -27,7 +27,7 @@ spec:
 # Local copy of forwardauth-authentik. Traefik isn't started with
 # allowCrossNamespace=true, so IngressRoutes can only reference middlewares
 # in their own namespace.
-apiVersion: traefik.containo.us/v1alpha1
+apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
   name: forwardauth-authentik
@@ -53,7 +53,7 @@ spec:
       - X-authentik-meta-app
       - X-authentik-meta-version
 ---
-apiVersion: traefik.containo.us/v1alpha1
+apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: longhorn-ui
