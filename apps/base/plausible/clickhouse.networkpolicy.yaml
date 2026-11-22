@@ -1,0 +1,20 @@
+# Only the Plausible app may reach ClickHouse, and only over HTTP; the native port stays pod-local.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: plausible-clickhouse
+  namespace: default
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: plausible-clickhouse
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: plausible
+      ports:
+        - protocol: TCP
+          port: 8123

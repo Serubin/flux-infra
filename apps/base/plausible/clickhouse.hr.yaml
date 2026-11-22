@@ -23,7 +23,7 @@ spec:
           main:
             image:
               repository: clickhouse/clickhouse-server
-              tag: "26.9-alpine"
+              tag: "26.10.9.12-alpine"
             env:
               CLICKHOUSE_DB: plausible
               CLICKHOUSE_USER: plausible
@@ -61,6 +61,8 @@ spec:
         globalMounts:
           - path: /etc/clickhouse-server/config.d/system-log-ttl.xml
             subPath: system-log-ttl.xml
+          - path: /etc/clickhouse-server/config.d/seccomp.xml
+            subPath: seccomp.xml
       data:
         existingClaim: plausible-clickhouse-data-pvc
         globalMounts:
