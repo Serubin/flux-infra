@@ -63,6 +63,16 @@
       "description": "Pinned: v1.14.1's aws-sdk-go-v2 sends an x-amz-tagging header that Backblaze B2 rejects (HTTP 400), breaking all Velero backups. Raise this cap once upstream releases the conditional-Tagging fix (commit 8dbd6b8)."
     },
     {
+      "matchFileNames": [
+        "infrastructure/backup/cnpg-backup.cronjob.yaml"
+      ],
+      "matchPackageNames": [
+        "postgres"
+      ],
+      "allowedVersions": "<17",
+      "description": "The pg_dump client must stay on the CNPG clusters' Postgres major: a newer client writes dumps the clusters' own pg_restore can't read. Raise this together with the clusters' major."
+    },
+    {
       "description": "Auto-merge patch updates once CI passes and the release is 3 days old. Releases without a timestamp open but never auto-merge.",
       "matchUpdateTypes": [
         "patch"
