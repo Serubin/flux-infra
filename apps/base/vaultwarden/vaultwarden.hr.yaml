@@ -22,6 +22,9 @@ spec:
     ingress:
       enabled: true
       class: ""
+      additionalAnnotations:
+        # Clients pass access_token in the /notifications/hub query string.
+        traefik.ingress.kubernetes.io/router.observability.accesslogs: "false"
     storage:
       # Chart 0.36.4 moved persistence under `storage.*`. The original chart-
       # managed PVC has `helm.sh/resource-policy: keep`, so it survived the
