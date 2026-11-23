@@ -25,7 +25,7 @@ spec:
     # The chart's appVersion lags Velero patch releases; drop this once it catches up.
     image:
       repository: docker.io/velero/velero
-      tag: v1.18.4
+      tag: v1.19.0
     initContainers:
       - name: velero-plugin-for-aws
         # Pinned to v1.14.0: v1.14.1's aws-sdk-go-v2 emits an x-amz-tagging header
