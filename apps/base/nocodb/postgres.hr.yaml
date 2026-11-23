@@ -16,9 +16,11 @@ spec:
       interval: 5m
   values:
     name: nocodb-postgresql-cnpg
+    version:
+      postgresql: "18"
     cluster:
       instances: 1
-      imageName: ghcr.io/cloudnative-pg/postgresql:16.16-minimal-trixie@sha256:aa1301eab87cef592b6b914f6b22233e56e58131aa67a5fe8e7debb32999d2cf
+      imageName: ghcr.io/cloudnative-pg/postgresql:18.7-minimal-trixie@sha256:c8caac9817d2b5e5e66297a3ccf86d9fcbd68f097aa6cc00161d83f9635e88cc
       storage:
         size: 4Gi
         storageClass: longhorn
