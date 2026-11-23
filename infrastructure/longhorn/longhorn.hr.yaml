@@ -5,6 +5,7 @@ metadata:
   namespace: longhorn-system
 spec:
   interval: 5m
+  timeout: 15m
   chart:
     spec:
       chart: longhorn
@@ -14,14 +15,19 @@ spec:
         name: longhorn-charts
         namespace: default
       interval: 5m
+  # longhorn-manager refuses to downgrade, so an automatic rollback would crash-loop it.
   install:
     createNamespace: true
     remediation:
-      retries: 3
+      retries: 0
   upgrade:
     remediation:
-      retries: 3
+      retries: 0
   values:
+    networkPolicies:
+      # Node's flannel gateway; without this the 1.12.2+ iSCSI (TCP/3260) rule admits any source.
+      v1DataEngineInitiatorSourceCIDRs:
+        - 10.42.0.1/32
     persistence:
       # Don't set as default until Longhorn is healthy
       defaultClass: false
