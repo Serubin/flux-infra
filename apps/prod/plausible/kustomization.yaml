@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   - ../../base/plausible
   - plausible.sops.yaml
+  - plausible-plugins-block.ingressroute.yaml
 patches:
   - path: clickhouse.hr.yaml
     target:
