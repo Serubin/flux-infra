@@ -29,3 +29,14 @@ spec:
       containerRuntime: containerd
       codeaware:
         enable: true
+        # CAA's fanotify fds on pod volume mounts make kubelet's umount fail EBUSY, so pods stick Terminating.
+        mountignore:
+          - /dev
+          - /proc
+          - /sys
+          - /laceworkfim/dev
+          - /laceworkfim/proc
+          - /laceworkfim/sys
+          - /opt/k3s/kubelet/pods
+          - /var/lib/kubelet/pods
+          - /laceworkfim/opt/k3s/kubelet/pods
