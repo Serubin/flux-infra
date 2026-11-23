@@ -185,20 +185,25 @@ find /backups -name "*.dump" -exec ls -lh {} \;
 
 ### Restore a Database
 
-`pg_restore` must be at least as new as the `pg_dump` that wrote the archive. The
-scheduled dumps come from the Postgres 18 client, so restore them with an 18 client
-(for example a `postgres:18-alpine` pod), not with an older server's own binary.
-Files named `pre-pg18-<app>-*.dump` are one-off rollback dumps from the 16 client, taken
-by hand before each cluster's move to 18; the retention glob skips them, so delete them
-by hand.
+The scheduled dumps come from the Postgres 18 client. `pg_restore` must be at least as
+new as the `pg_dump` that wrote the archive, so run the restore from an 18 client (for
+example a `postgres:18-alpine` pod), not from an older server's own binary. Files named
+`pre-pg18-<app>-*.dump` are one-off rollback dumps from the 16 client, taken by hand
+before each cluster's move to 18; the retention glob skips them, so delete them by hand.
 
 ```bash
 # 1. Get the backup file name
 kubectl exec -it <inspector-pod> -- ls -la /backups/kutt/
 
-# 2. Restore into the CNPG cluster as the owner, from a client at least as new as the dump
-pg_restore -h kutt-postgresql-cnpg-cluster-rw -U kutt -d kutt -c \
+# 2a. Server on Postgres 18: restore the archive directly, as the owner
+pg_restore -h kutt-postgresql-cnpg-cluster-rw -U kutt -d kutt -c --if-exists \
   --exit-on-error --single-transaction /backups/kutt/kutt-<timestamp>.dump
+
+# 2b. Server still on Postgres 16: an 18 dump sets transaction_timeout, which 16
+#     rejects, so restore through SQL with that line removed
+pg_restore -c --if-exists -f - /backups/kutt/kutt-<timestamp>.dump \
+  | sed '/^SET transaction_timeout/d' \
+  | psql -h kutt-postgresql-cnpg-cluster-rw -U kutt -d kutt -v ON_ERROR_STOP=1 --single-transaction
 ```
 
 ---
