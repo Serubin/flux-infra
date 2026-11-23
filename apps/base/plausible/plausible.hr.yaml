@@ -18,10 +18,32 @@ spec:
       namespace: default
     - name: plausible-clickhouse
       namespace: default
+  postRenderers:
+    # The chart hardcodes both probes to /api/health, which checks Postgres and ClickHouse, so any DB blip restarts the pod.
+    - kustomize:
+        patches:
+          - target:
+              kind: Deployment
+              name: plausible
+            patch: |
+              - op: replace
+                path: /spec/template/spec/containers/0/livenessProbe/httpGet/path
+                value: /api/system/health/live
+              - op: replace
+                path: /spec/template/spec/containers/0/readinessProbe/httpGet/path
+                value: /api/system/health/ready
   values:
     image:
+      # Explicit so Renovate looks up ghcr; Docker Hub stopped at v2.1.4.
+      registry: ghcr.io
       repository: plausible/community-edition
-      tag: v2.1.4
+      tag: v3.2.2@sha256:f92a0d7f608187ae6163fb9a033281d0a0c1d4fcb895205676432eff82c9aec4
+    # Applies to the init-database migration container too.
+    resources:
+      requests:
+        memory: 256Mi
+      limits:
+        memory: 1Gi
     # Disable internal database deployments
     postgresql:
       enabled: false
