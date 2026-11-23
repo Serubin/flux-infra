@@ -13,6 +13,9 @@ spec:
         kind: HelmRepository
         name: helmforge-charts
         namespace: default
+  upgrade:
+    remediation:
+      retries: 3
   values:
     # Without this the chart names everything "<release>-<chart>", i.e.
     # changedetection-changedetection.

@@ -105,7 +105,53 @@
       "internalChecksFilter": "none"
     },
     {
+      "description": "Auto-merge minor updates for apps that are stateless or cheap to revert, on the same terms as patches. An explicit allowlist naming each chart and image, so a new dependency never joins it by accident.",
       "matchPackageNames": [
+        "changedetection",
+        "/^ghcr\\.io\\/dgtlmoon\\/changedetection\\.io$/",
+        "/^ghcr\\.io\\/browserless\\/chromium$/",
+        "kutt",
+        "/^(docker\\.io\\/)?kutt\\/kutt$/",
+        "loki",
+        "/^(docker\\.io\\/)?grafana\\/loki$/",
+        "/^(docker\\.io\\/)?kiwigrid\\/k8s-sidecar$/",
+        "alloy",
+        "reviewdog/action-yamllint"
+      ],
+      "matchUpdateTypes": [
+        "minor"
+      ],
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeStrategy": "squash",
+      "platformAutomerge": false,
+      "minimumReleaseAge": "3 days",
+      "minimumReleaseAgeBehaviour": "timestamp-required",
+      "internalChecksFilter": "none"
+    },
+    {
+      "description": "Minors that run one-way migrations (calver majors in disguise, 0.x, on-disk formats): always merged by hand, even if a rule above is widened. Lacework is held while #701 is under observation.",
+      "matchPackageNames": [
+        "authentik",
+        "/^ghcr\\.io\\/goauthentik\\//",
+        "vaultwarden",
+        "/^(docker\\.io\\/)?vaultwarden\\/server$/",
+        "nocodb",
+        "/^(docker\\.io\\/)?nocodb\\/nocodb$/",
+        "plausible",
+        "/^ghcr\\.io\\/plausible\\//",
+        "/^(docker\\.io\\/)?clickhouse\\/clickhouse-server$/",
+        "lacework-agent",
+        "/^(docker\\.io\\/)?lacework\\/datacollector$/"
+      ],
+      "matchUpdateTypes": [
+        "minor"
+      ],
+      "automerge": false
+    },
+    {
+      "matchPackageNames": [
+        "ghcr.io/serubin/ajd-site",
         "ghcr.io/serubin/serubin-net",
         "ghcr.io/serubin/dysautonomia-lounge-website",
         "ghcr.io/serubin/family-tree",
