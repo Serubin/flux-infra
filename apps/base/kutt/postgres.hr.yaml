@@ -18,7 +18,7 @@ spec:
     name: kutt-postgresql-cnpg
     cluster:
       instances: 1
-      imageName: ghcr.io/cloudnative-pg/postgresql:16.16-minimal-trixie@sha256:aa1301eab87cef592b6b914f6b22233e56e58131aa67a5fe8e7debb32999d2cf
+      imageName: ghcr.io/cloudnative-pg/postgresql:16.16-minimal-trixie@sha256:43b844cdfa727f567d4a8f66a348da909acd0ba5f0b263fd6248578510c6c81a
       storage:
         size: 4Gi
         storageClass: longhorn
