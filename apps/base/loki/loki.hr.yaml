@@ -19,6 +19,8 @@ spec:
     crds: CreateReplace
   upgrade:
     crds: CreateReplace
+    remediation:
+      retries: 3
   values:
     deploymentMode: SingleBinary
     # The chart's default sidecar tag lags upstream; drop this once it catches up.

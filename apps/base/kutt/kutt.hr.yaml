@@ -13,6 +13,9 @@ spec:
         kind: HelmRepository
         name: christianhuth-helm-chart
         namespace: default
+  upgrade:
+    remediation:
+      retries: 3
   # The chart hardcodes liveness/readiness probes with no values hook and ships
   # no startupProbe, so the liveness probe starts polling at t=0. Kutt runs
   # `knex migrate:latest` before it listens, so a slow start -- e.g. while the

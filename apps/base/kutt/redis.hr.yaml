@@ -14,6 +14,9 @@ spec:
         name: cloudpirates-charts
         namespace: default
       interval: 5m
+  upgrade:
+    remediation:
+      retries: 3
   values:
     fullnameOverride: kutt-redis
     architecture: standalone
