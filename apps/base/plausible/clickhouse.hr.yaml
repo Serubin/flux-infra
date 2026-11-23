@@ -23,7 +23,7 @@ spec:
           main:
             image:
               repository: clickhouse/clickhouse-server
-              tag: "26.10.9.12-alpine"
+              tag: "26.10.10.3-alpine"
             env:
               CLICKHOUSE_DB: plausible
               CLICKHOUSE_USER: plausible
