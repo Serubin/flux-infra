@@ -80,8 +80,28 @@
       "matchPackageNames": [
         "postgres"
       ],
-      "allowedVersions": "<17",
-      "description": "The pg_dump client must stay on the CNPG clusters' Postgres major: a newer client writes dumps the clusters' own pg_restore can't read. Raise this together with the clusters' major."
+      "allowedVersions": "<19",
+      "description": "pg_dump refuses to dump a server newer than itself, so the client must be at least the CNPG clusters' Postgres major. Raise this together with the clusters' cap below."
+    },
+    {
+      "matchPackageNames": [
+        "ghcr.io/cloudnative-pg/postgresql",
+        "postgres"
+      ],
+      "allowedVersions": "<19",
+      "separateMultipleMajor": false,
+      "description": "CloudNativePG 1.30 supports Postgres 15-18, so newer majors are hidden entirely, not even listed on the dashboard. Raise this cap when the operator supports the next major, and the pg_dump client cap above with it."
+    },
+    {
+      "matchPackageNames": [
+        "ghcr.io/cloudnative-pg/postgresql",
+        "postgres"
+      ],
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "dependencyDashboardApproval": true,
+      "description": "A Postgres major is a one-way pg_upgrade per cluster and needs the pg_dump client moved first: open it from the Dependency Dashboard only when planned."
     },
     {
       "description": "Auto-merge patch updates once CI passes and the release is 1 day old. Releases without a timestamp open but never auto-merge.",
