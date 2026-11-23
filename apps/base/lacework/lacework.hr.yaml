@@ -13,6 +13,9 @@ spec:
         kind: HelmRepository
         name: lacework-charts
         namespace: default
+  upgrade:
+    remediation:
+      retries: 3
   values:
     image:
       registry: docker.io

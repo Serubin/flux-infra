@@ -73,7 +73,7 @@
       "description": "The pg_dump client must stay on the CNPG clusters' Postgres major: a newer client writes dumps the clusters' own pg_restore can't read. Raise this together with the clusters' major."
     },
     {
-      "description": "Auto-merge patch updates once CI passes and the release is 3 days old. Releases without a timestamp open but never auto-merge.",
+      "description": "Auto-merge patch updates once CI passes and the release is 1 day old. Releases without a timestamp open but never auto-merge.",
       "matchUpdateTypes": [
         "patch"
       ],
@@ -81,7 +81,7 @@
       "automergeType": "pr",
       "automergeStrategy": "squash",
       "platformAutomerge": false,
-      "minimumReleaseAge": "3 days",
+      "minimumReleaseAge": "1 day",
       "minimumReleaseAgeBehaviour": "timestamp-required",
       "internalChecksFilter": "none"
     },
@@ -105,8 +105,16 @@
       "internalChecksFilter": "none"
     },
     {
-      "description": "Auto-merge minor updates for apps that are stateless or cheap to revert, on the same terms as patches. An explicit allowlist naming each chart and image, so a new dependency never joins it by accident.",
+      "description": "Auto-merge minor updates once CI passes and the release is 3 days old. An explicit allowlist naming each chart and image, so a new dependency never joins it by accident.",
       "matchPackageNames": [
+        "authentik",
+        "/^ghcr\\.io\\/goauthentik\\/server$/",
+        "vaultwarden",
+        "/^(docker\\.io\\/)?vaultwarden\\/server$/",
+        "plausible",
+        "/^((docker|ghcr)\\.io\\/)?plausible\\/community-edition$/",
+        "lacework-agent",
+        "/^(docker\\.io\\/)?lacework\\/datacollector$/",
         "changedetection",
         "/^ghcr\\.io\\/dgtlmoon\\/changedetection\\.io$/",
         "/^ghcr\\.io\\/browserless\\/chromium$/",
@@ -130,19 +138,11 @@
       "internalChecksFilter": "none"
     },
     {
-      "description": "Minors that run one-way migrations (calver majors in disguise, 0.x, on-disk formats): always merged by hand, even if a rule above is widened. Lacework is held while #701 is under observation.",
+      "description": "Minors that change on-disk state in ways a rollback can't undo (0.x migrations, ClickHouse storage format): always merged by hand, even if a rule above is widened.",
       "matchPackageNames": [
-        "authentik",
-        "/^ghcr\\.io\\/goauthentik\\//",
-        "vaultwarden",
-        "/^(docker\\.io\\/)?vaultwarden\\/server$/",
         "nocodb",
         "/^(docker\\.io\\/)?nocodb\\/nocodb$/",
-        "plausible",
-        "/^ghcr\\.io\\/plausible\\//",
-        "/^(docker\\.io\\/)?clickhouse\\/clickhouse-server$/",
-        "lacework-agent",
-        "/^(docker\\.io\\/)?lacework\\/datacollector$/"
+        "/^(docker\\.io\\/)?clickhouse\\/clickhouse-server$/"
       ],
       "matchUpdateTypes": [
         "minor"
