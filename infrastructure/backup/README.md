@@ -27,7 +27,7 @@ This directory contains backup configurations for CloudNativePG PostgreSQL datab
 │  ┌──────────────────────────────────────────────────────────────────────┐  │
 │  │                         CronJob: cnpg-pg-dump-backup                 │  │
 │  │                         Schedule: Every 2 hours                      │  │
-│  │                         Image: postgres:16-alpine                    │  │
+│  │                         Image: postgres:18-alpine                    │  │
 │  └───────────────────────────────────┬──────────────────────────────────┘  │
 │                                      │                                      │
 │              ┌───────────────────────┼───────────────────────┐              │
@@ -185,23 +185,20 @@ find /backups -name "*.dump" -exec ls -lh {} \;
 
 ### Restore a Database
 
+`pg_restore` must be at least as new as the `pg_dump` that wrote the archive. The
+scheduled dumps come from the Postgres 18 client, so restore them with an 18 client
+(for example a `postgres:18-alpine` pod), not with an older server's own binary.
+Files named `pre-pg18-<app>-*.dump` are one-off rollback dumps from the 16 client, taken
+by hand before each cluster's move to 18; the retention glob skips them, so delete them
+by hand.
+
 ```bash
 # 1. Get the backup file name
 kubectl exec -it <inspector-pod> -- ls -la /backups/kutt/
 
-# 2. Restore to the CNPG cluster
-kubectl exec -it kutt-postgresql-cnpg-1 -n default -- \
-  pg_restore -U kutt -d kutt -c /path/to/backup.dump
-```
-
-Or create a new cluster from backup:
-
-```bash
-# 1. Copy dump out of cluster
-kubectl cp <pod>:/backups/kutt/kutt-20241226-140000.dump ./kutt.dump
-
-# 2. Create new CNPG cluster, then restore
-kubectl exec -i new-cluster-1 -- pg_restore -U kutt -d kutt -c < ./kutt.dump
+# 2. Restore into the CNPG cluster as the owner, from a client at least as new as the dump
+pg_restore -h kutt-postgresql-cnpg-cluster-rw -U kutt -d kutt -c \
+  --exit-on-error --single-transaction /backups/kutt/kutt-<timestamp>.dump
 ```
 
 ---
