@@ -1,0 +1,27 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: plausible-deny-all
+  namespace: default
+spec:
+  # No client ever has this source address, so every request gets a 403.
+  ipAllowList:
+    sourceRange:
+      - 127.0.0.1/32
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: plausible-plugins-block
+  namespace: default
+spec:
+  routes:
+    # GHSA-g297-gc38-5wjr; Plug drops empty path segments, so match repeated slashes and any case.
+    - match: Host(`analytics.${SECRET_DOMAIN}`) && PathRegexp(`(?i)^/+api/+plugins`)
+      kind: Rule
+      priority: 1000
+      services:
+        - name: noop@internal
+          kind: TraefikService
+      middlewares:
+        - name: plausible-deny-all
