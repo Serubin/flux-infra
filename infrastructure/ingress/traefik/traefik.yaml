@@ -28,6 +28,8 @@ spec:
             - --entrypoints.traefik.address=:8080
             - --entryPoints.web.address=:80
             - --entryPoints.websecure.address=:443
+            - --entrypoints.websecure.http3
+            - --entrypoints.websecure.http3.advertisedport=443
             - --entrypoints.web.http.redirections.entryPoint.to=websecure
             - --entrypoints.websecure.http.tls.certResolver=default
             - --ping=true
@@ -38,7 +40,7 @@ spec:
             - --certificatesresolvers.default.acme.caserver=https://acme-v02.api.letsencrypt.org/directory
             - --certificatesresolvers.default.acme.email=admin@serubin.net
             - --entrypoints.ssh.address=:2222
-          image: traefik:v3.7.19
+          image: traefik:v3.8.0
           name: traefik-ingress-lb
           volumeMounts:
             - name: traefik-data
@@ -50,6 +52,10 @@ spec:
             - containerPort: 443
               hostPort: 443
               name: websecure
+            - containerPort: 443
+              hostPort: 443
+              protocol: UDP
+              name: websecure-udp
             - containerPort: 2222
               hostPort: 2222
               name: ssh
