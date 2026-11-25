@@ -12,6 +12,8 @@ spec:
   failedJobsHistoryLimit: 3
   jobTemplate:
     spec:
+      # A failed Job keeps KubeJobFailed firing until deleted; a day is long enough to notice it.
+      ttlSecondsAfterFinished: 86400
       template:
         metadata:
           labels:
