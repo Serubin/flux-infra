@@ -46,6 +46,10 @@ All use `defaultVolumesToFsBackup: true`. Local-path and explicitly excluded vol
 
 All three also reference the `velero-resource-policies` ConfigMap (chart `values.configMaps.resource-policies`), whose volume policy skips every `emptyDir`. Those volumes are scratch space wiped on each pod restart; backing them up added ~2 minutes per volume and caused `PartiallyFailed` runs when short-lived pods (e.g. kopia maintenance jobs) exited mid-backup.
 
+The policies also skip CNPG data volumes (`cnpg.io/pvcRole: PG_DATA`) in every schedule. Velero copies files one by one while Postgres is running, so the copy is not a consistent point-in-time image, and these volumes produced over half the repo's daily churn. Databases are restored from the pg_dump volume (`cnpg-backups-pvc`, see `infrastructure/backup/`), which is still backed up.
+
+Prometheus (`app.kubernetes.io/name: prometheus`) is skipped by the hourly and daily schedules and kept only in the weekly one, which uses `velero-resource-policies-weekly`. TSDB compaction rewrites several GB of blocks a day, so hourly copies were mostly churn. Restoring from an hourly or daily backup brings Prometheus back empty; restore it from the latest weekly backup instead if its history matters.
+
 ## Verification
 
 ```bash
