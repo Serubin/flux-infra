@@ -74,6 +74,33 @@ spec:
                     - emptyDir
                 action:
                   type: skip
+              # CNPG data dirs churn ~12 GB/day and a file-by-file copy of live Postgres isn't consistent; pg_dump covers them.
+              - conditions:
+                  pvcLabels:
+                    cnpg.io/pvcRole: PG_DATA
+                action:
+                  type: skip
+              # Prometheus TSDB rewrites ~7 GB/day of blocks; keep it in the weekly backup only.
+              - conditions:
+                  pvcLabels:
+                    app.kubernetes.io/name: prometheus
+                action:
+                  type: skip
+      resource-policies-weekly:
+        data:
+          policies.yaml: |
+            version: v1
+            volumePolicies:
+              - conditions:
+                  volumeTypes:
+                    - emptyDir
+                action:
+                  type: skip
+              - conditions:
+                  pvcLabels:
+                    cnpg.io/pvcRole: PG_DATA
+                action:
+                  type: skip
     schedules:
       hourly-backup:
         schedule: "0 * * * *"
@@ -101,4 +128,4 @@ spec:
           defaultVolumesToFsBackup: true
           resourcePolicy:
             kind: configmap
-            name: velero-resource-policies
+            name: velero-resource-policies-weekly
